@@ -16,7 +16,7 @@
         android:theme="@style/Theme.WhoWantsToBeAMillionaire"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name=".view.MainActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity">

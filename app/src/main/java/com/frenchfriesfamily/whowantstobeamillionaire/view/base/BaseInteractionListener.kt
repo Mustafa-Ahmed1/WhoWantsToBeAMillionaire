@@ -1,0 +1,3 @@
+package com.frenchfriesfamily.whowantstobeamillionaire.view.base
+
+interface BaseInteractionListener
