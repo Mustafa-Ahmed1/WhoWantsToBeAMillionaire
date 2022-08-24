@@ -1,8 +1,11 @@
 package com.frenchfriesfamily.whowantstobeamillionaire.model.repositories
 
+import com.frenchfriesfamily.whowantstobeamillionaire.model.network.API
 import com.frenchfriesfamily.whowantstobeamillionaire.model.response.QuestionsDto
 
 class QuestionsRepository {
+
+    private val api = API.apiService
 
     fun getQuestions(): List<QuestionsDto> {
         // TODO : get data for network
