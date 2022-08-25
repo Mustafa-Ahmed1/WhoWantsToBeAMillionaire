@@ -1,30 +1,11 @@
 package com.frenchfriesfamily.whowantstobeamillionaire.view.home
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import com.frenchfriesfamily.whowantstobeamillionaire.R
 import com.frenchfriesfamily.whowantstobeamillionaire.databinding.FragmentHomeBinding
+import com.frenchfriesfamily.whowantstobeamillionaire.view.base.BaseFragment
 
-// TODO: use base fragment to reduce duplication
-class HomeFragment : Fragment() {
-    lateinit var binding: FragmentHomeBinding
-    private val viewModel: HomeViewModel by viewModels()
+class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(R.layout.fragment_home) {
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
-        binding.apply {
-            lifecycleOwner = this@HomeFragment
-            viewModel = this@HomeFragment.viewModel
-            return root
-        }
-    }
+    override val viewModelClass = HomeViewModel::class.java
+
 }

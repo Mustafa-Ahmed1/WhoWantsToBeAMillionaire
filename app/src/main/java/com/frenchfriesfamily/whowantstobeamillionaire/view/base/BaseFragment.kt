@@ -4,31 +4,41 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
-import androidx.viewbinding.ViewBinding
+import androidx.lifecycle.ViewModelProvider
+import com.frenchfriesfamily.whowantstobeamillionaire.BR
+
 
 // TODO: create base fragment with view models & data binding to reduce duplication
 
-abstract class BaseFragment<VDB : ViewDataBinding, VM : ViewModel> : Fragment() {
-
-    private lateinit var _binding: ViewBinding
-    protected val binding: VDB
-        get() = _binding as VDB
+abstract class BaseFragment <VDB: ViewDataBinding , VM : ViewModel>(private val layoutId: Int) : Fragment() {
 
 
-    abstract val inflater: (LayoutInflater, ViewGroup?, Boolean) -> VDB
-    abstract val layoutId: Int
+    lateinit var viewModel: VM
+    abstract val viewModelClass: Class<VM>
+    private lateinit var _binding: VDB
+    val binding: VDB
+        get() = _binding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        _binding = inflater(layoutInflater, container, false)
-        return binding.root
+    ) : View? {
+        initViewModel()
+        _binding = DataBindingUtil.inflate(inflater, layoutId, container, false)
+        _binding.apply {
+            setVariable(BR.viewModel,this@BaseFragment.viewModel)
+            lifecycleOwner = this@BaseFragment
+            return root
+        }
     }
 
+    private fun initViewModel() {
+        viewModel = ViewModelProvider(requireActivity())[viewModelClass]
+    }
 
 }

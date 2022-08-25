@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        tools:layout="@layout/fragment_home"
         android:name="com.frenchfriesfamily.whowantstobeamillionaire.view.home.HomeFragment"
-        android:label="HomeFragment" >
+        android:label="HomeFragment"
+        tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_homeFragment_to_questionFragment"
             app:destination="@id/questionFragment" />
@@ -19,21 +19,22 @@
     </fragment>
     <fragment
         android:id="@+id/questionFragment"
-        tools:layout="@layout/fragment_question"
         android:name="com.frenchfriesfamily.whowantstobeamillionaire.view.question.QuestionFragment"
-        android:label="QuestionFragment" >
+        android:label="QuestionFragment"
+        tools:layout="@layout/fragment_question">
         <action
             android:id="@+id/action_questionFragment_to_resultFragment"
             app:destination="@id/resultFragment" />
     </fragment>
     <fragment
         android:id="@+id/aboutFragment"
-        tools:layout="@layout/fragment_about"
         android:name="com.frenchfriesfamily.whowantstobeamillionaire.view.about.AboutFragment"
-        android:label="AboutFragment" />
+        android:label="AboutFragment"
+        tools:layout="@layout/fragment_about" />
     <fragment
         android:id="@+id/resultFragment"
-        tools:layout="@layout/fragment_result"
         android:name="com.frenchfriesfamily.whowantstobeamillionaire.view.result.ResultFragment"
-        android:label="ResultFragment" />
+        android:label="ResultFragment"
+        tools:layout="@layout/fragment_result" />
+
 </navigation>
