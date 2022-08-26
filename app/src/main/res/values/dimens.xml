@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- icons -->
+    <dimen name="icon_normal">24dp</dimen>
+    <dimen name="icon_large">32dp</dimen>
+    <!-- spacing -->
+    <dimen name="spacing_extra_large">32dp</dimen>
+    <dimen name="spacing_large">24dp</dimen>
+    <dimen name="spacing_medium">16dp</dimen>
+    <dimen name="spacing_small">8dp</dimen>
+    <dimen name="spacing_extra_small">4dp</dimen>
+    <!-- texts -->
+    <dimen name="text_extra_large">24sp</dimen>
+    <dimen name="text_large">20sp</dimen>
+    <dimen name="text_medium">16sp</dimen>
+    <dimen name="text_small">14sp</dimen>
+    <!-- radius -->
+    <!-- lottiefiles -->
+</resources>
