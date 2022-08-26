@@ -7,7 +7,6 @@ import retrofit2.http.*
 
 
 interface QuestionsService {
-    // TODO : make requests
 
     @GET("api.php")
     fun getQuestions(

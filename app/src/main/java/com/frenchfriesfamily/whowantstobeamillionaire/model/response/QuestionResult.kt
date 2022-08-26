@@ -1,7 +1,7 @@
 package com.frenchfriesfamily.whowantstobeamillionaire.model.response
 import com.google.gson.annotations.SerializedName
 
-data class Result(
+data class QuestionResult(
     @SerializedName("category")
     val category: String? = null,
     @SerializedName("correct_answer")

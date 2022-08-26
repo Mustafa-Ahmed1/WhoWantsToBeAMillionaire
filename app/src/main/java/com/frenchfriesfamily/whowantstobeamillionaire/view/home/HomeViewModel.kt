@@ -6,8 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import com.frenchfriesfamily.whowantstobeamillionaire.model.repositories.QuestionsRepository
 import com.frenchfriesfamily.whowantstobeamillionaire.model.response.QuestionsDto
 import com.frenchfriesfamily.whowantstobeamillionaire.view.base.BaseViewModel
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.schedulers.Schedulers
 
 //TODO : implement HomeViewModel code
 class HomeViewModel : BaseViewModel() {

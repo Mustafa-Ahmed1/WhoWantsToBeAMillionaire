@@ -1,14 +1,38 @@
 package com.frenchfriesfamily.whowantstobeamillionaire.model.repositories
 
+import android.util.Log
 import com.frenchfriesfamily.whowantstobeamillionaire.model.network.API
+import com.frenchfriesfamily.whowantstobeamillionaire.model.network.State
 import com.frenchfriesfamily.whowantstobeamillionaire.model.response.QuestionsDto
+import com.frenchfriesfamily.whowantstobeamillionaire.utils.extensions.convertToLocalResponse
+import io.reactivex.rxjava3.core.Single
+import retrofit2.Response
+
 
 class QuestionsRepository {
 
     private val api = API.apiService
 
+    fun getQuestioneList(
+        amount: Int,
+        category: Int?,
+        level: String?,
+        type: String?
+    ) =
+        wrap(api.getQuestions(amount, category, level, type)).map {
+            State.Success(it.toData()?.convertToLocalResponse())
+        }
+
+    private fun <T> wrap(response: Single<Response<T>>): Single<State<T>> {
+        return response.map {
+            State.Success(it.body())
+        }
+    }
+
+
     fun getQuestions(): List<QuestionsDto> {
         // TODO : get data for network
+
         return listOf(
             QuestionsDto(1,"fake data at first to check!"),
             QuestionsDto(2,"do you understand the code?"),
