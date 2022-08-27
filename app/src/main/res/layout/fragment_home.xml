@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="viewModel"
             type="com.frenchfriesfamily.whowantstobeamillionaire.view.home.HomeViewModel" />
@@ -13,80 +13,78 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/purple">
-
-        <TextView
-            android:id="@+id/text_home_sentence"
-            style="@style/TextStyle.ExtraLarge"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_xxx_large"
-            android:text="@string/be_the_next_millionaire"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
+    <TextView
+        android:id="@+id/lbl_text"
+        android:layout_width="match_parent"
+        android:layout_height="34dp"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="@dimen/spacing_specific_scale"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="@string/be_the_next_millionaire"
+        style="@style/TextStyle.ExtraLarge"/>
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/logo"
             android:layout_width="200dp"
             android:layout_height="200dp"
+            android:src="@drawable/game_logo"
             android:layout_marginTop="@dimen/spacing_extra_large"
-            android:src="@drawable/app_logo"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/lbl_text"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_home_sentence" />
-
+            app:layout_constraintEnd_toEndOf="parent" />
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/button_start"
-            style="@style/TextStyle.ExtraLarge"
-            android:layout_width="@dimen/button_width_large"
-            android:layout_height="@dimen/button_height_large"
-            android:layout_marginTop="@dimen/spacing_xx_large"
-            android:background="@drawable/button_start"
+            android:id="@+id/btn_start"
+            android:layout_width="204dp"
+            android:layout_height="56dp"
+            android:background="@drawable/ic_btn_start"
+            android:layout_marginTop="64dp"
             android:text="@string/start"
-            android:textAllCaps="false"
-            app:layout_constraintEnd_toEndOf="parent"
+            style="@style/TextStyle.Medium"
+            app:layout_constraintTop_toBottomOf="@id/logo"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/logo" />
-
+            app:layout_constraintEnd_toEndOf="parent"/>
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/button_about"
-            style="@style/TextStyle.Large"
-            android:layout_width="@dimen/button_width_medium"
-            android:layout_height="@dimen/button_height_medium"
-            android:layout_marginTop="@dimen/spacing_large"
-            android:background="@drawable/button_oval"
+            android:id="@+id/btn_about"
+            android:layout_width="158dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="24dp"
             android:text="@string/about"
-            android:textAllCaps="false"
-            app:layout_constraintEnd_toEndOf="parent"
+            style="@style/TextStyle.Medium"
+            android:background= "@drawable/background_shape"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/button_start" />
-
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_start"/>
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/button_sound"
-            style="@style/TextStyle.Large"
-            android:layout_width="@dimen/button_width_medium"
-            android:layout_height="@dimen/button_height_medium"
+            android:id="@+id/btn_sound"
+            android:layout_width="158dp"
+            android:layout_height="40dp"
             android:layout_marginTop="@dimen/spacing_medium"
-            android:background="@drawable/button_oval"
             android:text="@string/sounds_on"
-            android:textAllCaps="false"
-            app:layout_constraintEnd_toEndOf="parent"
+            style="@style/TextStyle.Medium"
+            android:background= "@drawable/background_shape"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/button_about" />
-
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_about"/>
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/button_exit"
-            style="@style/TextStyle.Large"
-            android:layout_width="@dimen/button_width_medium"
-            android:layout_height="@dimen/button_height_medium"
+            android:id="@+id/btn_exit"
+            android:layout_width="158dp"
+            android:layout_height="40dp"
             android:layout_marginTop="@dimen/spacing_medium"
-            android:background="@drawable/button_oval"
             android:text="@string/exit"
-            android:textAllCaps="false"
-            app:layout_constraintEnd_toEndOf="parent"
+            style="@style/TextStyle.Medium"
+            android:background= "@drawable/background_shape"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/button_sound" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_sound"/>
+
+
+
+
+
+
+
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </layout>
