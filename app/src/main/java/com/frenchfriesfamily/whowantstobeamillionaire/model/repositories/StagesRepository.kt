@@ -4,7 +4,7 @@ import com.frenchfriesfamily.whowantstobeamillionaire.model.data.StageDetails
 
 class StagesRepository {
 
-    fun getStage() = listOf(
+    fun getStages() = listOf(
         StageDetails("$ 1,000,000", 15),
         StageDetails("$ 500,000", 14),
         StageDetails("$ 250,000", 13),
@@ -20,9 +20,6 @@ class StagesRepository {
         StageDetails("$ 2,000", 3),
         StageDetails("$ 1,000", 2),
         StageDetails("$ 500", 1)
-
-
     )
-
 
 }

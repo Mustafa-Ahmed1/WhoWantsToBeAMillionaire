@@ -4,10 +4,12 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.frenchfriesfamily.whowantstobeamillionaire.R
 import com.frenchfriesfamily.whowantstobeamillionaire.databinding.ItemStageBinding
 import com.frenchfriesfamily.whowantstobeamillionaire.model.data.StageDetails
+import com.frenchfriesfamily.whowantstobeamillionaire.view.base.StageDiffUtil
 
 class ProgressAdapter(
     private var list: List<StageDetails>,
@@ -33,9 +35,13 @@ class ProgressAdapter(
     }
 
 
-    @SuppressLint("NotifyDataSetChanged")
+
     fun setItems(newItems: List<StageDetails>) {
+        val diffResult = DiffUtil.calculateDiff(StageDiffUtil(list, newItems))
         list = newItems
-        notifyDataSetChanged()
+        diffResult.dispatchUpdatesTo(this)
     }
 }
+//val diffResult = DiffUtil.calculateDiff(StageDiffUtil(list, newItems))
+//list = newItems
+//diffResult.dispatchUpdatesTo(this)

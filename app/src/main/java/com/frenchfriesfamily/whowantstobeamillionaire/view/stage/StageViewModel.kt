@@ -14,12 +14,13 @@ class StageViewModel : BaseViewModel(), StageInteractionListener {
     val stages: LiveData<List<StageDetails>>
         get() = _stages
 
+
     init {
-        getStages()
+        initStages()
     }
 
-    private fun getStages() {
-        val stageList = repository.getStage()
+    private fun initStages() {
+        val stageList = repository.getStages()
         _stages.postValue(stageList)
     }
 }
