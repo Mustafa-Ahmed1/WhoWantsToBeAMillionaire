@@ -5,8 +5,10 @@ import com.frenchfriesfamily.whowantstobeamillionaire.databinding.FragmentResult
 import com.frenchfriesfamily.whowantstobeamillionaire.view.base.BaseFragment
 
 
-class ResultFragment :
-    BaseFragment<FragmentResultBinding, ResultsViewModel>(R.layout.fragment_result) {
+class ResultFragment : BaseFragment<FragmentResultBinding, ResultsViewModel>(R.layout.fragment_result) {
     override val viewModelClass = ResultsViewModel::class.java
+    override fun setUp() {
+        TODO("Not yet implemented")
+    }
 
 }
