@@ -1,11 +1,11 @@
 package com.frenchfriesfamily.whowantstobeamillionaire.view.question
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.frenchfriesfamily.whowantstobeamillionaire.model.network.State
 import com.frenchfriesfamily.whowantstobeamillionaire.model.repositories.QuestionsRepository
 import com.frenchfriesfamily.whowantstobeamillionaire.model.response.local.LocalResponse
-import com.frenchfriesfamily.whowantstobeamillionaire.model.response.QuestionsDto
 import com.frenchfriesfamily.whowantstobeamillionaire.model.response.local.LocalResult
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.Constants
 import com.frenchfriesfamily.whowantstobeamillionaire.view.base.BaseViewModel
@@ -18,15 +18,13 @@ class QuestionViewModel : BaseViewModel() {
     private val repository = QuestionsRepository()
     private val disposable= CompositeDisposable()
 
-    private val _question = MutableLiveData<QuestionsDto>()
-    val question: LiveData<QuestionsDto>
-        get() = _question
 
     private val _questionsList = MutableLiveData<State<LocalResponse>?>()
     val questionsList:LiveData<State<LocalResponse>?> =_questionsList
 
-    private val _questionone = MutableLiveData<LocalResult?>()
-    val questionone:LiveData<LocalResult?> =_questionone
+
+    private val _question = MutableLiveData<LocalResult?>()
+    val question:LiveData<LocalResult?> =_question
 
 
     private var questionCounter = 0
@@ -52,6 +50,7 @@ class QuestionViewModel : BaseViewModel() {
 
     private fun onGetQuestionSuccess(QuestionResponse: State.Success<LocalResponse>?) {
         _questionsList.value = QuestionResponse
+        Log.i("kkk", _questionsList.value?.toData().toString())
         setQuestion()
     }
 
@@ -60,7 +59,7 @@ class QuestionViewModel : BaseViewModel() {
     }
 
     private fun setQuestion(){
-        _questionone.postValue(_questionsList.value?.toData()?.questions?.get(questionCounter))
+        _question.postValue(_questionsList.value?.toData()?.questions?.get(questionCounter))
     }
 
     fun onClickAnyOption(){
@@ -73,19 +72,9 @@ class QuestionViewModel : BaseViewModel() {
         setQuestion()
     }
 
-
     override fun onCleared() {
         super.onCleared()
         disposable.dispose()
     }
 
-    init {
-        val questionsList = repository.getQuestions()
-        _question.postValue(questionsList[questionsList.indices.random()])
-    }
-
-    fun testData() {
-        val questionsList = repository.getQuestions()
-        _question.postValue(questionsList[questionsList.indices.random()])
-    }
 }

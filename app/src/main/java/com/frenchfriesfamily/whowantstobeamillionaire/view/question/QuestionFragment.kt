@@ -10,6 +10,9 @@ class QuestionFragment : BaseFragment<FragmentQuestionBinding, QuestionViewModel
 
     override fun setUp() {
         viewModel.startGame()
+        viewModel.question.observe(this){
+            Log.i("kkk", it?.question.toString())
+        }
     }
 
 }
