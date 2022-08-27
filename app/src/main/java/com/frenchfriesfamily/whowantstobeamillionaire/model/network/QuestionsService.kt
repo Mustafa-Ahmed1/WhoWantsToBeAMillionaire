@@ -11,7 +11,6 @@ interface QuestionsService {
     @GET("api.php")
     fun getQuestions(
         @Query("amount") amountKey: Int,
-        @Query("category") categoryKey: Int?,
         @Query("difficulty") difficultyKey: String?,
         @Query("type") typeKey: String?,
     ): Single<Response<QuestionResponse>>

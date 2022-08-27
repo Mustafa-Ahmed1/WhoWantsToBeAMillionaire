@@ -4,6 +4,7 @@ import android.util.Log
 import com.frenchfriesfamily.whowantstobeamillionaire.model.network.API
 import com.frenchfriesfamily.whowantstobeamillionaire.model.network.State
 import com.frenchfriesfamily.whowantstobeamillionaire.model.response.QuestionsDto
+import com.frenchfriesfamily.whowantstobeamillionaire.model.response.local.LocalResponse
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.extensions.convertToLocalResponse
 import io.reactivex.rxjava3.core.Single
 import retrofit2.Response
@@ -15,13 +16,14 @@ class QuestionsRepository {
 
     fun getQuestioneList(
         amount: Int,
-        category: Int?,
         level: String?,
         type: String?
-    ) =
-        wrap(api.getQuestions(amount, category, level, type)).map {
+    ): Single<State.Success<LocalResponse>> {
+
+        return wrap(api.getQuestions(amount, level, type)).map {
             State.Success(it.toData()?.convertToLocalResponse())
         }
+    }
 
     private fun <T> wrap(response: Single<Response<T>>): Single<State<T>> {
         return response.map {

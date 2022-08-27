@@ -14,12 +14,19 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
             android:gravity="center_horizontal"
-            android:layout_marginTop="8dp"
+            android:text="@{viewModel.questionone.question}"
             android:textSize="25sp"
-            android:text="this is question fragment"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+
         <TextView
             android:id="@+id/textView"
             android:layout_width="wrap_content"
@@ -33,6 +40,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
+            android:id="@+id/button2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -41,6 +49,20 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+
+        <Button
+            android:id="@+id/options"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:gravity="center"
+            android:onClick="@{() -> viewModel.onClickAnyOption()}"
+            android:text="option"
+            app:layout_constraintBottom_toTopOf="@+id/textView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
