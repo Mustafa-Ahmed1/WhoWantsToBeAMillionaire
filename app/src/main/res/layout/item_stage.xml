@@ -7,17 +7,18 @@
         <variable
             name="item"
             type="com.frenchfriesfamily.whowantstobeamillionaire.model.data.StageDetails" />
-        <variable
-            name="listenar"
-            type="com.frenchfriesfamily.whowantstobeamillionaire.view.stage.StageInteractionListener" />
 
+        <variable
+            name="listener"
+            type="com.frenchfriesfamily.whowantstobeamillionaire.view.stage.StageInteractionListener" />
     </data>
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
+        style="@style/CustomCardCorners"
         android:layout_width="match_parent"
-        android:layout_height="36dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginHorizontal="16dp">
+        android:layout_height="30dp"
+        android:layout_marginBottom="8dp"
+        android:backgroundTint="@color/purple_light">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -25,29 +26,31 @@
 
             <TextView
                 android:id="@+id/text_reward"
+                style="@style/TextStyle.Medium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
+                android:layout_marginEnd="@dimen/spacing_medium"
                 android:text="@{item.reward}"
+                android:textColor="@color/yellow_light"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="2000$" />
+                tools:text="$2000" />
 
             <TextView
                 android:id="@+id/text_level"
+                style="@style/TextStyle.Medium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="@dimen/spacing_medium"
                 android:text="@{Integer.toString(item.level)}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="2" />
 
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+    </com.google.android.material.card.MaterialCardView>
 
-    </androidx.cardview.widget.CardView>
 </layout>

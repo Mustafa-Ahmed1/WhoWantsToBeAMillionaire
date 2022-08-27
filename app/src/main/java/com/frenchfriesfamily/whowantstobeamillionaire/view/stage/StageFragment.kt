@@ -13,7 +13,7 @@ class StageFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val adapter = ProgressAdapter(mutableListOf(), viewModel)
-        binding.recyclerViewMoney.adapter = adapter
+        binding.recyclerStages.adapter = adapter
     }
 }
 
