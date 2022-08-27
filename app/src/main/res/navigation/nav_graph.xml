@@ -25,6 +25,9 @@
         <action
             android:id="@+id/action_questionFragment_to_resultFragment"
             app:destination="@id/resultFragment" />
+        <action
+            android:id="@+id/action_questionFragment_to_stage_screen_fragment"
+            app:destination="@id/stage_screen_fragment" />
     </fragment>
     <fragment
         android:id="@+id/aboutFragment"
@@ -36,5 +39,16 @@
         android:name="com.frenchfriesfamily.whowantstobeamillionaire.view.result.ResultFragment"
         android:label="ResultFragment"
         tools:layout="@layout/fragment_result" />
+
+    <fragment
+        android:id="@+id/stage_screen_fragment"
+        android:name="com.frenchfriesfamily.whowantstobeamillionaire.view.stage.StageFragment"
+        android:label="StageScreen"
+        tools:layout="@layout/fragment_stage">
+        <action
+            android:id="@+id/action_stage_screen_fragment_to_questionFragment"
+            app:destination="@id/questionFragment" />
+    </fragment>
+
 
 </navigation>
