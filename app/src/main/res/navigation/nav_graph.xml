@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/resultFragment">
+    app:startDestination="@id/homeFragment">
 
     <fragment
         android:id="@+id/homeFragment"
@@ -17,6 +17,7 @@
             android:id="@+id/action_homeFragment_to_aboutFragment"
             app:destination="@id/aboutFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/questionFragment"
         android:name="com.frenchfriesfamily.whowantstobeamillionaire.view.question.QuestionFragment"
@@ -29,11 +30,13 @@
             android:id="@+id/action_questionFragment_to_stage_screen_fragment"
             app:destination="@id/stage_screen_fragment" />
     </fragment>
+
     <fragment
         android:id="@+id/aboutFragment"
         android:name="com.frenchfriesfamily.whowantstobeamillionaire.view.about.AboutFragment"
         android:label="AboutFragment"
         tools:layout="@layout/fragment_about" />
+
     <fragment
         android:id="@+id/resultFragment"
         android:name="com.frenchfriesfamily.whowantstobeamillionaire.view.result.ResultFragment"
@@ -49,6 +52,5 @@
             android:id="@+id/action_stage_screen_fragment_to_questionFragment"
             app:destination="@id/questionFragment" />
     </fragment>
-
 
 </navigation>

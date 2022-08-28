@@ -11,15 +11,16 @@ import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
 
+class ResultFragment :
+    BaseFragment<FragmentResultBinding, ResultsViewModel>(R.layout.fragment_result) {
 
-class ResultFragment : BaseFragment<FragmentResultBinding, ResultsViewModel>(R.layout.fragment_result) {
     override val viewModelClass = ResultsViewModel::class.java
     override fun setUp() {
     }
 
     // y-axis bar chart data
-    private val optionsValidityPercent = listOf<Float>(1f,3f,2f,.5f)
-    private lateinit var barEntries:ArrayList<BarEntry>
+    private val optionsValidityPercent = listOf<Float>(1f, 3f, 2f, .5f)
+    private lateinit var barEntries: ArrayList<BarEntry>
     private lateinit var barDataSet: BarDataSet
     private lateinit var barData: BarData
 
@@ -32,15 +33,15 @@ class ResultFragment : BaseFragment<FragmentResultBinding, ResultsViewModel>(R.l
         setBarChartData(barData)
     }
 
-    private fun setBarEntries(answerPercent: List<Float>){
+    private fun setBarEntries(answerPercent: List<Float>) {
         barEntries = ArrayList()
         answerPercent.indices.forEach { i ->
             barEntries.add(BarEntry(optionsValidityPercent[i], i))
         }
     }
 
-    private fun setBarDataSet(barEntry: ArrayList<BarEntry>){
-        barDataSet = BarDataSet(barEntry,"Audience Answer")
+    private fun setBarDataSet(barEntry: ArrayList<BarEntry>) {
+        barDataSet = BarDataSet(barEntry, "Audience Answer")
         barDataSet.apply {
             color = (resources.getColor(R.color.purple_light))
             valueTextColor = (resources.getColor(R.color.purple))
@@ -48,7 +49,7 @@ class ResultFragment : BaseFragment<FragmentResultBinding, ResultsViewModel>(R.l
         }
     }
 
-    private fun setBarChartData(barData: BarData){
+    private fun setBarChartData(barData: BarData) {
         binding.barChart.apply {
             data = barData
             setBackgroundColor(resources.getColor(R.color.white_87))

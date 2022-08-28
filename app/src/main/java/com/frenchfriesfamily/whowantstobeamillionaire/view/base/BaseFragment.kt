@@ -11,11 +11,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.frenchfriesfamily.whowantstobeamillionaire.BR
 
-
-// TODO: create base fragment with view models & data binding to reduce duplication
-
-abstract class BaseFragment <VDB: ViewDataBinding , VM : ViewModel>(private val layoutId: Int) : Fragment() {
-
+abstract class BaseFragment<VDB : ViewDataBinding, VM : ViewModel>(private val layoutId: Int) :
+    Fragment() {
 
     lateinit var viewModel: VM
     abstract val viewModelClass: Class<VM>
@@ -27,11 +24,11 @@ abstract class BaseFragment <VDB: ViewDataBinding , VM : ViewModel>(private val 
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ) : View? {
+    ): View? {
         initViewModel()
         _binding = DataBindingUtil.inflate(inflater, layoutId, container, false)
         _binding.apply {
-            setVariable(BR.viewModel,this@BaseFragment.viewModel)
+            setVariable(BR.viewModel, this@BaseFragment.viewModel)
             lifecycleOwner = this@BaseFragment
             return root
         }

@@ -16,15 +16,15 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 class QuestionViewModel : BaseViewModel() {
 
     private val repository = QuestionsRepository()
-    private val disposable= CompositeDisposable()
+    private val disposable = CompositeDisposable()
 
 
     private val _questionsList = MutableLiveData<State<LocalResponse>?>()
-    val questionsList:LiveData<State<LocalResponse>?> =_questionsList
+    val questionsList: LiveData<State<LocalResponse>?> = _questionsList
 
 
     private val _question = MutableLiveData<LocalResult?>()
-    val question:LiveData<LocalResult?> =_question
+    val question: LiveData<LocalResult?> = _question
 
 
     private var questionCounter = 0
@@ -32,7 +32,7 @@ class QuestionViewModel : BaseViewModel() {
 
 
     fun startGame() {
-       getQuestions()
+        getQuestions()
     }
 
     private fun getQuestions() {
@@ -41,7 +41,8 @@ class QuestionViewModel : BaseViewModel() {
             repository.getQuestioneList(
                 Constants.AMOUNT_OF_QUESTION,
                 Constants.DIFFICULTY[difficulty],
-                Constants.QUESTION_TYPE)
+                Constants.QUESTION_TYPE
+            )
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(::onGetQuestionSuccess, ::onGetQuestionError)
@@ -58,16 +59,16 @@ class QuestionViewModel : BaseViewModel() {
         _questionsList.postValue(State.Error(throwable.message.toString()))
     }
 
-    private fun setQuestion(){
+    private fun setQuestion() {
         _question.postValue(_questionsList.value?.toData()?.questions?.get(questionCounter))
     }
 
-    fun onClickAnyOption(){
+    fun onClickAnyOption() {
         questionCounter++
-        if (questionCounter == 5){
-                difficulty++
-                questionCounter = 0
-                getQuestions()
+        if (questionCounter == 5) {
+            difficulty++
+            questionCounter = 0
+            getQuestions()
         }
         setQuestion()
     }

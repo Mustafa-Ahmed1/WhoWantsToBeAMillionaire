@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewbinding.ViewBinding
 
-// TODO : improve base activity if needed, or remove it
 abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
 
     abstract val bindingInflater: (LayoutInflater) -> VB
@@ -18,6 +17,5 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
         _binding = bindingInflater(layoutInflater)
         setContentView(_binding.root)
     }
-
 
 }

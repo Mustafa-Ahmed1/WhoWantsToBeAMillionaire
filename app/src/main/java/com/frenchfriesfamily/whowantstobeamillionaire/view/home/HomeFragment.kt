@@ -1,7 +1,5 @@
 package com.frenchfriesfamily.whowantstobeamillionaire.view.home
 
-import android.os.Bundle
-import android.view.View
 import androidx.navigation.Navigation
 import com.frenchfriesfamily.whowantstobeamillionaire.R
 import com.frenchfriesfamily.whowantstobeamillionaire.databinding.FragmentHomeBinding
@@ -20,6 +18,5 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(R.layout.f
             Navigation.findNavController(v).navigate(R.id.action_homeFragment_to_questionFragment)
         }
     }
-
 
 }

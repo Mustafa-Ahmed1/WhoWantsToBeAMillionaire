@@ -8,6 +8,7 @@ class StageDiffUtil(
     private val mNewStage: List<StageDetails>
 ) :
     DiffUtil.Callback() {
+
     override fun getOldListSize() = mOldStage.size
 
     override fun getNewListSize() = mNewStage.size
@@ -20,4 +21,5 @@ class StageDiffUtil(
     override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
         return true
     }
+
 }

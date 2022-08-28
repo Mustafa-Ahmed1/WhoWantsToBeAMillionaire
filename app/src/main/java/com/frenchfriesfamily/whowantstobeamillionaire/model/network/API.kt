@@ -12,7 +12,8 @@ object API {
     private val client = OkHttpClient.Builder()
         .addInterceptor(
             HttpLoggingInterceptor().apply {
-                level=HttpLoggingInterceptor.Level.BODY }
+                level = HttpLoggingInterceptor.Level.BODY
+            }
         ).build()
 
     private val retrofit = Retrofit.Builder()
@@ -23,6 +24,5 @@ object API {
         .build()
 
     val apiService = retrofit.create(QuestionsService::class.java)
-
 
 }

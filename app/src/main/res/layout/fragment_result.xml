@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.frenchfriesfamily.whowantstobeamillionaire.view.result.ResultsViewModel" />
@@ -17,21 +18,21 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center_horizontal"
             android:layout_marginTop="8dp"
-            android:textSize="25sp"
+            android:gravity="center_horizontal"
+            android:text="this is result fragment"
             android:textColor="@color/white_87"
-            android:text="this is result fragment"/>
+            android:textSize="25sp" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/bar_chart_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="@dimen/spacing_large"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent">
+            app:layout_constraintTop_toTopOf="parent">
 
             <com.github.mikephil.charting.charts.BarChart
                 android:id="@+id/bar_chart"
@@ -39,10 +40,10 @@
                 android:layout_height="400dp"
                 android:layout_marginHorizontal="32dp"
                 android:layout_marginVertical="24dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent" />
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -51,11 +52,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            tools:text="convert to data binding before testing"
             android:text="@{viewModel.question.questionText}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/bar_chart_container" />
+            app:layout_constraintTop_toBottomOf="@id/bar_chart_container"
+            tools:text="convert to data binding before testing" />
 
         <Button
             android:layout_width="wrap_content"
@@ -67,4 +68,5 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>

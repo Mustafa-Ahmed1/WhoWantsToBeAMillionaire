@@ -6,15 +6,13 @@ import com.frenchfriesfamily.whowantstobeamillionaire.model.repositories.Questio
 import com.frenchfriesfamily.whowantstobeamillionaire.model.response.QuestionsDto
 import com.frenchfriesfamily.whowantstobeamillionaire.view.base.BaseViewModel
 
-// TODO: implement about viewmodel code
-
 class AboutViewModel : BaseViewModel() {
+
     private val repository = QuestionsRepository()
 
     private val _question = MutableLiveData<QuestionsDto>()
     val question: LiveData<QuestionsDto>
         get() = _question
-
 
     init {
         val questionsList = repository.getQuestions()
@@ -25,4 +23,5 @@ class AboutViewModel : BaseViewModel() {
         val questionsList = repository.getQuestions()
         _question.postValue(questionsList[questionsList.indices.random()])
     }
+
 }
