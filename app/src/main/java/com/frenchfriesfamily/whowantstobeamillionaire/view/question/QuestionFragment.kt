@@ -1,6 +1,7 @@
 package com.frenchfriesfamily.whowantstobeamillionaire.view.question
 
 import android.util.Log
+import androidx.fragment.app.Fragment
 import com.frenchfriesfamily.whowantstobeamillionaire.R
 import com.frenchfriesfamily.whowantstobeamillionaire.databinding.FragmentQuestionBinding
 import com.frenchfriesfamily.whowantstobeamillionaire.view.base.BaseFragment
