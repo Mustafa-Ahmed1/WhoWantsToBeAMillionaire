@@ -9,4 +9,7 @@ class AboutFragment : BaseFragment<FragmentAboutBinding, AboutViewModel>(R.layou
 
     override val viewModelClass = AboutViewModel::class.java
 
+    override fun setUp() {
+    }
+
 }

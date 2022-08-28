@@ -1,9 +1,7 @@
 package com.frenchfriesfamily.whowantstobeamillionaire.utils.extensions
 
-import com.frenchfriesfamily.whowantstobeamillionaire.model.response.local.LocalResult
-import com.frenchfriesfamily.whowantstobeamillionaire.model.response.QuestionResponse
-import com.frenchfriesfamily.whowantstobeamillionaire.model.response.QuestionResult
-import com.frenchfriesfamily.whowantstobeamillionaire.model.response.local.LocalResponse
+import com.frenchfriesfamily.whowantstobeamillionaire.model.response.local.*
+import com.frenchfriesfamily.whowantstobeamillionaire.model.response.*
 
 fun QuestionResult.convertToLocalResult(): LocalResult {
     return LocalResult(this.question)

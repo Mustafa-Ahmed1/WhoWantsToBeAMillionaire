@@ -12,9 +12,10 @@ import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
 
 
-class ResultFragment :
-    BaseFragment<FragmentResultBinding, ResultsViewModel>(R.layout.fragment_result) {
+class ResultFragment : BaseFragment<FragmentResultBinding, ResultsViewModel>(R.layout.fragment_result) {
     override val viewModelClass = ResultsViewModel::class.java
+    override fun setUp() {
+    }
 
     // y-axis bar chart data
     private val optionsValidityPercent = listOf<Float>(1f,3f,2f,.5f)

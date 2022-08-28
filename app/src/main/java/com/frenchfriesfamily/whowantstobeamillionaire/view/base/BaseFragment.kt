@@ -37,6 +37,13 @@ abstract class BaseFragment <VDB: ViewDataBinding , VM : ViewModel>(private val 
         }
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setUp()
+    }
+
+    abstract fun setUp()
+
     private fun initViewModel() {
         viewModel = ViewModelProvider(requireActivity())[viewModelClass]
     }
