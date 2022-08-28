@@ -6,15 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import androidx.fragment.app.Fragment
+import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.frenchfriesfamily.whowantstobeamillionaire.BR
 
-
-
-abstract class BaseFragment<VDB : ViewDataBinding, VM : ViewModel>(private val layoutId: Int) :
-    Fragment() {
+abstract class BaseDialogFragment<VDB : ViewDataBinding, VM : ViewModel>(private val layoutId: Int) :
+    DialogFragment() {
 
 
     lateinit var viewModel: VM
@@ -29,10 +27,11 @@ abstract class BaseFragment<VDB : ViewDataBinding, VM : ViewModel>(private val l
         savedInstanceState: Bundle?
     ): View? {
         initViewModel()
+        isCancelable = false
         _binding = DataBindingUtil.inflate(inflater, layoutId, container, false)
         _binding.apply {
-            setVariable(BR.viewModel, this@BaseFragment.viewModel)
-            lifecycleOwner = this@BaseFragment
+            setVariable(BR.viewModel, this@BaseDialogFragment.viewModel)
+            lifecycleOwner = this@BaseDialogFragment
             return root
         }
     }
