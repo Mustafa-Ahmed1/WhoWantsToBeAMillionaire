@@ -40,6 +40,24 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <Button
+            android:id="@+id/audince_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="open audince dialog"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/options" />
+
+        <Button
+            android:id="@+id/friend_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="open friend dialog"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/audince_button" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>
