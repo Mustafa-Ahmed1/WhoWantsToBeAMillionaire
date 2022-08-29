@@ -23,4 +23,8 @@
     <!-- result screen -->
     <!-- error screen -->
     <!-- other strings -->
+    <string name="i_think_the_answer_is">I think the answer is</string>
+    <string name="calling_a_friend">Calling a Friend…</string>
+    <string name="are_you_sure_n_your_progress_won_t_be_saved">Are you sure?\n your progress won’t be saved.</string>
+    <string name="audience_votes">Audience Votes</string>
 </resources>
