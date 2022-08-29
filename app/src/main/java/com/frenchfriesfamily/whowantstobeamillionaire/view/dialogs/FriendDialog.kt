@@ -12,7 +12,8 @@ class FriendDialog :
 
     override fun onStart() {
         super.onStart()
-        binding.button.setOnClickListener {
+
+        binding.buttonOk.setOnClickListener {
             Log.i("TEST", "dismissing")
             dismiss()
         }

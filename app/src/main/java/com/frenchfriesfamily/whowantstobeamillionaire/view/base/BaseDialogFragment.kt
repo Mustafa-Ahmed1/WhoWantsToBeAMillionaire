@@ -1,5 +1,7 @@
 package com.frenchfriesfamily.whowantstobeamillionaire.view.base
 
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -28,6 +30,7 @@ abstract class BaseDialogFragment<VDB : ViewDataBinding, VM : ViewModel>(private
     ): View? {
         initViewModel()
         isCancelable = false
+        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         _binding = DataBindingUtil.inflate(inflater, layoutId, container, false)
         _binding.apply {
             setVariable(BR.viewModel, this@BaseDialogFragment.viewModel)

@@ -10,40 +10,93 @@
             type="com.frenchfriesfamily.whowantstobeamillionaire.view.question.QuestionViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="@dimen/spacing_medium">
+        android:background="@android:color/transparent"
+        app:cardBackgroundColor="@color/purple"
+        app:cardCornerRadius="24dp"
+        app:strokeColor="@color/white"
+        app:strokeWidth="2dp">
 
-        <TextView
-            android:id="@+id/textView3"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="calling friend.."
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingHorizontal="@dimen/spacing_medium"
+            android:paddingVertical="@dimen/spacing_large">
 
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="@{viewModel.question.question}"
-            app:layout_constraintEnd_toEndOf="@+id/textView3"
-            app:layout_constraintStart_toStartOf="@+id/textView3"
-            app:layout_constraintTop_toBottomOf="@+id/textView3"
-            tools:text="test data" />
+            <TextView
+                android:id="@+id/textView3"
+                style="@style/TextStyle.Large"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/calling_a_friend" />
 
-        <Button
-            android:id="@+id/button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="dismiss dialog"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView2" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/spacing_medium">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <ImageView
+                    android:id="@+id/image_human_thinking"
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:src="@drawable/man_thinking"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/text_i_think"
+                    style="@style/TextStyle.Small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:text="@string/i_think_the_answer_is"
+                    android:textColor="@color/purple_lightest"
+                    app:layout_constraintStart_toEndOf="@+id/image_human_thinking"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/text_answer"
+                    style="@style/TextStyle.Medium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="B"
+                    android:textColor="@color/yellow_light"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/text_i_think"
+                    app:layout_constraintStart_toStartOf="@+id/text_i_think"
+                    app:layout_constraintTop_toBottomOf="@+id/text_i_think" />
+
+                <ImageView
+                    android:id="@+id/horizontal_bar"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/horizontal_line"
+                    app:layout_constraintBottom_toBottomOf="@+id/image_human_thinking"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/image_human_thinking" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <ImageView
+                android:id="@+id/button_ok"
+                android:layout_width="64dp"
+                android:layout_height="32dp"
+                android:layout_marginTop="@dimen/spacing_medium"
+                android:src="@drawable/ok_button" />
+        </LinearLayout>
+
+
+    </com.google.android.material.card.MaterialCardView>
+
 
 </layout>
