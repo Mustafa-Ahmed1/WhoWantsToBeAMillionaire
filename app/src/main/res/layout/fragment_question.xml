@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
         <variable
             name="viewModel"
             type="com.frenchfriesfamily.whowantstobeamillionaire.view.question.QuestionViewModel" />
@@ -12,52 +11,157 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/purple_dark">
 
-        <TextView
-            android:id="@+id/textView2"
+        <ImageView
+            android:id="@+id/button_leave"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:gravity="center_horizontal"
-            android:text="@{viewModel.question.question}"
-            android:textSize="25sp"
-            app:layout_constraintBottom_toTopOf="@+id/options"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="question" />
-
-        <Button
-            android:id="@+id/options"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:onClick="@{() -> viewModel.onClickAnyOption()}"
-            android:text="option"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="@dimen/spacing_extra_large"
+            android:layout_marginTop="@dimen/spacing_extra_large"
+            android:src="@drawable/ic_leave"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
-            android:id="@+id/audince_button"
+        <ImageView
+            android:id="@+id/button_sounds"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="open audince dialog"
+            android:layout_marginTop="@dimen/spacing_extra_large"
+            android:layout_marginEnd="@dimen/spacing_extra_large"
+            android:src="@drawable/ic_sounds_on"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/options" />
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
-            android:id="@+id/friend_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="open friend dialog"
+        <ImageView
+            android:id="@+id/question_timer"
+            android:layout_width="128dp"
+            android:layout_height="128dp"
+            android:layout_marginTop="@dimen/spacing_extra_large"
+            android:src="@drawable/ic_timer"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/audince_button" />
+            app:layout_constraintTop_toBottomOf="@id/button_leave" />
+
+        <ImageView
+            android:id="@+id/button_audience"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_audience"
+            android:layout_marginTop="@dimen/spacing_extra_large"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/button_call"
+            app:layout_constraintTop_toBottomOf="@id/question_timer" />
+
+        <ImageView
+            android:id="@+id/button_call"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_call"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/button_audience"
+            app:layout_constraintEnd_toStartOf="@+id/button_replace_question"
+            app:layout_constraintTop_toTopOf="@id/button_audience" />
+
+        <ImageView
+            android:id="@+id/button_replace_question"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_replace"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/button_call"
+            app:layout_constraintEnd_toStartOf="@+id/button_remove_two_answers"
+            app:layout_constraintTop_toTopOf="@id/button_audience" />
+
+        <ImageView
+            android:id="@+id/button_remove_two_answers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_remove_two"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/button_replace_question"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/button_audience" />
+
+
+        <View
+            android:id="@+id/view_question"
+            android:layout_width="match_parent"
+            android:layout_height="128dp"
+            android:background="@drawable/question_card_style"
+            android:layout_marginTop="21dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/text_question_reward"/>
+
+
+        <TextView
+            android:id="@+id/text_question"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Which game is NOT part of the Science Adventure series by 5pb. and Nitroplus?"
+            style="@style/TextStyle.Medium"
+            android:gravity="center"
+            android:lines="2"
+            android:layout_marginVertical="@dimen/spacing_large"
+            android:layout_marginHorizontal="@dimen/spacing_extra_large"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_question_reward"
+            app:layout_constraintBottom_toBottomOf="@id/view_question"/>
+
+        <TextView
+            android:id="@+id/text_question_reward"
+            android:layout_width="192dp"
+            android:layout_height="48dp"
+            android:text="$ 500,000"
+            style="@style/TextStyle.Large"
+            android:gravity="center"
+            android:background="@drawable/rectangle_question_reward"
+            android:layout_marginTop="@dimen/spacing_extra_large"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/button_audience" />
+
+        <TextView
+            android:id="@+id/choose_char"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/a"
+            style="@style/TextStyle.Large"
+            android:padding="@dimen/spacing_small"
+            android:layout_marginStart="@dimen/spacing_extra_large"
+            android:layout_marginTop="@dimen/spacing_large"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/view_question" />
+
+        <ImageView
+            android:id="@+id/button_answer_choose"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:src="@drawable/rectangle_answer_default"
+            android:layout_marginStart="@dimen/spacing_medium"
+            app:layout_constraintStart_toEndOf="@id/choose_char"
+            app:layout_constraintEnd_toEndOf="@id/button_sounds"
+            app:layout_constraintTop_toTopOf="@id/choose_char" />
+
+        <TextView
+            android:id="@+id/text_answer_choose"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:lines="1"
+            android:text="Answer"
+            style="@style/TextStyle.Large"
+            android:gravity="center"
+            android:ellipsize="end"
+            android:layout_marginStart="@dimen/spacing_medium"
+            android:layout_marginEnd="@dimen/spacing_medium"
+            app:layout_constraintStart_toStartOf="@id/button_answer_choose"
+            app:layout_constraintEnd_toEndOf="@id/button_answer_choose"
+            app:layout_constraintTop_toTopOf="@id/button_answer_choose"
+            app:layout_constraintBottom_toBottomOf="@id/button_answer_choose"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </layout>
