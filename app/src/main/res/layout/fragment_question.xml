@@ -108,11 +108,12 @@
             android:layout_marginVertical="@dimen/spacing_large"
             android:gravity="center"
             android:lines="2"
-            android:text="Which game is NOT part of the Science Adventure series by 5pb. and Nitroplus?"
+            android:text="@{viewModel.question.question}"
             app:layout_constraintBottom_toBottomOf="@id/view_question"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_question_reward" />
+            app:layout_constraintTop_toBottomOf="@id/text_question_reward"
+            tools:text="Which game is NOT part of the Science Adventure series by 5pb. and Nitroplus?" />
 
         <TextView
             android:id="@+id/text_question_reward"
@@ -144,6 +145,7 @@
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:layout_marginStart="@dimen/spacing_medium"
+            android:onClick="@{() -> viewModel.onClickAnyOption()}"
             android:src="@drawable/rectangle_answer_default"
             app:layout_constraintEnd_toEndOf="@id/button_sounds"
             app:layout_constraintStart_toEndOf="@id/choose_char"
