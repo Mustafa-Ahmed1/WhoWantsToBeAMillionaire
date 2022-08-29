@@ -2,6 +2,7 @@ package com.frenchfriesfamily.whowantstobeamillionaire.model.network
 
 import com.frenchfriesfamily.whowantstobeamillionaire.model.response.QuestionResponse
 import io.reactivex.rxjava3.core.Single
+import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query

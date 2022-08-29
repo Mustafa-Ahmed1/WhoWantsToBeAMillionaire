@@ -2,6 +2,7 @@ package com.frenchfriesfamily.whowantstobeamillionaire.view.question
 
 import android.util.Log
 import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation
 import com.frenchfriesfamily.whowantstobeamillionaire.R
 import com.frenchfriesfamily.whowantstobeamillionaire.databinding.FragmentQuestionBinding
 import com.frenchfriesfamily.whowantstobeamillionaire.view.base.BaseFragment
@@ -15,7 +16,6 @@ class QuestionFragment :
     override val viewModelClass = QuestionViewModel::class.java
 
     override fun setUp() {
-        viewModel.startGame()
         viewModel.question.observe(this) {
             Log.i("kkk", it?.question.toString())
         }
@@ -24,17 +24,14 @@ class QuestionFragment :
     override fun onStart() {
         super.onStart()
         binding.apply {
-            friendButton.setOnClickListener {
-                showDialogFragment(FriendDialog())
+            friendButton.setOnClickListener { view ->
+                Navigation.findNavController(view).navigate(R.id.action_questionFragment_to_friendDialog)
             }
-            audinceButton.setOnClickListener {
-                showDialogFragment(AudienceDialog())
+            audinceButton.setOnClickListener { view ->
+                Navigation.findNavController(view).navigate(R.id.action_questionFragment_to_audienceDialog)
             }
         }
     }
 
-    private fun showDialogFragment(fragment: Fragment) {
-        childFragmentManager.beginTransaction().add(fragment, "hello").commit()
-    }
 
 }

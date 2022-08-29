@@ -1,8 +1,12 @@
 package com.frenchfriesfamily.whowantstobeamillionaire.model.network
 
+import android.util.Log
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.Constants.BASE_URL
+import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.core.Single
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
@@ -26,3 +30,4 @@ object API {
     val apiService = retrofit.create(QuestionsService::class.java)
 
 }
+

@@ -1,17 +1,9 @@
 package com.frenchfriesfamily.whowantstobeamillionaire.utils.extensions
 
-import com.frenchfriesfamily.whowantstobeamillionaire.model.response.QuestionResponse
-import com.frenchfriesfamily.whowantstobeamillionaire.model.response.QuestionResult
-import com.frenchfriesfamily.whowantstobeamillionaire.model.response.local.LocalResponse
-import com.frenchfriesfamily.whowantstobeamillionaire.model.response.local.LocalResult
+import io.reactivex.rxjava3.disposables.CompositeDisposable
+import io.reactivex.rxjava3.disposables.Disposable
 
-fun QuestionResult.convertToLocalResult(): LocalResult {
-    return LocalResult(this.question)
-}
-
-fun QuestionResponse.convertToLocalResponse(): LocalResponse? {
-    return this.results?.let { list ->
-        LocalResponse(list.map { it.convertToLocalResult() })
-    }
+fun Disposable.add(compositeDisposable: CompositeDisposable) {
+    compositeDisposable.add(this)
 }
 

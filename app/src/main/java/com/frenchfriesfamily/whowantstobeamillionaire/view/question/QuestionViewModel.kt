@@ -5,9 +5,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.frenchfriesfamily.whowantstobeamillionaire.model.network.State
 import com.frenchfriesfamily.whowantstobeamillionaire.model.repositories.QuestionsRepository
-import com.frenchfriesfamily.whowantstobeamillionaire.model.response.local.LocalResponse
-import com.frenchfriesfamily.whowantstobeamillionaire.model.response.local.LocalResult
+import com.frenchfriesfamily.whowantstobeamillionaire.model.response.QuestionResult
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.Constants
+import com.frenchfriesfamily.whowantstobeamillionaire.utils.extensions.add
 import com.frenchfriesfamily.whowantstobeamillionaire.view.base.BaseViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
@@ -19,49 +19,44 @@ class QuestionViewModel : BaseViewModel() {
     private val disposable = CompositeDisposable()
 
 
-    private val _questionsList = MutableLiveData<State<LocalResponse>?>()
-    val questionsList: LiveData<State<LocalResponse>?> = _questionsList
+    private val _questionsList = MutableLiveData<State<List<QuestionResult>?>>()
+    val questionsList: LiveData<State<List<QuestionResult>?>> = _questionsList
 
 
-    private val _question = MutableLiveData<LocalResult?>()
-    val question: LiveData<LocalResult?> = _question
+    private val _question = MutableLiveData<QuestionResult?>()
+    val question: LiveData<QuestionResult?> = _question
 
 
     private var questionCounter = 0
     private var difficulty = 0
 
 
-    fun startGame() {
+    init {
         getQuestions()
     }
 
     private fun getQuestions() {
-        _questionsList.postValue(State.Loading)
-        disposable.add(
-            repository.getQuestioneList(
-                Constants.AMOUNT_OF_QUESTION,
-                Constants.DIFFICULTY[difficulty],
-                Constants.QUESTION_TYPE
-            )
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(::onGetQuestionSuccess, ::onGetQuestionError)
+        repository.getQuestioneList(
+            Constants.AMOUNT_OF_QUESTION,
+            Constants.DIFFICULTY[difficulty],
+            Constants.QUESTION_TYPE
         )
-    }
-
-    private fun onGetQuestionSuccess(QuestionResponse: State.Success<LocalResponse>?) {
-        _questionsList.value = QuestionResponse
-        Log.i("kkk", _questionsList.value?.toData().toString())
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe {
+                Log.i("VIEWMODEL", "got ${it}")
+                if (it is State.Success) {
+                    _questionsList.postValue(State.Success(it.toData()?.results))
+                }
+            }.add(disposable)
         setQuestion()
     }
 
-    private fun onGetQuestionError(throwable: Throwable) {
-        _questionsList.postValue(State.Error(throwable.message.toString()))
-    }
 
     private fun setQuestion() {
-        _question.postValue(_questionsList.value?.toData()?.questions?.get(questionCounter))
+        _question.postValue(_questionsList.value?.toData()?.get(questionCounter))
     }
+
 
     fun onClickAnyOption() {
         questionCounter++

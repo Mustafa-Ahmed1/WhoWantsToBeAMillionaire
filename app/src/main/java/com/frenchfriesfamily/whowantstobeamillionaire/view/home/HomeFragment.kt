@@ -14,9 +14,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(R.layout.f
     }
 
     private fun navToQuestionFragment() {
-        binding.startBtn.setOnClickListener { v ->
-            Navigation.findNavController(v).navigate(R.id.action_homeFragment_to_questionFragment)
+        binding.startBtn.setOnClickListener { view ->
+            Navigation.findNavController(view).navigate(R.id.action_homeFragment_to_questionFragment)
         }
+
     }
 
 }
