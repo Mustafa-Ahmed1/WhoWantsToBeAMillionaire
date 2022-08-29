@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.frenchfriesfamily.whowantstobeamillionaire.view.question.QuestionViewModel" />
@@ -12,7 +13,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/purple_dark">
+        android:background="@color/purple_dark"
+        tools:ignore="ContentDescription">
 
         <ImageView
             android:id="@+id/button_leave"
@@ -48,11 +50,11 @@
             android:id="@+id/button_audience"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_audience"
             android:layout_marginTop="@dimen/spacing_extra_large"
+            android:src="@drawable/ic_audience"
+            app:layout_constraintEnd_toStartOf="@+id/button_call"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/button_call"
             app:layout_constraintTop_toBottomOf="@id/question_timer" />
 
         <ImageView
@@ -60,9 +62,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_call"
+            app:layout_constraintEnd_toStartOf="@+id/button_replace_question"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/button_audience"
-            app:layout_constraintEnd_toStartOf="@+id/button_replace_question"
             app:layout_constraintTop_toTopOf="@id/button_audience" />
 
         <ImageView
@@ -70,9 +72,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_replace"
+            app:layout_constraintEnd_toStartOf="@+id/button_remove_two_answers"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/button_call"
-            app:layout_constraintEnd_toStartOf="@+id/button_remove_two_answers"
             app:layout_constraintTop_toTopOf="@id/button_audience" />
 
         <ImageView
@@ -80,9 +82,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_remove_two"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/button_replace_question"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/button_audience" />
 
 
@@ -90,50 +92,50 @@
             android:id="@+id/view_question"
             android:layout_width="match_parent"
             android:layout_height="128dp"
-            android:background="@drawable/question_card_style"
             android:layout_marginTop="21dp"
-            app:layout_constraintStart_toStartOf="parent"
+            android:background="@drawable/question_card_style"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/text_question_reward"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/text_question_reward" />
 
 
         <TextView
             android:id="@+id/text_question"
+            style="@style/TextStyle.Medium"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Which game is NOT part of the Science Adventure series by 5pb. and Nitroplus?"
-            style="@style/TextStyle.Medium"
+            android:layout_marginHorizontal="@dimen/spacing_extra_large"
+            android:layout_marginVertical="@dimen/spacing_large"
             android:gravity="center"
             android:lines="2"
-            android:layout_marginVertical="@dimen/spacing_large"
-            android:layout_marginHorizontal="@dimen/spacing_extra_large"
-            app:layout_constraintStart_toStartOf="parent"
+            android:text="Which game is NOT part of the Science Adventure series by 5pb. and Nitroplus?"
+            app:layout_constraintBottom_toBottomOf="@id/view_question"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_question_reward"
-            app:layout_constraintBottom_toBottomOf="@id/view_question"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_question_reward" />
 
         <TextView
             android:id="@+id/text_question_reward"
+            style="@style/TextStyle.Large"
             android:layout_width="192dp"
             android:layout_height="48dp"
-            android:text="$ 500,000"
-            style="@style/TextStyle.Large"
-            android:gravity="center"
-            android:background="@drawable/rectangle_question_reward"
             android:layout_marginTop="@dimen/spacing_extra_large"
-            app:layout_constraintStart_toStartOf="parent"
+            android:background="@drawable/rectangle_question_reward"
+            android:gravity="center"
+            android:text="$ 500,000"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/button_audience" />
 
         <TextView
             android:id="@+id/choose_char"
+            style="@style/TextStyle.Large"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/a"
-            style="@style/TextStyle.Large"
-            android:padding="@dimen/spacing_small"
             android:layout_marginStart="@dimen/spacing_extra_large"
             android:layout_marginTop="@dimen/spacing_large"
+            android:padding="@dimen/spacing_small"
+            android:text="@string/a"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/view_question" />
 
@@ -141,27 +143,27 @@
             android:id="@+id/button_answer_choose"
             android:layout_width="0dp"
             android:layout_height="48dp"
-            android:src="@drawable/rectangle_answer_default"
             android:layout_marginStart="@dimen/spacing_medium"
-            app:layout_constraintStart_toEndOf="@id/choose_char"
+            android:src="@drawable/rectangle_answer_default"
             app:layout_constraintEnd_toEndOf="@id/button_sounds"
+            app:layout_constraintStart_toEndOf="@id/choose_char"
             app:layout_constraintTop_toTopOf="@id/choose_char" />
 
         <TextView
             android:id="@+id/text_answer_choose"
+            style="@style/TextStyle.Large"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:lines="1"
-            android:text="Answer"
-            style="@style/TextStyle.Large"
-            android:gravity="center"
-            android:ellipsize="end"
             android:layout_marginStart="@dimen/spacing_medium"
             android:layout_marginEnd="@dimen/spacing_medium"
-            app:layout_constraintStart_toStartOf="@id/button_answer_choose"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:lines="1"
+            android:text="Answer"
+            app:layout_constraintBottom_toBottomOf="@id/button_answer_choose"
             app:layout_constraintEnd_toEndOf="@id/button_answer_choose"
-            app:layout_constraintTop_toTopOf="@id/button_answer_choose"
-            app:layout_constraintBottom_toBottomOf="@id/button_answer_choose"/>
+            app:layout_constraintStart_toStartOf="@id/button_answer_choose"
+            app:layout_constraintTop_toTopOf="@id/button_answer_choose" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -15,6 +15,7 @@ class ResultFragment :
     BaseFragment<FragmentResultBinding, ResultsViewModel>(R.layout.fragment_result) {
 
     override val viewModelClass = ResultsViewModel::class.java
+
     override fun setUp() {
     }
 
@@ -29,11 +30,14 @@ class ResultFragment :
 
         setBarEntries(optionsValidityPercent)
         setBarDataSet(barEntries)
+        barData = BarData(Constants.ANSWER_OPTIONS, barDataSet)
+        setBarChartData(barData)
     }
 
     private fun setBarEntries(answerPercent: List<Float>) {
         barEntries = ArrayList()
         answerPercent.indices.forEach { i ->
+            barEntries.add(BarEntry(optionsValidityPercent[i], i))
         }
     }
 
@@ -58,6 +62,7 @@ class ResultFragment :
             xAxis.setDrawGridLines(false)
             axisLeft.isEnabled = false
             axisRight.isEnabled = false
+            setDescriptionPosition(0f, 0f)
             setTouchEnabled(false)
             setScaleEnabled(false)
             setPinchZoom(false)
