@@ -87,12 +87,14 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-            <ImageView
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/button_ok"
+                android:text="@string/ok"
+                style="@style/TextStyle.Small"
                 android:layout_width="64dp"
                 android:layout_height="32dp"
                 android:layout_marginTop="@dimen/spacing_medium"
-                android:src="@drawable/ok_button" />
+                android:background="@drawable/button_green" />
         </LinearLayout>
 
 
