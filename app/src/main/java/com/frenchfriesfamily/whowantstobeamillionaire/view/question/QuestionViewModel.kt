@@ -51,17 +51,17 @@ class QuestionViewModel : BaseViewModel() {
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe {
-                Log.i(QUESTIONS_TAG, "got $it")
+                Log.i(QUESTIONS_TAG, "request ${difficulty + 1}: got ${it.toData()?.results}")
                 if (it is State.Success) {
                     _questionsList.postValue(State.Success(it.toData()?.results))
+                    _question.postValue(
+                        it.toData()?.results?.get(questionCounter)
+                    )
                 }
             }.add(disposable)
         setQuestion()
     }
 
-    private fun setQuestion() {
-        _question.postValue(_questionsList.value?.toData()?.get(questionCounter))
-    }
 
     fun onClickAnyOption() {
         questionCounter++
@@ -73,6 +73,9 @@ class QuestionViewModel : BaseViewModel() {
         setQuestion()
     }
 
+    private fun setQuestion() {
+        _question.postValue(_questionsList.value?.toData()?.get(questionCounter))
+    }
 
     private fun emitTimerSeconds() {
         Observable.fromIterable(MAX_DURATION downTo ZERO)
