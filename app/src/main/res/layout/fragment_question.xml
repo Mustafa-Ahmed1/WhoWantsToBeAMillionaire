@@ -60,7 +60,7 @@
             android:fontFamily="@font/quantico_bold"
             android:text="@{viewModel.seconds.toString()}"
             android:textColor="@color/green"
-            android:textSize="@dimen/text_extra_extra_large"
+            android:textSize="@dimen/text_xx_large"
             app:colorStateWithTimer="@{viewModel.seconds}"
             app:layout_constraintBottom_toBottomOf="@+id/countdownView"
             app:layout_constraintEnd_toEndOf="parent"
@@ -191,4 +191,5 @@
             app:layout_constraintTop_toTopOf="@id/button_answer_choose" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>

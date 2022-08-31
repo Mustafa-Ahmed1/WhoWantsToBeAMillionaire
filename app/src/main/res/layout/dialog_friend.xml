@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -9,7 +9,6 @@
             name="viewModel"
             type="com.frenchfriesfamily.whowantstobeamillionaire.view.question.QuestionViewModel" />
     </data>
-
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="wrap_content"
@@ -49,7 +48,8 @@
                     android:src="@drawable/man_thinking"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="ContentDescription" />
 
                 <TextView
                     android:id="@+id/text_i_think"
@@ -78,27 +78,26 @@
                     android:id="@+id/horizontal_bar"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="1dp"
                     android:background="@drawable/horizontal_line"
                     app:layout_constraintBottom_toBottomOf="@+id/image_human_thinking"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/image_human_thinking" />
-
+                    app:layout_constraintStart_toStartOf="@+id/image_human_thinking"
+                    tools:ignore="ContentDescription" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/button_ok"
-                android:text="@string/ok"
                 style="@style/TextStyle.Small"
                 android:layout_width="64dp"
                 android:layout_height="32dp"
                 android:layout_marginTop="@dimen/spacing_medium"
-                android:background="@drawable/button_green" />
+                android:background="@drawable/button_green"
+                android:text="@string/ok" />
+
         </LinearLayout>
 
-
     </com.google.android.material.card.MaterialCardView>
-
 
 </layout>
