@@ -36,15 +36,38 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/question_timer"
-            android:layout_width="128dp"
-            android:layout_height="128dp"
+        <com.androchef.happytimer.countdowntimer.CircularCountDownView
+            android:id="@+id/countdownView"
+            android:layout_width="@dimen/timer_scale"
+            android:layout_height="@dimen/timer_scale"
             android:layout_marginTop="@dimen/spacing_extra_large"
-            android:src="@drawable/ic_timer"
+            app:colorStateWithTimer="@{viewModel.seconds}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/button_leave" />
+            app:layout_constraintTop_toBottomOf="@+id/button_leave"
+            app:stroke_background_color="@color/purple"
+            app:stroke_background_thickness="15dp"
+            app:stroke_foreground_color="@color/green"
+            app:stroke_foreground_thickness="15dp"
+            app:timer_text_format="SECOND"
+            app:timer_text_shown="false"
+            app:timer_type="COUNT_DOWN" />
+
+        <TextView
+            android:id="@+id/text_timer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/quantico_bold"
+            android:text="@{viewModel.seconds.toString()}"
+            android:textColor="@color/green"
+            android:textSize="@dimen/text_extra_extra_large"
+            app:colorStateWithTimer="@{viewModel.seconds}"
+            app:layout_constraintBottom_toBottomOf="@+id/countdownView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/countdownView"
+            tools:text="15" />
 
         <ImageView
             android:id="@+id/button_audience"
@@ -55,7 +78,7 @@
             app:layout_constraintEnd_toStartOf="@+id/button_call"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/question_timer" />
+            app:layout_constraintTop_toBottomOf="@id/countdownView" />
 
         <ImageView
             android:id="@+id/button_call"

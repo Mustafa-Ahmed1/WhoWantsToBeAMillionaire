@@ -10,7 +10,7 @@ object Constants {
     const val AMOUNT_OF_QUESTION = 6
     const val QUESTION_TYPE = "multiple"
 
-    object Punctuation {
+    object Punctuations {
         const val QUOTATION_TEXT = "&quot;"
         const val APOSTROPHE_TEXT = "&#039;"
         const val AND_TEXT = "&amp;"
@@ -19,6 +19,13 @@ object Constants {
         const val APOSTROPHE_SYMBOL = "\'"
         const val AND_SYMBOL = "&"
         const val E_ACUTE_SYMBOL = "é"
+    }
+
+    object TimeDurations {
+        const val MAX_DURATION = 15
+        const val SECOND_THIRD_DURATION = 10
+        const val FIRST_THIRD_DURATION = 5
+        const val ZERO = 0
     }
 
 }

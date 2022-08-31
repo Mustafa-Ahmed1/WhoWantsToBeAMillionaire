@@ -16,6 +16,11 @@ class QuestionFragment :
         viewModel.question.observe(this) {
             Log.i("kkk", it?.question.toString())
         }
+
+        binding.countdownView.apply {
+            initTimer(15)
+            startTimer()
+        }
     }
 
     override fun onStart() {
