@@ -12,58 +12,78 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/purple">
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="8dp"
+            android:id="@+id/label_text"
+            style="@style/TextStyle.ExtraLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="80dp"
             android:gravity="center_horizontal"
-            android:text="this is home fragment"
-            android:textSize="25sp" />
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@{viewModel.question.questionText}"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:text="@string/be_the_next_millionaire"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="convert to data binding before testing" />
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
-            android:id="@+id/button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:onClick="@{() -> viewModel.testData()}"
-            android:text="click me to test the data"
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/logo"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="@dimen/spacing_extra_large"
+            android:src="@drawable/game_logo"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
+            app:layout_constraintTop_toBottomOf="@id/label_text" />
 
-        <Button
-            android:id="@+id/startBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="click me to start the game"
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/button_start"
+            style="@style/TextStyle.Medium"
+            android:layout_width="204dp"
+            android:layout_height="56dp"
+            android:layout_marginTop="64dp"
+            android:background="@drawable/ic_btn_start"
+            android:text="@string/start"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button" />
+            app:layout_constraintTop_toBottomOf="@id/logo" />
 
-        <Button
-            android:id="@+id/exit_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="Exit"
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/button_about"
+            style="@style/TextStyle.Medium"
+            android:layout_width="158dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/background_shape"
+            android:text="@string/about"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/startBtn" />
+            app:layout_constraintTop_toBottomOf="@id/button_start" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/button_sound"
+            style="@style/TextStyle.Medium"
+            android:layout_width="158dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="@dimen/spacing_medium"
+            android:background="@drawable/background_shape"
+            android:text="@string/sounds_on"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/button_about" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/button_exit"
+            style="@style/TextStyle.Medium"
+            android:layout_width="158dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="@dimen/spacing_medium"
+            android:background="@drawable/background_shape"
+            android:text="@string/exit"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/button_sound" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
