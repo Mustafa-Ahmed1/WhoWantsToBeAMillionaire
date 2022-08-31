@@ -131,7 +131,7 @@
             android:layout_marginVertical="@dimen/spacing_large"
             android:gravity="center"
             android:lines="2"
-            android:text="@{viewModel.question.question}"
+            app:formatTextBySymbols="@{viewModel.question.question}"
             app:layout_constraintBottom_toBottomOf="@id/view_question"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
