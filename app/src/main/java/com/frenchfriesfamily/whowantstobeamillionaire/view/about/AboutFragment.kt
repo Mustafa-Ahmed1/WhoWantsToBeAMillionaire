@@ -10,11 +10,12 @@ class AboutFragment : BaseFragment<FragmentAboutBinding, AboutViewModel>(R.layou
     override val viewModelClass = AboutViewModel::class.java
 
     override fun setUp() {
+        navToHomeFragment()
     }
+
     private fun navToHomeFragment() {
         binding.backToHome.setOnClickListener { view ->
-            Navigation.findNavController(view)
-                .navigate(R.id.homeFragment)
+            Navigation.findNavController(view).navigate(R.id.homeFragment)
         }
     }
 
