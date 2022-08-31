@@ -61,24 +61,31 @@
                 android:layout_marginTop="@dimen/spacing_large">
 
 
-                <ImageView
+                <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/button_leave"
                     android:layout_width="64dp"
                     android:layout_height="32dp"
                     android:layout_marginTop="@dimen/spacing_large"
                     android:layout_marginEnd="@dimen/spacing_extra_large"
                     android:layout_marginBottom="@dimen/spacing_large"
+                    android:text="@string/leave"
+                    style="@style/TextStyle.Medium"
+                    android:textAllCaps="false"
+                    android:background="@drawable/button_red"
                     android:src="@drawable/button_red"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent" />
 
-                <ImageView
+                <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/button_stay"
                     android:layout_width="64dp"
                     android:layout_height="32dp"
+                    android:text="@string/stay"
+                    style="@style/TextStyle.Medium"
+                    android:textAllCaps="false"
                     android:layout_marginStart="@dimen/spacing_extra_large"
                     android:layout_marginBottom="@dimen/spacing_large"
-                    android:src="@drawable/button_green"
+                    android:background="@drawable/button_green"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />
 
