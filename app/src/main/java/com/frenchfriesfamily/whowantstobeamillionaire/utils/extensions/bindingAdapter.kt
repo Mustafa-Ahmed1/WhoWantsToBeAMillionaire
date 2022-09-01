@@ -3,8 +3,9 @@ package com.frenchfriesfamily.whowantstobeamillionaire.view.stage
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.frenchfriesfamily.whowantstobeamillionaire.model.data.StageDetails
+import com.frenchfriesfamily.whowantstobeamillionaire.view.base.BaseAdapter
 
 @BindingAdapter(value = ["app:items"])
-fun setRecyclerItems(view: RecyclerView?, items: List<StageDetails>?) {
-    (view?.adapter as ProgressAdapter?)?.setItems(items ?: emptyList())
+fun <T:Any> setRecyclerItems(view: RecyclerView, items: List<T>?) {
+    (view.adapter as BaseAdapter<T>?)?.setItems(items ?: emptyList())
 }

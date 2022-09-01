@@ -11,7 +11,7 @@
 
         <variable
             name="listener"
-            type="com.frenchfriesfamily.whowantstobeamillionaire.view.stage.StageInteractionListener" />
+            type="com.frenchfriesfamily.whowantstobeamillionaire.view.stage.ProgressAdapter.StageInteractionListener" />
     </data>
 
     <com.google.android.material.card.MaterialCardView

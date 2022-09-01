@@ -1,9 +1,7 @@
 package com.frenchfriesfamily.whowantstobeamillionaire.view.question
 
 import android.util.Log
-import android.view.View
 import androidx.navigation.Navigation
-import androidx.navigation.findNavController
 import com.frenchfriesfamily.whowantstobeamillionaire.R
 import com.frenchfriesfamily.whowantstobeamillionaire.databinding.FragmentQuestionBinding
 import com.frenchfriesfamily.whowantstobeamillionaire.view.base.BaseFragment
@@ -17,6 +15,9 @@ class QuestionFragment :
         viewModel.question.observe(this) {
             Log.i("kkk", it?.question.toString())
         }
+
+        val adapter = QuestionAdapter(mutableListOf(), viewModel)
+        binding.recyclerAnswers.adapter = adapter
 
         binding.countdownView.apply {
             initTimer(15)

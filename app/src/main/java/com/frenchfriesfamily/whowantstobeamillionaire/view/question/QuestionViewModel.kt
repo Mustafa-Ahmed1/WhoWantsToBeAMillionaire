@@ -19,7 +19,7 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
 
-class QuestionViewModel : BaseViewModel() {
+class QuestionViewModel : BaseViewModel(), QuestionAdapter.QuestionInteractionListener {
 
     private val questionsRepository = QuestionsRepository()
     private val stagesRepository = StagesRepository()
@@ -30,6 +30,9 @@ class QuestionViewModel : BaseViewModel() {
 
     private val _question = MutableLiveData<QuestionResult?>()
     val question: LiveData<QuestionResult?> = _question
+
+    private val _answers = MutableLiveData<List<String?>?>()
+    val answers: LiveData<List<String?>?> = _answers
 
     private val _stage = MutableLiveData<StageDetails>()
     val stage: LiveData<StageDetails> = _stage
@@ -78,42 +81,51 @@ class QuestionViewModel : BaseViewModel() {
 
 
     fun onClickAnyOption() {
-        when(stageCounter){
-            4 -> { nextDifficulty() }
-            9 -> { nextDifficulty() }
-            14 -> { gameOver() }
-            else -> { questionCounter++ }
+        when (stageCounter) {
+            4 -> nextDifficulty()
+            9 -> nextDifficulty()
+            14 -> gameOver()
+            else -> questionCounter++
         }
         setQuestion()
         stageCounter++
         setStage()
     }
 
-    private fun nextDifficulty(){
+    private fun nextDifficulty() {
         questionCounter = 0
         difficulty++
         getQuestions()
     }
 
-    private fun gameOver(){ }
+    private fun gameOver() {}
 
     private fun setQuestion() {
         _question.postValue(_questionsList.value?.toData()?.get(questionCounter))
+
+        _answers.postValue(_questionsList.value?.toData()?.get(questionCounter)?.incorrectAnswers
+            ?.plus(_questionsList.value?.toData()?.get(questionCounter)?.correctAnswer))
     }
+
     private fun setStage() {
         val stageList = stagesRepository.getStages().reversed()
         _stage.postValue(stageList[stageCounter])
     }
 
-    fun onChangeQuestion(){
+    fun onChangeQuestion() {
         _changeQuestion.postValue(false)
         questionCounter++
         setQuestion()
     }
 
 
-    fun onCallFriend(call: Boolean){ _friendHelp.postValue(call) }
-    fun onAskAudience(audience: Boolean){ _audienceHelp.postValue(audience) }
+    fun onCallFriend(call: Boolean) {
+        _friendHelp.postValue(call)
+    }
+
+    fun onAskAudience(audience: Boolean) {
+        _audienceHelp.postValue(audience)
+    }
 
 
     private fun emitTimerSeconds() {

@@ -6,9 +6,9 @@ import com.frenchfriesfamily.whowantstobeamillionaire.model.data.StageDetails
 import com.frenchfriesfamily.whowantstobeamillionaire.model.repositories.StagesRepository
 import com.frenchfriesfamily.whowantstobeamillionaire.view.base.BaseViewModel
 
-class StageViewModel : BaseViewModel(), StageInteractionListener {
-
+class StageViewModel : BaseViewModel(), ProgressAdapter.StageInteractionListener {
     private val repository = StagesRepository()
+
 
     private val _stages = MutableLiveData<List<StageDetails>>()
     val stages: LiveData<List<StageDetails>> = _stages
