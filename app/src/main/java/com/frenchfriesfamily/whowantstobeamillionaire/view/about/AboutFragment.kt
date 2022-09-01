@@ -15,7 +15,7 @@ class AboutFragment : BaseFragment<FragmentAboutBinding, AboutViewModel>(R.layou
 
     private fun navToHomeFragment() {
         binding.backToHome.setOnClickListener { view ->
-            Navigation.findNavController(view).navigate(R.id.homeFragment)
+            Navigation.findNavController(view).popBackStack()
         }
     }
 

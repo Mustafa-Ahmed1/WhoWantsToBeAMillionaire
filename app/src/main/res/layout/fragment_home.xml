@@ -27,8 +27,8 @@
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/logo"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
+            android:layout_width="@dimen/logo_scale"
+            android:layout_height="@dimen/logo_scale"
             android:layout_marginTop="@dimen/spacing_extra_large"
             android:src="@drawable/app_logo"
             app:layout_constraintEnd_toEndOf="parent"

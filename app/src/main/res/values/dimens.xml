@@ -26,4 +26,6 @@
     <dimen name="button_height_medium">40dp</dimen>
     <!-- countdown timer -->
     <dimen name="timer_scale">128dp</dimen>
+    <!-- images -->
+    <dimen name="logo_scale">160dp</dimen>
 </resources>

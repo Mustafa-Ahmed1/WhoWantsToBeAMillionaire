@@ -27,8 +27,8 @@
             android:id="@+id/action_questionFragment_to_resultFragment"
             app:destination="@id/resultFragment" />
         <action
-            android:id="@+id/action_questionFragment_to_stage_screen_fragment"
-            app:destination="@id/stage_screen_fragment" />
+            android:id="@+id/action_questionFragment_to_stageFragment"
+            app:destination="@id/stageFragment" />
         <action
             android:id="@+id/action_questionFragment_to_audienceDialog"
             app:destination="@id/audienceDialog" />
@@ -50,10 +50,11 @@
         tools:layout="@layout/fragment_result" />
 
     <fragment
-        android:id="@+id/stage_screen_fragment"
+        android:id="@+id/stageFragment"
         android:name="com.frenchfriesfamily.whowantstobeamillionaire.view.stage.StageFragment"
         android:label="StageScreen"
-        tools:layout="@layout/fragment_stage"/>
+        tools:layout="@layout/fragment_stage" />
+
     <dialog
         android:id="@+id/audienceDialog"
         android:name="com.frenchfriesfamily.whowantstobeamillionaire.view.dialogs.AudienceDialog"

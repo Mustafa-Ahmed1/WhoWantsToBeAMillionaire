@@ -52,7 +52,8 @@
             android:background="@drawable/vertical_line"
             app:layout_constraintBottom_toBottomOf="@id/recycler_stages"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/recycler_stages" />
+            app:layout_constraintTop_toTopOf="@id/recycler_stages"
+            tools:ignore="ContentDescription" />
 
         <TextView
             android:id="@+id/text_tap_to_continue"

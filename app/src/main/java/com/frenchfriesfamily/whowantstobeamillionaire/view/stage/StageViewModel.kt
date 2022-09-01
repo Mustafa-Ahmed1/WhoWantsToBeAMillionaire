@@ -7,13 +7,11 @@ import com.frenchfriesfamily.whowantstobeamillionaire.model.repositories.StagesR
 import com.frenchfriesfamily.whowantstobeamillionaire.view.base.BaseViewModel
 
 class StageViewModel : BaseViewModel(), StageInteractionListener {
+
     private val repository = StagesRepository()
 
-
     private val _stages = MutableLiveData<List<StageDetails>>()
-    val stages: LiveData<List<StageDetails>>
-        get() = _stages
-
+    val stages: LiveData<List<StageDetails>> = _stages
 
     init {
         initStages()
