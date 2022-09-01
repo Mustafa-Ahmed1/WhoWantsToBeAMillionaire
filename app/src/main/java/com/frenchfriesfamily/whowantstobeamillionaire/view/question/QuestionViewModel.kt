@@ -3,8 +3,10 @@ package com.frenchfriesfamily.whowantstobeamillionaire.view.question
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.frenchfriesfamily.whowantstobeamillionaire.model.data.StageDetails
 import com.frenchfriesfamily.whowantstobeamillionaire.model.network.State
 import com.frenchfriesfamily.whowantstobeamillionaire.model.repositories.QuestionsRepository
+import com.frenchfriesfamily.whowantstobeamillionaire.model.repositories.StagesRepository
 import com.frenchfriesfamily.whowantstobeamillionaire.model.response.QuestionResult
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.Constants
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.Constants.TimeDurations.MAX_DURATION
@@ -19,7 +21,8 @@ import java.util.concurrent.TimeUnit
 
 class QuestionViewModel : BaseViewModel() {
 
-    private val repository = QuestionsRepository()
+    private val questionsRepository = QuestionsRepository()
+    private val stagesRepository = StagesRepository()
     private val disposable = CompositeDisposable()
 
     private val _questionsList = MutableLiveData<State<List<QuestionResult>?>>()
@@ -28,22 +31,27 @@ class QuestionViewModel : BaseViewModel() {
     private val _question = MutableLiveData<QuestionResult?>()
     val question: LiveData<QuestionResult?> = _question
 
+    private val _stage = MutableLiveData<StageDetails>()
+    val stage: LiveData<StageDetails> = _stage
+
     private val _seconds = MutableLiveData<Int>()
     val seconds: LiveData<Int>
         get() = _seconds
 
     private var questionCounter = 0
+    private var stageCounter = 0
     private var difficulty = 0
 
 
     init {
         getQuestions()
         emitTimerSeconds()
+        setStage()
     }
 
 
     private fun getQuestions() {
-        repository.getQuestioneList(
+        questionsRepository.getQuestioneList(
             Constants.AMOUNT_OF_QUESTION,
             Constants.DIFFICULTY[difficulty],
             Constants.QUESTION_TYPE
@@ -62,6 +70,11 @@ class QuestionViewModel : BaseViewModel() {
         setQuestion()
     }
 
+    private fun setStage() {
+        val stageList = stagesRepository.getStages().reversed()
+        _stage.postValue(stageList[stageCounter])
+    }
+
 
     fun onClickAnyOption() {
         questionCounter++
@@ -71,6 +84,9 @@ class QuestionViewModel : BaseViewModel() {
             getQuestions()
         }
         setQuestion()
+
+        stageCounter++
+        setStage()
     }
 
     private fun setQuestion() {

@@ -147,7 +147,7 @@
             android:layout_marginTop="@dimen/spacing_extra_large"
             android:background="@drawable/rectangle_question_reward"
             android:gravity="center"
-            android:text="$ 500,000"
+            android:text="@{viewModel.stage.reward}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/button_audience"
