@@ -24,6 +24,7 @@ class QuestionAdapter(
     }
 
     interface QuestionInteractionListener : BaseInteractionListener {
+        fun onClickAnswer(answerText: String)
 
     }
 

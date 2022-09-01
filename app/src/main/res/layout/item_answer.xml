@@ -13,6 +13,10 @@
             name="listener"
             type="com.frenchfriesfamily.whowantstobeamillionaire.view.question.QuestionAdapter.QuestionInteractionListener" />
 
+        <variable
+            name="viewModel"
+            type="com.frenchfriesfamily.whowantstobeamillionaire.view.question.QuestionViewModel" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -27,6 +31,7 @@
             android:layout_gravity="center"
             android:background="@color/purple_dark"
             android:src="@drawable/rectangle_answer_default"
+            answerState="@{viewModel.answerState}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -41,6 +46,7 @@
             android:layout_gravity="center"
             android:ellipsize="end"
             android:text="@{item}"
+            android:onClick="@{()-> listener.onClickAnswer(item)}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

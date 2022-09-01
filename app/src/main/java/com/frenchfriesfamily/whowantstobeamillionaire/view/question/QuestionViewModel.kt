@@ -3,6 +3,7 @@ package com.frenchfriesfamily.whowantstobeamillionaire.view.question
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.frenchfriesfamily.whowantstobeamillionaire.model.AnswerState
 import com.frenchfriesfamily.whowantstobeamillionaire.model.data.StageDetails
 import com.frenchfriesfamily.whowantstobeamillionaire.model.network.State
 import com.frenchfriesfamily.whowantstobeamillionaire.model.repositories.QuestionsRepository
@@ -15,9 +16,11 @@ import com.frenchfriesfamily.whowantstobeamillionaire.utils.extensions.add
 import com.frenchfriesfamily.whowantstobeamillionaire.view.base.BaseViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
+import kotlin.coroutines.coroutineContext
 
 class QuestionViewModel : BaseViewModel(), QuestionAdapter.QuestionInteractionListener {
 
@@ -151,6 +154,25 @@ class QuestionViewModel : BaseViewModel(), QuestionAdapter.QuestionInteractionLi
     companion object {
         const val QUESTIONS_TAG = "QUESTIONS_TAG"
         const val SECONDS_TAG = "SECONDS_TAG"
+    }
+
+
+    val answerState = MutableLiveData<AnswerState>(AnswerState.IS_DEFAULT)
+
+    private val correctAnswer = "Answer"
+
+    private fun isAnswerCorrect(answer:String) =
+        if(answer == correctAnswer) answerState.postValue(AnswerState.IS_CORRECT)
+        else answerState.postValue(AnswerState.IS_WRONG)
+
+    override fun onClickAnswer(answerText: String) {
+        answerState.postValue(AnswerState.IS_PRESSED)
+        Single.just(answerText).delay(3000, TimeUnit.MILLISECONDS)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe { _ ->
+                isAnswerCorrect(answerText)
+            }
     }
 
 }
