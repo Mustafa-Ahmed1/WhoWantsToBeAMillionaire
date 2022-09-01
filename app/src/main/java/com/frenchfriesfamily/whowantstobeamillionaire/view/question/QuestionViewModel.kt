@@ -34,6 +34,15 @@ class QuestionViewModel : BaseViewModel() {
     private val _stage = MutableLiveData<StageDetails>()
     val stage: LiveData<StageDetails> = _stage
 
+    private val _changeQuestion = MutableLiveData(true)
+    val changeQuestion: LiveData<Boolean> = _changeQuestion
+
+    private val _friendHelp = MutableLiveData(true)
+    val friendHelp: LiveData<Boolean> = _friendHelp
+
+    private val _audienceHelp = MutableLiveData(true)
+    val audienceHelp: LiveData<Boolean> = _audienceHelp
+
     private val _seconds = MutableLiveData<Int>()
     val seconds: LiveData<Int>
         get() = _seconds
@@ -48,7 +57,6 @@ class QuestionViewModel : BaseViewModel() {
         emitTimerSeconds()
         setStage()
     }
-
 
     private fun getQuestions() {
         questionsRepository.getQuestioneList(
@@ -98,9 +106,15 @@ class QuestionViewModel : BaseViewModel() {
     }
 
     fun onChangeQuestion(){
+        _changeQuestion.postValue(false)
         questionCounter++
         setQuestion()
     }
+
+
+    fun onCallFriend(call: Boolean){ _friendHelp.postValue(call) }
+    fun onAskAudience(audience: Boolean){ _audienceHelp.postValue(audience) }
+
 
     private fun emitTimerSeconds() {
         Observable.fromIterable(MAX_DURATION downTo ZERO)

@@ -45,3 +45,13 @@ fun changeCircularTimerColorDependingOnTime(view: CircularCountDownView, remaini
 fun replacePunctuationTextsWithSymbols(view: TextView, text: String?) {
     view.text = text?.replacePunctuationTextsWithSymbols()
 }
+
+@BindingAdapter(value = ["app:isHelped"])
+fun isHelped(view: ImageView, Clicked: Boolean) {
+    if (!Clicked){
+        view.apply {
+            isClickable = Clicked
+            setAlpha(80)
+        }
+    }
+}

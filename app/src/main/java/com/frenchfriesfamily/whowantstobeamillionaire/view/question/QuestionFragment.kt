@@ -1,7 +1,9 @@
 package com.frenchfriesfamily.whowantstobeamillionaire.view.question
 
 import android.util.Log
+import android.view.View
 import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import com.frenchfriesfamily.whowantstobeamillionaire.R
 import com.frenchfriesfamily.whowantstobeamillionaire.databinding.FragmentQuestionBinding
 import com.frenchfriesfamily.whowantstobeamillionaire.view.base.BaseFragment
@@ -43,16 +45,15 @@ class QuestionFragment :
     private fun onClickDialogs() {
         binding.apply {
             buttonCall.setOnClickListener { view ->
-                val action =
-                    QuestionFragmentDirections.actionQuestionFragmentToFriendDialog()
+                viewModel?.onCallFriend(false)
+                val action = QuestionFragmentDirections.actionQuestionFragmentToFriendDialog()
                 Navigation.findNavController(view).navigate(action)
             }
             buttonAudience.setOnClickListener { view ->
-                val action =
-                    QuestionFragmentDirections.actionQuestionFragmentToAudienceDialog()
+                viewModel?.onAskAudience(false)
+                val action = QuestionFragmentDirections.actionQuestionFragmentToAudienceDialog()
                 Navigation.findNavController(view).navigate(action)
             }
         }
     }
-
 }
