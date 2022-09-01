@@ -1,14 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".winning">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        tools:context=".winning"
+        android:background="@color/purple_dark">
 
-</FrameLayout>
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/winner_badge"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="32dp"
+            app:lottie_autoPlay="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/loss_text"
+            app:lottie_rawRes="@raw/winnerbadge"
+            app:srcCompat="@drawable/sad_face" />
+
+        <TextView
+            android:id="@+id/loss_text"
+            style="@style/TextStyle.Large"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="120dp"
+            android:text="Congratulations!"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView4"
+            style="@style/TextStyle.Small"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="32dp"
+            android:layout_marginTop="32dp"
+            android:text="@string/winning_message"
+            android:textAlignment="center"
+            android:textColor="@color/green"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/winner_badge" />
+
+        <ImageView
+            android:id="@+id/play_again_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="28dp"
+            app:layout_constraintBottom_toTopOf="@+id/back_to_home_btn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.507"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/ic_play_again_btn" />
+
+        <TextView
+            android:id="@+id/play_again_text"
+            style="@style/TextStyle.Large"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/play_again"
+            app:layout_constraintBottom_toBottomOf="@+id/play_again_btn"
+            app:layout_constraintEnd_toEndOf="@+id/play_again_btn"
+            app:layout_constraintStart_toStartOf="@+id/play_again_btn"
+            app:layout_constraintTop_toTopOf="@+id/play_again_btn" />
+
+
+        <ImageView
+            android:id="@+id/back_to_home_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="64dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/ic_back_to_home_btn" />
+
+        <TextView
+            android:id="@+id/back_to_home_text"
+            style="@style/TextStyle.Large"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Back to home"
+            app:layout_constraintBottom_toBottomOf="@+id/back_to_home_btn"
+            app:layout_constraintEnd_toEndOf="@+id/back_to_home_btn"
+            app:layout_constraintStart_toStartOf="@+id/back_to_home_btn"
+            app:layout_constraintTop_toTopOf="@+id/back_to_home_btn" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

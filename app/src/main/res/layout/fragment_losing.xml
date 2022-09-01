@@ -15,7 +15,7 @@
 
 
         <ImageView
-            android:id="@+id/sad_face"
+            android:id="@+id/winner_badge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
@@ -48,33 +48,33 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/sad_face" />
+            app:layout_constraintTop_toBottomOf="@+id/winner_badge" />
 
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/play_again_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="28dp"
-            app:layout_constraintBottom_toTopOf="@+id/imageView3"
+            app:layout_constraintBottom_toTopOf="@+id/back_to_home_btn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.507"
             app:layout_constraintStart_toStartOf="parent"
             app:srcCompat="@drawable/ic_play_again_btn" />
 
         <TextView
-            android:id="@+id/textView5"
+            android:id="@+id/play_again_text"
             style="@style/TextStyle.Large"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/play_again"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView2"
-            app:layout_constraintEnd_toEndOf="@+id/imageView2"
-            app:layout_constraintStart_toStartOf="@+id/imageView2"
-            app:layout_constraintTop_toTopOf="@+id/imageView2" />
+            app:layout_constraintBottom_toBottomOf="@+id/play_again_btn"
+            app:layout_constraintEnd_toEndOf="@+id/play_again_btn"
+            app:layout_constraintStart_toStartOf="@+id/play_again_btn"
+            app:layout_constraintTop_toTopOf="@+id/play_again_btn" />
 
 
         <ImageView
-            android:id="@+id/imageView3"
+            android:id="@+id/back_to_home_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="64dp"
@@ -84,16 +84,16 @@
             app:srcCompat="@drawable/ic_back_to_home_btn" />
 
         <TextView
-            android:id="@+id/textView6"
+            android:id="@+id/back_to_home_text"
             style="@style/TextStyle.Large"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
             android:text="Back to home"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView3"
-            app:layout_constraintEnd_toEndOf="@+id/imageView3"
-            app:layout_constraintStart_toStartOf="@+id/imageView3"
-            app:layout_constraintTop_toTopOf="@+id/imageView3" />
+            app:layout_constraintBottom_toBottomOf="@+id/back_to_home_btn"
+            app:layout_constraintEnd_toEndOf="@+id/back_to_home_btn"
+            app:layout_constraintStart_toStartOf="@+id/back_to_home_btn"
+            app:layout_constraintTop_toTopOf="@+id/back_to_home_btn" />
 
         <TextView
             android:id="@+id/pass_title"
