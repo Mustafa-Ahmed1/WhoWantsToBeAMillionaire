@@ -1,6 +1,5 @@
 package com.frenchfriesfamily.whowantstobeamillionaire.view.question
 
-import android.util.Log
 import androidx.navigation.Navigation
 import com.frenchfriesfamily.whowantstobeamillionaire.R
 import com.frenchfriesfamily.whowantstobeamillionaire.databinding.FragmentQuestionBinding
@@ -13,9 +12,10 @@ class QuestionFragment :
     override val viewModelClass = QuestionViewModel::class.java
 
     override fun setUp() {
-        viewModel.question.observe(this) {
-            Log.i("kkk", it?.question.toString())
-        }
+        val adapter = QuestionAdapter(mutableListOf(), viewModel)
+        binding.recyclerAnswers.adapter = adapter
+
+
 
         binding.countdownView.apply {
             initTimer(15)

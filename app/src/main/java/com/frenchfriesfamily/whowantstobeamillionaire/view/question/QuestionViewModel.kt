@@ -17,13 +17,17 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
 
-class QuestionViewModel : BaseViewModel() {
+class QuestionViewModel : BaseViewModel(), QuestionAdapter.QuestionInteractionListener {
 
     private val repository = QuestionsRepository()
     private val disposable = CompositeDisposable()
 
     private val _questionsList = MutableLiveData<State<List<QuestionResult>?>>()
     val questionsList: LiveData<State<List<QuestionResult>?>> = _questionsList
+
+    private val _answers = MutableLiveData<List<String?>?>()
+    val answers: LiveData<List<String?>?> = _answers
+
 
     private val _question = MutableLiveData<QuestionResult?>()
     val question: LiveData<QuestionResult?> = _question
@@ -50,9 +54,15 @@ class QuestionViewModel : BaseViewModel() {
         )
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe {
+            .subscribe { it ->
                 Log.i(QUESTIONS_TAG, "request ${difficulty + 1}: got ${it.toData()?.results}")
                 if (it is State.Success) {
+                    it.toData()?.results?.map {
+                        _answers.postValue(
+                            it.incorrectAnswers?.plus(it.correctAnswer)
+
+                        )
+                    }
                     _questionsList.postValue(State.Success(it.toData()?.results))
                     _question.postValue(
                         it.toData()?.results?.get(questionCounter)

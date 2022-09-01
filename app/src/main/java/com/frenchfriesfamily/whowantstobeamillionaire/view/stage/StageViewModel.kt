@@ -4,9 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.frenchfriesfamily.whowantstobeamillionaire.model.data.StageDetails
 import com.frenchfriesfamily.whowantstobeamillionaire.model.repositories.StagesRepository
+import com.frenchfriesfamily.whowantstobeamillionaire.view.base.BaseInteractionListener
 import com.frenchfriesfamily.whowantstobeamillionaire.view.base.BaseViewModel
 
-class StageViewModel : BaseViewModel(), StageInteractionListener {
+class StageViewModel : BaseViewModel(), ProgressAdapter.StageInteractionListener {
     private val repository = StagesRepository()
 
 
