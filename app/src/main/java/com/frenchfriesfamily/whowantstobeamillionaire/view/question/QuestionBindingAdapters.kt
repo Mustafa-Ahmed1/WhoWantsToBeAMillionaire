@@ -1,5 +1,6 @@
 package com.frenchfriesfamily.whowantstobeamillionaire.view.question
 
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.androchef.happytimer.countdowntimer.CircularCountDownView

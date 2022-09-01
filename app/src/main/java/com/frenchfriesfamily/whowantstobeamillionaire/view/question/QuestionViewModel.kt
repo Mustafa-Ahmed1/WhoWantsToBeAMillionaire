@@ -62,35 +62,44 @@ class QuestionViewModel : BaseViewModel() {
                 Log.i(QUESTIONS_TAG, "request ${difficulty + 1}: got ${it.toData()?.results}")
                 if (it is State.Success) {
                     _questionsList.postValue(State.Success(it.toData()?.results))
-                    _question.postValue(
-                        it.toData()?.results?.get(questionCounter)
-                    )
+                    _question.postValue(it.toData()?.results?.get(questionCounter))
                 }
             }.add(disposable)
         setQuestion()
     }
 
+
+    fun onClickAnyOption() {
+        when(stageCounter){
+            4 -> { nextDifficulty() }
+            9 -> { nextDifficulty() }
+            14 -> { gameOver() }
+            else -> { questionCounter++ }
+        }
+        setQuestion()
+        stageCounter++
+        setStage()
+    }
+
+    private fun nextDifficulty(){
+        questionCounter = 0
+        difficulty++
+        getQuestions()
+    }
+
+    private fun gameOver(){ }
+
+    private fun setQuestion() {
+        _question.postValue(_questionsList.value?.toData()?.get(questionCounter))
+    }
     private fun setStage() {
         val stageList = stagesRepository.getStages().reversed()
         _stage.postValue(stageList[stageCounter])
     }
 
-
-    fun onClickAnyOption() {
+    fun onChangeQuestion(){
         questionCounter++
-        if (questionCounter == 5) {
-            difficulty++
-            questionCounter = 0
-            getQuestions()
-        }
         setQuestion()
-
-        stageCounter++
-        setStage()
-    }
-
-    private fun setQuestion() {
-        _question.postValue(_questionsList.value?.toData()?.get(questionCounter))
     }
 
     private fun emitTimerSeconds() {
