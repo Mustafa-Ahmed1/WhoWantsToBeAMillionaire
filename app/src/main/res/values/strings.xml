@@ -41,4 +41,7 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="loss_message">Unfortunately, you didn’t pass all questions... But you can try again and again to get the million dollars!</string>
+    <string name="loss_text">You\'ve lost</string>
+    <string name="play_again">Play again</string>
 </resources>
