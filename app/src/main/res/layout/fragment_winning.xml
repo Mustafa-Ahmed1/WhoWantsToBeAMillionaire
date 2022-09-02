@@ -17,11 +17,11 @@
             android:id="@+id/image_winner_badge"
             android:layout_width="150dp"
             android:layout_height="150dp"
-            android:layout_marginTop="32dp"
-            app:lottie_autoPlay="true"
+            android:layout_marginTop="40dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_winning"
+            app:lottie_autoPlay="true"
             app:lottie_rawRes="@raw/winnerbadge"
             app:srcCompat="@drawable/sad_face" />
 
@@ -52,9 +52,9 @@
 
         <ImageView
             android:id="@+id/button_play_again"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="28dp"
+            android:layout_width="348dp"
+            android:layout_height="48dp"
+            android:layout_marginBottom="24dp"
             app:layout_constraintBottom_toTopOf="@+id/button_back_to_home"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.507"
@@ -75,9 +75,9 @@
 
         <ImageView
             android:id="@+id/button_back_to_home"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="64dp"
+            android:layout_width="348dp"
+            android:layout_height="48dp"
+            android:layout_marginBottom="32dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
