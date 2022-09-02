@@ -51,7 +51,7 @@ class QuestionViewModel : BaseViewModel(), QuestionAdapter.QuestionInteractionLi
         get() = _seconds
 
     private var questionCounter = 0
-    var stageCounter = 0
+    var stageCounter = 1
     private var difficulty = 0
 
 

@@ -16,101 +16,67 @@
         android:background="@color/purple_dark"
         tools:context=".winning">
 
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/winner_badge"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_marginTop="@dimen/spacing_extra_large"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/winner_text"
-            app:lottie_autoPlay="true"
-            app:lottie_rawRes="@raw/winner_badge" />
-
-        <TextView
-            android:id="@+id/winner_text"
-            style="@style/TextStyle.Large"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="120dp"
-            android:text="@string/congratulations"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/winner_textView"
-            style="@style/TextStyle.Small"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/spacing_extra_large"
-            android:layout_marginTop="@dimen/spacing_extra_large"
-            android:gravity="center"
-            android:text="@string/winning_message"
-            android:textAlignment="center"
-            android:textColor="@color/green"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/winner_badge" />
-
-        <ImageView
-            android:id="@+id/play_again_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/spacing_large"
-            app:layout_constraintBottom_toTopOf="@+id/back_to_home_btn"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:srcCompat="@drawable/ic_play_again_btn" />
-
-        <TextView
-            android:id="@+id/play_again_text"
-            style="@style/TextStyle.Large"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/play_again"
-            app:layout_constraintBottom_toBottomOf="@+id/play_again_btn"
-            app:layout_constraintEnd_toEndOf="@+id/play_again_btn"
-            app:layout_constraintStart_toStartOf="@+id/play_again_btn"
-            app:layout_constraintTop_toTopOf="@+id/play_again_btn" />
-
-
-        <ImageView
-            android:id="@+id/back_to_home_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="64dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:srcCompat="@drawable/ic_back_to_home_btn" />
-
-        <TextView
-            android:id="@+id/back_to_home_text"
-            style="@style/TextStyle.Large"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/back_to_home"
-            app:layout_constraintBottom_toBottomOf="@+id/back_to_home_btn"
-            app:layout_constraintEnd_toEndOf="@+id/back_to_home_btn"
-            app:layout_constraintStart_toStartOf="@+id/back_to_home_btn"
-            app:layout_constraintTop_toTopOf="@+id/back_to_home_btn" />
-
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/screen_on_winning"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/purple_dark"
-            >
+            android:visibility="gone">
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/winner_badge"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_marginTop="@dimen/spacing_extra_large"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/winner_text"
+                app:lottie_autoPlay="true"
+                app:lottie_rawRes="@raw/winner_badge" />
+
+            <TextView
+                android:id="@+id/winner_text"
+                style="@style/TextStyle.Large"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="120dp"
+                android:text="@string/congratulations"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/winner_textView"
+                style="@style/TextStyle.Small"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/spacing_extra_large"
+                android:layout_marginTop="@dimen/spacing_extra_large"
+                android:gravity="center"
+                android:text="@string/winning_message"
+                android:textAlignment="center"
+                android:textColor="@color/green"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/winner_badge" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/screen_on_losing"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:visibility="visible">
 
             <ImageView
-                android:id="@+id/lossing_badge"
+                android:id="@+id/image_lose"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/spacing_extra_large"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/loss_text"
-                app:srcCompat="@drawable/sad_image" />
+                app:srcCompat="@drawable/image_lose"
+                tools:ignore="ContentDescription" />
 
             <TextView
                 android:id="@+id/loss_text"
@@ -136,8 +102,7 @@
                 android:textColor="@color/red"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/lossing_badge" />
-
+                app:layout_constraintTop_toBottomOf="@+id/image_lose" />
 
             <TextView
                 android:id="@+id/pass_title"
@@ -154,10 +119,11 @@
                 style="@style/TextStyle.Medium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_extra_small"
+                android:text="0"
                 android:textColor="@color/green"
                 app:layout_constraintStart_toEndOf="@+id/pass_title"
-                app:layout_constraintTop_toTopOf="@+id/pass_title"
-                tools:text="6" />
+                app:layout_constraintTop_toTopOf="@+id/pass_title" />
 
 
             <TextView
@@ -179,11 +145,54 @@
                 android:textColor="@color/green"
                 app:layout_constraintEnd_toEndOf="@+id/loss_textView"
                 app:layout_constraintTop_toBottomOf="@+id/loss_textView"
-                tools:text="7,500 $ " />
+                tools:text="0 $ " />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <ImageView
+            android:id="@+id/button_play_again"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/spacing_large"
+            app:layout_constraintBottom_toTopOf="@+id/button_back_to_home"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/ic_play_again_btn"
+            tools:ignore="ContentDescription" />
 
+        <TextView
+            android:id="@+id/play_again_text"
+            style="@style/TextStyle.Large"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/play_again"
+            app:layout_constraintBottom_toBottomOf="@+id/button_play_again"
+            app:layout_constraintEnd_toEndOf="@+id/button_play_again"
+            app:layout_constraintStart_toStartOf="@+id/button_play_again"
+            app:layout_constraintTop_toTopOf="@+id/button_play_again" />
+
+        <ImageView
+            android:id="@+id/button_back_to_home"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="64dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/ic_back_to_home_btn"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/back_to_home_text"
+            style="@style/TextStyle.Large"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/back_to_home"
+            app:layout_constraintBottom_toBottomOf="@+id/button_back_to_home"
+            app:layout_constraintEnd_toEndOf="@+id/button_back_to_home"
+            app:layout_constraintStart_toStartOf="@+id/button_back_to_home"
+            app:layout_constraintTop_toTopOf="@+id/button_back_to_home" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>
