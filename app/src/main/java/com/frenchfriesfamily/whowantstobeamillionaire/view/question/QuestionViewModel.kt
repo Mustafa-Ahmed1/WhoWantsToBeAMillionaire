@@ -10,7 +10,6 @@ import com.frenchfriesfamily.whowantstobeamillionaire.model.repositories.Questio
 import com.frenchfriesfamily.whowantstobeamillionaire.model.repositories.StagesRepository
 import com.frenchfriesfamily.whowantstobeamillionaire.model.response.QuestionResult
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.Constants
-import com.frenchfriesfamily.whowantstobeamillionaire.utils.Constants.TimeDurations.MAX_DURATION
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.Constants.TimeDurations.ZERO
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.extensions.add
 import com.frenchfriesfamily.whowantstobeamillionaire.view.base.BaseViewModel
@@ -19,7 +18,6 @@ import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
-import org.reactivestreams.Subscription
 import java.util.concurrent.TimeUnit
 
 class QuestionViewModel : BaseViewModel(), QuestionInteractionListener {
@@ -71,7 +69,7 @@ class QuestionViewModel : BaseViewModel(), QuestionInteractionListener {
         )
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .doOnComplete{
+            .doOnComplete {
                 setQuestion()
             }
             .subscribe {
@@ -135,13 +133,12 @@ class QuestionViewModel : BaseViewModel(), QuestionInteractionListener {
     }
 
     private fun emitTimerSeconds() {
-        val observable = Observable.fromIterable(_seconds.value!! downTo ZERO)
+        Observable.fromIterable(_seconds.value!! downTo ZERO)
             .zipWith(Observable.interval(1, TimeUnit.SECONDS)) { seconds, _ ->
                 _seconds.postValue(seconds)
             }
             .observeOn(AndroidSchedulers.mainThread())
-            .doOnError { Log.i(SECONDS_TAG, "Error: ${it.message}") }.subscribe()
-
+            .doOnError { Log.i(SECONDS_TAG, "Error: ${it.message}") }
     }
 
 

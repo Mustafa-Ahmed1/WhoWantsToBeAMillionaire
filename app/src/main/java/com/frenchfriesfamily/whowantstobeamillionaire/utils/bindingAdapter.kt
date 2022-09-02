@@ -9,3 +9,8 @@ import com.frenchfriesfamily.whowantstobeamillionaire.view.base.BaseAdapter
 fun <T:Any> setRecyclerItems(view: RecyclerView, items: List<T>?) {
     (view.adapter as BaseAdapter<T>?)?.setItems(items ?: emptyList())
 }
+
+@BindingAdapter(value = ["app:itemsShuffled"])
+fun <T:Any> setRecyclerItemsShuffled(view: RecyclerView, items: List<T>?) {
+    (view.adapter as BaseAdapter<T>?)?.setItems(items?.shuffled() ?: emptyList())
+}
