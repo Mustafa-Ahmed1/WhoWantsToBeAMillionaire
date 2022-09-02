@@ -3,8 +3,10 @@ package com.frenchfriesfamily.whowantstobeamillionaire.view.question
 import android.media.MediaPlayer
 import android.util.Log
 import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import com.frenchfriesfamily.whowantstobeamillionaire.R
 import com.frenchfriesfamily.whowantstobeamillionaire.databinding.FragmentQuestionBinding
+import com.frenchfriesfamily.whowantstobeamillionaire.model.AnswerState
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.Audio
 import com.frenchfriesfamily.whowantstobeamillionaire.view.base.BaseFragment
 
@@ -25,7 +27,6 @@ class QuestionFragment :
         }
 
         val adapter = QuestionAdapter(mutableListOf(), viewModel)
-        binding.recyclerAnswers.adapter = adapter
 
         binding.countdownView.apply {
             initTimer(15)
@@ -33,26 +34,46 @@ class QuestionFragment :
         }
         sound()
 
-        binding.buttonReplaceQuestion.setOnClickListener {
-            Audio.runAudio(MediaPlayer.create(this.context, R.raw.push_audio))
-        }
+        binding.apply {
+            buttonReplaceQuestion.setOnClickListener {
+                Audio.runAudio(MediaPlayer.create(context, R.raw.push_audio))
+            }
+            buttonRemoveTwoAnswers.setOnClickListener {
+                Audio.runAudio(MediaPlayer.create(context, R.raw.push_audio))
+            }
 
-        binding.buttonRemoveTwoAnswers.setOnClickListener {
-            Audio.runAudio(MediaPlayer.create(this.context, R.raw.push_audio))
+            viewModel?.question?.observe(this@QuestionFragment) {
+                binding.countdownView.apply {
+                    initTimer(15)
+                    startTimer()
+                }
+            }
         }
+        viewModel.answerState.observe(this) { state ->
+            binding.countdownView.apply {
+                if (state != AnswerState.IS_DEFAULT) {
+                    pauseTimer()
+                }
+            }
+            if (state == AnswerState.IS_WRONG) {
+                navToResultFragment()
+            }
+        }
+        viewModel.questionsList.observe(this) {
+            viewModel.changeQuestion() //TODO: remove this and replace with the correct something
+            binding.recyclerAnswers.adapter = adapter
 
+        }
         navToHomeFragment()
-        navToResultFragment()
         onClickDialogs()
     }
 
     private fun navToResultFragment() {
-        binding.buttonRemoveTwoAnswers.setOnClickListener { view ->
-            val currentStage = viewModel.getStageList()[viewModel.stageCounter - 1]
+            val currentStage = viewModel.getStageList()[viewModel.questionCounter - 2]
             val action =
                 QuestionFragmentDirections.actionQuestionFragmentToResultFragment(currentStage)
-            Navigation.findNavController(view).navigate(action)
-        }
+            Navigation.findNavController(binding.root).navigate(action)
+
     }
 
     private fun navToHomeFragment() {

@@ -53,14 +53,13 @@ class QuestionViewModel : BaseViewModel(), QuestionInteractionListener {
     val seconds: LiveData<Int>
         get() = _seconds
 
-    private var questionCounter = 0
+    var questionCounter = 0
     var stageCounter = 1
     private var difficulty = 0
 
 
     init {
         getQuestions()
-        setQuestion()
         setStage()
     }
 
@@ -72,14 +71,17 @@ class QuestionViewModel : BaseViewModel(), QuestionInteractionListener {
         )
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
+            .doOnComplete{
+                setQuestion()
+            }
             .subscribe {
                 Log.i(QUESTIONS_TAG, "request ${difficulty + 1}: got ${it.toData()?.results}")
                 if (it is State.Success) {
                     _questionsList.postValue(State.Success(it.toData()?.results))
                     _question.postValue(it.toData()?.results?.get(questionCounter))
                 }
+
             }.add(disposable)
-        setQuestion()
     }
 
 
