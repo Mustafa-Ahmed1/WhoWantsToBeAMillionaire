@@ -15,17 +15,17 @@
 
 
         <ImageView
-            android:id="@+id/winner_badge"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/image_winner_badge"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
             android:layout_marginTop="32dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/loss_text"
+            app:layout_constraintTop_toBottomOf="@+id/text_loss"
             app:srcCompat="@drawable/sad_face" />
 
         <TextView
-            android:id="@+id/loss_text"
+            android:id="@+id/text_loss"
             style="@style/TextStyle.Large"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -36,7 +36,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/text_losing_massege"
             style="@style/TextStyle.Small"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -48,33 +48,33 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/winner_badge" />
+            app:layout_constraintTop_toBottomOf="@+id/image_winner_badge" />
 
         <ImageView
-            android:id="@+id/play_again_btn"
+            android:id="@+id/button_play_again"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="28dp"
-            app:layout_constraintBottom_toTopOf="@+id/back_to_home_btn"
+            app:layout_constraintBottom_toTopOf="@+id/button_back_to_home"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.507"
             app:layout_constraintStart_toStartOf="parent"
             app:srcCompat="@drawable/ic_play_again_btn" />
 
         <TextView
-            android:id="@+id/play_again_text"
+            android:id="@+id/text_play_again"
             style="@style/TextStyle.Large"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/play_again"
-            app:layout_constraintBottom_toBottomOf="@+id/play_again_btn"
-            app:layout_constraintEnd_toEndOf="@+id/play_again_btn"
-            app:layout_constraintStart_toStartOf="@+id/play_again_btn"
-            app:layout_constraintTop_toTopOf="@+id/play_again_btn" />
+            app:layout_constraintBottom_toBottomOf="@+id/button_play_again"
+            app:layout_constraintEnd_toEndOf="@+id/button_play_again"
+            app:layout_constraintStart_toStartOf="@+id/button_play_again"
+            app:layout_constraintTop_toTopOf="@+id/button_play_again" />
 
 
         <ImageView
-            android:id="@+id/back_to_home_btn"
+            android:id="@+id/button_back_to_home"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="64dp"
@@ -84,57 +84,57 @@
             app:srcCompat="@drawable/ic_back_to_home_btn" />
 
         <TextView
-            android:id="@+id/back_to_home_text"
+            android:id="@+id/text_back_to_home"
             style="@style/TextStyle.Large"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
             android:text="Back to home"
-            app:layout_constraintBottom_toBottomOf="@+id/back_to_home_btn"
-            app:layout_constraintEnd_toEndOf="@+id/back_to_home_btn"
-            app:layout_constraintStart_toStartOf="@+id/back_to_home_btn"
-            app:layout_constraintTop_toTopOf="@+id/back_to_home_btn" />
+            app:layout_constraintBottom_toBottomOf="@+id/button_back_to_home"
+            app:layout_constraintEnd_toEndOf="@+id/button_back_to_home"
+            app:layout_constraintStart_toStartOf="@+id/button_back_to_home"
+            app:layout_constraintTop_toTopOf="@+id/button_back_to_home" />
 
         <TextView
-            android:id="@+id/pass_title"
+            android:id="@+id/text_pass_title"
             style="@style/TextStyle.Medium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:text="You passed "
-            app:layout_constraintStart_toStartOf="@+id/textView4"
-            app:layout_constraintTop_toBottomOf="@+id/textView4" />
+            app:layout_constraintStart_toStartOf="@+id/text_losing_massege"
+            app:layout_constraintTop_toBottomOf="@+id/text_losing_massege" />
 
         <TextView
-            android:id="@+id/pass_result"
+            android:id="@+id/text_pass_result"
             style="@style/TextStyle.Medium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/green"
-            app:layout_constraintStart_toEndOf="@+id/pass_title"
-            app:layout_constraintTop_toTopOf="@+id/pass_title"
+            app:layout_constraintStart_toEndOf="@+id/text_pass_title"
+            app:layout_constraintTop_toTopOf="@+id/text_pass_title"
             tools:text="6" />
 
 
         <TextView
-            android:id="@+id/got_title"
+            android:id="@+id/text_got_title"
             style="@style/TextStyle.Medium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="4dp"
             android:text="And got "
-            app:layout_constraintEnd_toStartOf="@+id/got_result"
-            app:layout_constraintTop_toTopOf="@+id/got_result" />
+            app:layout_constraintEnd_toStartOf="@+id/text_got_result"
+            app:layout_constraintTop_toTopOf="@+id/text_got_result" />
 
         <TextView
-            android:id="@+id/got_result"
+            android:id="@+id/text_got_result"
             style="@style/TextStyle.Medium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:textColor="@color/green"
-            app:layout_constraintEnd_toEndOf="@+id/textView4"
-            app:layout_constraintTop_toBottomOf="@+id/textView4"
+            app:layout_constraintEnd_toEndOf="@+id/text_losing_massege"
+            app:layout_constraintTop_toBottomOf="@+id/text_losing_massege"
             tools:text="7,500 $ " />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
