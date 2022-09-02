@@ -45,4 +45,8 @@
     <string name="loss_text">You\'ve lost</string>
     <string name="play_again">Play again</string>
     <string name="winning_message">You’ve answered all questions, and earned 1,000,000 $!</string>
+    <string name="congratulations">Congratulations!</string>
+    <string name="back_to_home">Back to home</string>
+    <string name="you_passed">You passed</string>
+    <string name="and_got">And got</string>
 </resources>
