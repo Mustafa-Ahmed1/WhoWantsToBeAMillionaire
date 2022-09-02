@@ -5,7 +5,7 @@ import android.util.Log
 import androidx.navigation.Navigation
 import com.frenchfriesfamily.whowantstobeamillionaire.R
 import com.frenchfriesfamily.whowantstobeamillionaire.databinding.FragmentQuestionBinding
-import com.frenchfriesfamily.whowantstobeamillionaire.utils.*
+import com.frenchfriesfamily.whowantstobeamillionaire.utils.Audio
 import com.frenchfriesfamily.whowantstobeamillionaire.view.base.BaseFragment
 
 class QuestionFragment :
@@ -42,13 +42,15 @@ class QuestionFragment :
         }
 
         navToHomeFragment()
-        navToStageFragment()
+        navToResultFragment()
         onClickDialogs()
     }
 
-    private fun navToStageFragment() {
+    private fun navToResultFragment() {
         binding.buttonRemoveTwoAnswers.setOnClickListener { view ->
-            val action = QuestionFragmentDirections.actionQuestionFragmentToStageFragment()
+            val currentStage = viewModel.getStageList()[viewModel.stageCounter - 1]
+            val action =
+                QuestionFragmentDirections.actionQuestionFragmentToResultFragment(currentStage)
             Navigation.findNavController(view).navigate(action)
         }
     }

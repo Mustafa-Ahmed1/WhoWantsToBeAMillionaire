@@ -47,7 +47,12 @@
         android:id="@+id/resultFragment"
         android:name="com.frenchfriesfamily.whowantstobeamillionaire.view.result.ResultFragment"
         android:label="ResultFragment"
-        tools:layout="@layout/fragment_result" />
+        tools:layout="@layout/fragment_result" >
+        <argument
+            android:name="stageDetails"
+            app:argType="com.frenchfriesfamily.whowantstobeamillionaire.model.data.StageDetails"
+            app:nullable="true" />
+    </fragment>
 
     <fragment
         android:id="@+id/stageFragment"

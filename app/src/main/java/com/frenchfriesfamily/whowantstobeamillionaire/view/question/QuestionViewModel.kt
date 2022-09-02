@@ -51,7 +51,7 @@ class QuestionViewModel : BaseViewModel(), QuestionAdapter.QuestionInteractionLi
         get() = _seconds
 
     private var questionCounter = 0
-    private var stageCounter = 0
+    var stageCounter = 0
     private var difficulty = 0
 
 
@@ -107,8 +107,10 @@ class QuestionViewModel : BaseViewModel(), QuestionAdapter.QuestionInteractionLi
             ?.plus(_questionsList.value?.toData()?.get(questionCounter)?.correctAnswer))
     }
 
+    fun getStageList() = stagesRepository.getStages().reversed()
+
     private fun setStage() {
-        val stageList = stagesRepository.getStages().reversed()
+        val stageList = getStageList()
         _stage.postValue(stageList[stageCounter])
     }
 
