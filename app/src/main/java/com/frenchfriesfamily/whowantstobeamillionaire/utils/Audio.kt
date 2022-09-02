@@ -4,6 +4,7 @@ import android.content.Context
 import android.media.AudioManager
 import android.media.MediaPlayer
 
+//TODO: fix audio problems
 object Audio {
     var muteState = 100
     fun runAudio(mediaPlayer : MediaPlayer){

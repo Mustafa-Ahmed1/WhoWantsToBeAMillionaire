@@ -20,8 +20,7 @@ abstract class BaseDialogFragment<VDB : ViewDataBinding, VM : ViewModel>(private
     lateinit var viewModel: VM
     abstract val viewModelClass: Class<VM>
     private lateinit var _binding: VDB
-    val binding: VDB
-        get() = _binding
+    val binding: VDB get() = _binding
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,8 +28,10 @@ abstract class BaseDialogFragment<VDB : ViewDataBinding, VM : ViewModel>(private
         savedInstanceState: Bundle?
     ): View? {
         initViewModel()
+
         isCancelable = false
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
         _binding = DataBindingUtil.inflate(inflater, layoutId, container, false)
         _binding.apply {
             setVariable(BR.viewModel, this@BaseDialogFragment.viewModel)

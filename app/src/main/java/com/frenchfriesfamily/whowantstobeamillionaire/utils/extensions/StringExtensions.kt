@@ -15,6 +15,7 @@ import com.frenchfriesfamily.whowantstobeamillionaire.utils.Constants.Punctuatio
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.Constants.Punctuations.U_UMLAUT_SYMBOL
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.Constants.Punctuations.U_UMLAUT_TEXT
 
+//TODO : use simple function from kotlin language instead of manual replacement
 fun String.replacePunctuationTextsWithSymbols() =
     this.replace(QUOTATION_TEXT, QUOTATION_SYMBOL)
         .replace(APOSTROPHE_TEXT, APOSTROPHE_SYMBOL)

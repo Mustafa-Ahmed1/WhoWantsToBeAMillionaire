@@ -1,5 +1,6 @@
 package com.frenchfriesfamily.whowantstobeamillionaire.utils
 
+//TODO : clean up the mess
 object Constants {
     const val BASE_URL = "https://opentdb.com/"
 

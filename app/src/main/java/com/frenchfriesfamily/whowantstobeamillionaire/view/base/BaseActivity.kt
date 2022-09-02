@@ -1,21 +1,22 @@
 package com.frenchfriesfamily.whowantstobeamillionaire.view.base
 
 import android.os.Bundle
-import android.view.LayoutInflater
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import androidx.viewbinding.ViewBinding
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 
-abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
+abstract class BaseActivity<VDB : ViewDataBinding>(private val layoutId: Int) :
+    AppCompatActivity() {
 
-    abstract val bindingInflater: (LayoutInflater) -> VB
-    private lateinit var _binding: ViewBinding
-    protected val binding: VB
-        get() = _binding as VB
+
+    private lateinit var _binding: VDB
+    protected val binding: VDB get() = _binding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        _binding = bindingInflater(layoutInflater)
-        setContentView(_binding.root)
+        Log.i("HELLOWESAM", "hey wesam I'm here!")
+        _binding = DataBindingUtil.setContentView(this@BaseActivity, layoutId)
     }
 
 }

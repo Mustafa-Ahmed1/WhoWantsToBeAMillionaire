@@ -11,7 +11,7 @@ class StageFragment :
     override val viewModelClass: Class<StageViewModel> = StageViewModel::class.java
 
     override fun setUp() {
-        val adapter = ProgressAdapter(mutableListOf(), viewModel)
+        val adapter = StagesAdapter(mutableListOf(), viewModel)
         binding.recyclerStages.adapter = adapter
 
         navToQuestionFragment()

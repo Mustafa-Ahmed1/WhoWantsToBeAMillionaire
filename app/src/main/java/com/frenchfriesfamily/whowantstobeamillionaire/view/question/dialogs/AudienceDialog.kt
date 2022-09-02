@@ -1,7 +1,8 @@
-package com.frenchfriesfamily.whowantstobeamillionaire.view.dialogs
+package com.frenchfriesfamily.whowantstobeamillionaire.view.question.dialogs
 
 import android.media.MediaPlayer
 import android.util.Log
+import androidx.core.content.ContextCompat
 import com.frenchfriesfamily.whowantstobeamillionaire.R
 import com.frenchfriesfamily.whowantstobeamillionaire.databinding.DialogAudienceBinding
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.Audio
@@ -12,15 +13,15 @@ import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
+import kotlin.collections.ArrayList
+import kotlin.random.Random
 
+//TODO: clean up the mess
 class AudienceDialog :
     BaseDialogFragment<DialogAudienceBinding, QuestionViewModel>(R.layout.dialog_audience) {
     override val viewModelClass = QuestionViewModel::class.java
 
     // y-axis bar chart data
-    private val optionsValidityPercent = listOf<Float>(1f, 3f, 2f, .5f)
-    private lateinit var barEntries: ArrayList<BarEntry>
-    private lateinit var barDataSet: BarDataSet
     private lateinit var barData: BarData
 
     override fun onStart() {
@@ -30,27 +31,57 @@ class AudienceDialog :
             Log.i("TEST", "dismissing")
             this.dismiss()
         }
+        viewModel.question.observe(this) {
+            val barEntries = calculateProbabilityOfAnswers(it?.correctAnswer)
+            val barDataSet = setBarDataSet(barEntries)
 
-        setBarEntries(optionsValidityPercent)
-        setBarDataSet(barEntries)
-        barData = BarData(Constants.ANSWER_OPTIONS, barDataSet)
-        setBarChartData(barData)
-    }
+            barData = BarData(Constants.ANSWER_OPTIONS, barDataSet)
+            setBarChartData(barData)
 
-    private fun setBarEntries(answerPercent: List<Float>) {
-        barEntries = ArrayList()
-        answerPercent.indices.forEach { i ->
-            barEntries.add(BarEntry(optionsValidityPercent[i], i))
         }
     }
 
-    private fun setBarDataSet(barEntry: ArrayList<BarEntry>) {
-        barDataSet = BarDataSet(barEntry, "")
+
+    //TODO: return different probability for right answer based on difficulity
+    // if answer is difficult, the probability that the audince will get it will be lower
+    // just create an enum and use it and change 1f to smaller number
+    // if the number is higher, the less the probability of the correct answer
+
+    //TODO: if possible, try to use binding adapters
+    private fun calculateProbabilityOfAnswers(correctAnswer: String?): ArrayList<BarEntry> {
+        val barEntries = arrayListOf<BarEntry>()
+        viewModel.answers.observe(this) {
+            val probabilites = mutableListOf<Float>()
+
+            // TODO: implement algorithm in better way
+            it?.forEach {  answer ->
+                if (answer == correctAnswer) {
+                    probabilites.add(Random.nextFloat() + 1f)
+                } else {
+                    probabilites.add(Random.nextFloat())
+                }
+            }
+
+            val sum = probabilites.sum()
+
+            probabilites.forEachIndexed { index, probability ->
+                val barEntry = BarEntry(probability/sum*100,index)
+                barEntries.add(barEntry)
+
+            }
+
+        }
+        return barEntries
+    }
+
+    private fun setBarDataSet(barEntries: ArrayList<BarEntry>): BarDataSet {
+        val barDataSet = BarDataSet(barEntries, "")
         barDataSet.apply {
-            color = (resources.getColor(R.color.purple_lightest))
-            valueTextColor = (resources.getColor(R.color.purple_lightest))
-            valueTextSize = 15f
+            color = ContextCompat.getColor(requireContext(), R.color.purple_lightest)
+            valueTextColor = ContextCompat.getColor(requireContext(), R.color.purple_lightest)
+            valueTextSize = 10f
         }
+        return barDataSet
     }
 
     private fun setBarChartData(barData: BarData) {

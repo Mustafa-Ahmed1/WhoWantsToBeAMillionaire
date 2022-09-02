@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/questionFragment">
 
     <fragment
         android:id="@+id/homeFragment"
@@ -58,15 +58,17 @@
         android:id="@+id/stageFragment"
         android:name="com.frenchfriesfamily.whowantstobeamillionaire.view.stage.StageFragment"
         android:label="StageScreen"
-        tools:layout="@layout/fragment_stage" />
+        tools:layout="@layout/fragment_stage" >
+
+    </fragment>
 
     <dialog
         android:id="@+id/audienceDialog"
-        android:name="com.frenchfriesfamily.whowantstobeamillionaire.view.dialogs.AudienceDialog"
+        android:name="com.frenchfriesfamily.whowantstobeamillionaire.view.question.dialogs.AudienceDialog"
         android:label="AudienceDialog" />
     <dialog
         android:id="@+id/friendDialog"
-        android:name="com.frenchfriesfamily.whowantstobeamillionaire.view.dialogs.FriendDialog"
+        android:name="com.frenchfriesfamily.whowantstobeamillionaire.view.question.dialogs.FriendDialog"
         android:label="FriendDialog" />
 
 </navigation>

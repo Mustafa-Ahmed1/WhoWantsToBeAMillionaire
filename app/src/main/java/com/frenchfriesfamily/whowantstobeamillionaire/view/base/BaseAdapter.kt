@@ -1,11 +1,9 @@
 package com.frenchfriesfamily.whowantstobeamillionaire.view.base
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.frenchfriesfamily.whowantstobeamillionaire.BR
 
@@ -14,13 +12,11 @@ abstract class BaseAdapter<T>(
     private val _listener: BaseInteractionListener
 ) : RecyclerView.Adapter<BaseAdapter.BaseViewHolder>() {
 
-    val items get() = _items
+    val items = _items
     abstract val layoutID: Int
 
     fun setItems(newItems: List<T>) {
-        val changResult = DiffUtil.calculateDiff(AdapterDiffUtil(_items, newItems))
         _items = newItems
-        changResult.dispatchUpdatesTo(this)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder =

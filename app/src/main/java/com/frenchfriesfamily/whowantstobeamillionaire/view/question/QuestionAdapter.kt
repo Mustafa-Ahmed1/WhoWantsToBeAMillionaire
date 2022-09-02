@@ -11,19 +11,6 @@ class QuestionAdapter(
 
     override val layoutID = R.layout.item_answer
 
-    init {
-        setHasStableIds(true)
-    }
-
-    override fun getItemId(position: Int): Long {
-        return position.toLong()
-    }
-
-    override fun getItemViewType(position: Int): Int {
-        return position
-    }
-
-
 }
 
 

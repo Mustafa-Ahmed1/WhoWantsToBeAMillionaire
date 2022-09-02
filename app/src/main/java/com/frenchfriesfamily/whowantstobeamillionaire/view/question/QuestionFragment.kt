@@ -3,13 +3,13 @@ package com.frenchfriesfamily.whowantstobeamillionaire.view.question
 import android.media.MediaPlayer
 import android.util.Log
 import androidx.navigation.Navigation
-import androidx.navigation.findNavController
 import com.frenchfriesfamily.whowantstobeamillionaire.R
 import com.frenchfriesfamily.whowantstobeamillionaire.databinding.FragmentQuestionBinding
 import com.frenchfriesfamily.whowantstobeamillionaire.model.AnswerState
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.Audio
 import com.frenchfriesfamily.whowantstobeamillionaire.view.base.BaseFragment
 
+//TODO: clean up the messy mess
 class QuestionFragment :
     BaseFragment<FragmentQuestionBinding, QuestionViewModel>(R.layout.fragment_question) {
 
@@ -27,6 +27,8 @@ class QuestionFragment :
         }
 
         val adapter = QuestionAdapter(mutableListOf(), viewModel)
+        viewModel.changeQuestion() //TODO: remove this and replace with the correct something
+        binding.recyclerAnswers.adapter = adapter
 
         binding.countdownView.apply {
             initTimer(15)
@@ -60,10 +62,9 @@ class QuestionFragment :
             }
         }
         viewModel.questionsList.observe(this) {
-            viewModel.changeQuestion() //TODO: remove this and replace with the correct something
-            binding.recyclerAnswers.adapter = adapter
 
         }
+
         navToHomeFragment()
         onClickDialogs()
     }
@@ -112,6 +113,5 @@ class QuestionFragment :
             }
         }
     }
-
 
 }

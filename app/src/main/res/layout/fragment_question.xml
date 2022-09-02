@@ -146,6 +146,7 @@
         <TextView
             android:id="@+id/text_question_reward"
             style="@style/TextStyle.Large"
+            android:onClick="@{() -> viewModel.changeQuestion()}"
             android:layout_width="192dp"
             android:layout_height="48dp"
             android:layout_marginTop="@dimen/spacing_extra_large"
@@ -212,7 +213,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_large"
             android:layout_marginEnd="@dimen/spacing_medium"
-            app:itemsShuffled="@{viewModel.answers}"
+            app:items="@{viewModel.answers}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/A"

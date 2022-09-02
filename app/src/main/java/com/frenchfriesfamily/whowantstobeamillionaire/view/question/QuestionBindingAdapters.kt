@@ -15,7 +15,7 @@ import com.frenchfriesfamily.whowantstobeamillionaire.utils.extensions.getColor
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.extensions.replacePunctuationTextsWithSymbols
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.extensions.setBackground
 
-
+//TODO: improve question binding adapters
 @BindingAdapter(value = ["app:colorStateWithTimer"])
 fun changeTextColorDependingOnTime(view: TextView, remainingSeconds: Int?) {
     when (remainingSeconds) {
@@ -56,7 +56,7 @@ fun isHelped(view: ImageView, Clicked: Boolean) {
     if (!Clicked) {
         view.apply {
             isClickable = Clicked
-            setAlpha(80)
+            alpha = 0.8f
         }
     }
 }
@@ -75,5 +75,3 @@ fun changeAnswerStyle(view: View, state: AnswerState?) {
 fun disableViewBasedOnState(view: View, state: AnswerState?) {
     view.isClickable = state == AnswerState.IS_DEFAULT
 }
-
-

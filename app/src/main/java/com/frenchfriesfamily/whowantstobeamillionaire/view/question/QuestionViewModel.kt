@@ -6,9 +6,8 @@ import androidx.lifecycle.MutableLiveData
 import com.frenchfriesfamily.whowantstobeamillionaire.model.AnswerState
 import com.frenchfriesfamily.whowantstobeamillionaire.model.data.StageDetails
 import com.frenchfriesfamily.whowantstobeamillionaire.model.network.State
-import com.frenchfriesfamily.whowantstobeamillionaire.model.repositories.QuestionsRepository
-import com.frenchfriesfamily.whowantstobeamillionaire.model.repositories.StagesRepository
-import com.frenchfriesfamily.whowantstobeamillionaire.model.response.QuestionResult
+import com.frenchfriesfamily.whowantstobeamillionaire.model.repositories.StagesRepositoryImpl
+import com.frenchfriesfamily.whowantstobeamillionaire.model.response.Question
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.Constants
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.Constants.TimeDurations.ZERO
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.extensions.add
@@ -16,21 +15,19 @@ import com.frenchfriesfamily.whowantstobeamillionaire.view.base.BaseViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
-import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
 
+//TODO: I don't think you can clean this mess easily, use Boy Scout Rule whenever you work
 class QuestionViewModel : BaseViewModel(), QuestionInteractionListener {
 
-    private val questionsRepository = QuestionsRepository()
-    private val stagesRepository = StagesRepository()
-    private val disposable = CompositeDisposable()
+    private val stagesRepository = StagesRepositoryImpl()
 
-    private val _questionsList = MutableLiveData<State<List<QuestionResult>?>>()
-    val questionsList: LiveData<State<List<QuestionResult>?>> = _questionsList
+    private val _questionsList = MutableLiveData<State<List<Question>?>>()
+    val questionsList: LiveData<State<List<Question>?>> = _questionsList
 
-    private val _question = MutableLiveData<QuestionResult?>()
-    val question: LiveData<QuestionResult?> = _question
+    private val _question = MutableLiveData<Question?>()
+    val question: LiveData<Question?> = _question
 
     private val _answers = MutableLiveData<List<String?>?>()
     val answers: LiveData<List<String?>?> = _answers
@@ -58,11 +55,12 @@ class QuestionViewModel : BaseViewModel(), QuestionInteractionListener {
 
     init {
         getQuestions()
+        setQuestion()
         setStage()
     }
 
     private fun getQuestions() {
-        questionsRepository.getQuestioneList(
+        gameRepository.getQuestions(
             Constants.AMOUNT_OF_QUESTION,
             Constants.DIFFICULTY[difficulty],
             Constants.QUESTION_TYPE
@@ -107,7 +105,8 @@ class QuestionViewModel : BaseViewModel(), QuestionInteractionListener {
     private fun setQuestion() {
         val question = _questionsList.value?.toData()?.get(questionCounter)
         _question.postValue(question)
-        _answers.postValue(question?.incorrectAnswers?.plus(question.correctAnswer))
+        val questionValue = _question.value
+        _answers.postValue(questionValue?.incorrectAnswers?.plus(questionValue.correctAnswer)?.shuffled())
     }
 
     fun getStageList() = stagesRepository.getStages().reversed()
@@ -139,19 +138,10 @@ class QuestionViewModel : BaseViewModel(), QuestionInteractionListener {
             }
             .observeOn(AndroidSchedulers.mainThread())
             .doOnError { Log.i(SECONDS_TAG, "Error: ${it.message}") }
+            .subscribe()
+            .add(disposable)
     }
 
-
-    override fun onCleared() {
-        super.onCleared()
-        disposable.dispose()
-    }
-
-
-    companion object {
-        const val QUESTIONS_TAG = "QUESTIONS_TAG"
-        const val SECONDS_TAG = "SECONDS_TAG"
-    }
 
 
     private val _answerState = MutableLiveData<AnswerState>()
@@ -179,6 +169,11 @@ class QuestionViewModel : BaseViewModel(), QuestionInteractionListener {
             _answerState.postValue(AnswerState.IS_WRONG)
             changeQuestion()
         }
+    }
+
+    companion object {
+        const val QUESTIONS_TAG = "QUESTIONS_TAG"
+        const val SECONDS_TAG = "SECONDS_TAG"
     }
 
 }

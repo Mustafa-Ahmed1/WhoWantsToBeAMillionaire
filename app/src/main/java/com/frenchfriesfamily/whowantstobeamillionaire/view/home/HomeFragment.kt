@@ -9,7 +9,7 @@ import com.frenchfriesfamily.whowantstobeamillionaire.utils.*
 import com.frenchfriesfamily.whowantstobeamillionaire.view.base.BaseFragment
 import kotlin.system.exitProcess
 
-
+// TODO: clean the mess
 class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(R.layout.fragment_home) {
 
     override val viewModelClass = HomeViewModel::class.java

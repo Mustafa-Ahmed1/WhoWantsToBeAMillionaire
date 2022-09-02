@@ -1,7 +1,7 @@
 package com.frenchfriesfamily.whowantstobeamillionaire.view.base
 
-import android.media.MediaPlayer
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,8 +18,7 @@ abstract class BaseFragment<VDB : ViewDataBinding, VM : ViewModel>(private val l
     lateinit var viewModel: VM
     abstract val viewModelClass: Class<VM>
     private lateinit var _binding: VDB
-    val binding: VDB
-        get() = _binding
+    val binding: VDB get() = _binding
 
     override fun onCreateView(
         inflater: LayoutInflater,
