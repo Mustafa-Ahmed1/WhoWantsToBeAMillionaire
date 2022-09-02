@@ -41,7 +41,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(R.layout.f
     }
 
     private fun sound() {
-        mediaPlayer = MediaPlayer.create(this.context, R.raw.audio)
+        mediaPlayer = MediaPlayer.create(this.context, R.raw.home_audio)
         binding.buttonSound.setOnClickListener {
             if (Audio.muteState == 100) {
                 binding.buttonSound.setText(R.string.sounds_off)
