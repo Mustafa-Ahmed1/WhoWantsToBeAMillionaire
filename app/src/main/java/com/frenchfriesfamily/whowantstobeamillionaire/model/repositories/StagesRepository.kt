@@ -19,7 +19,8 @@ class StagesRepository {
         StageDetails("$ 3,000", 4),
         StageDetails("$ 2,000", 3),
         StageDetails("$ 1,000", 2),
-        StageDetails("$ 500", 1)
+        StageDetails("$ 500", 1),
+        StageDetails("$ 0", 0)
     )
 
 }

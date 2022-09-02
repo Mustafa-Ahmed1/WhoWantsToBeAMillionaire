@@ -54,7 +54,7 @@ class QuestionViewModel : BaseViewModel(), QuestionInteractionListener {
         get() = _seconds
 
     private var questionCounter = 0
-    private var stageCounter = 0
+    var stageCounter = 1
     private var difficulty = 0
 
 
@@ -110,8 +110,10 @@ class QuestionViewModel : BaseViewModel(), QuestionInteractionListener {
         _answers.postValue(question?.incorrectAnswers?.plus(question.correctAnswer))
     }
 
+    fun getStageList() = stagesRepository.getStages().reversed()
+
     private fun setStage() {
-        val stageList = stagesRepository.getStages().reversed()
+        val stageList = getStageList()
         _stage.postValue(stageList[stageCounter])
     }
 

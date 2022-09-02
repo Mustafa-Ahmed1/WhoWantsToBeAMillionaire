@@ -13,60 +13,186 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/purple_dark">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="8dp"
-            android:gravity="center_horizontal"
-            android:text="this is result fragment"
-            android:textColor="@color/white_87"
-            android:textSize="25sp" />
+        android:background="@color/purple_dark"
+        tools:context=".winning">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/bar_chart_container"
+            android:id="@+id/screen_on_winning"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="@dimen/spacing_large"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_height="match_parent"
+            android:visibility="gone">
 
-            <com.github.mikephil.charting.charts.BarChart
-                android:id="@+id/bar_chart"
-                android:layout_width="match_parent"
-                android:layout_height="400dp"
-                android:layout_marginHorizontal="32dp"
-                android:layout_marginVertical="24dp"
-                app:layout_constraintBottom_toBottomOf="parent"
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/winner_badge"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_marginTop="@dimen/spacing_extra_large"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/winner_text"
+                app:lottie_autoPlay="true"
+                app:lottie_rawRes="@raw/winner_badge" />
+
+            <TextView
+                android:id="@+id/winner_text"
+                style="@style/TextStyle.Large"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="120dp"
+                android:text="@string/congratulations"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <TextView
+                android:id="@+id/winner_textView"
+                style="@style/TextStyle.Small"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/spacing_extra_large"
+                android:layout_marginTop="@dimen/spacing_extra_large"
+                android:gravity="center"
+                android:text="@string/winning_message"
+                android:textAlignment="center"
+                android:textColor="@color/green"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/winner_badge" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@{viewModel.question.questionText}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/bar_chart_container"
-            tools:text="convert to data binding before testing" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/screen_on_losing"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:visibility="visible">
 
-        <Button
+            <ImageView
+                android:id="@+id/image_lose"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_extra_large"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/loss_text"
+                app:srcCompat="@drawable/image_lose"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/loss_text"
+                style="@style/TextStyle.Large"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="120dp"
+                android:text="@string/loss_text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/loss_textView"
+                style="@style/TextStyle.Small"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/spacing_extra_large"
+                android:layout_marginTop="@dimen/spacing_medium"
+                android:gravity="center"
+                android:text="@string/loss_message"
+                android:textAlignment="center"
+                android:textColor="@color/red"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/image_lose" />
+
+            <TextView
+                android:id="@+id/pass_title"
+                style="@style/TextStyle.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_large"
+                android:text="@string/you_passed"
+                app:layout_constraintStart_toStartOf="@+id/loss_textView"
+                app:layout_constraintTop_toBottomOf="@+id/loss_textView" />
+
+            <TextView
+                android:id="@+id/text_level"
+                style="@style/TextStyle.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_extra_small"
+                android:text="0"
+                android:textColor="@color/green"
+                app:layout_constraintStart_toEndOf="@+id/pass_title"
+                app:layout_constraintTop_toTopOf="@+id/pass_title" />
+
+
+            <TextView
+                android:id="@+id/got_title"
+                style="@style/TextStyle.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/spacing_extra_small"
+                android:text="@string/and_got"
+                app:layout_constraintEnd_toStartOf="@+id/text_money"
+                app:layout_constraintTop_toTopOf="@+id/text_money" />
+
+            <TextView
+                android:id="@+id/text_money"
+                style="@style/TextStyle.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_large"
+                android:textColor="@color/green"
+                app:layout_constraintEnd_toEndOf="@+id/loss_textView"
+                app:layout_constraintTop_toBottomOf="@+id/loss_textView"
+                tools:text="0 $ " />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ImageView
+            android:id="@+id/button_play_again"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:onClick="@{() -> viewModel.testData()}"
-            android:text="click me to test the data"
+            android:layout_marginBottom="@dimen/spacing_large"
+            app:layout_constraintBottom_toTopOf="@+id/button_back_to_home"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
+            app:srcCompat="@drawable/ic_play_again_btn"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/play_again_text"
+            style="@style/TextStyle.Large"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/play_again"
+            app:layout_constraintBottom_toBottomOf="@+id/button_play_again"
+            app:layout_constraintEnd_toEndOf="@+id/button_play_again"
+            app:layout_constraintStart_toStartOf="@+id/button_play_again"
+            app:layout_constraintTop_toTopOf="@+id/button_play_again" />
+
+        <ImageView
+            android:id="@+id/button_back_to_home"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="64dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/ic_back_to_home_btn"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/back_to_home_text"
+            style="@style/TextStyle.Large"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/back_to_home"
+            app:layout_constraintBottom_toBottomOf="@+id/button_back_to_home"
+            app:layout_constraintEnd_toEndOf="@+id/button_back_to_home"
+            app:layout_constraintStart_toStartOf="@+id/button_back_to_home"
+            app:layout_constraintTop_toTopOf="@+id/button_back_to_home" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>
