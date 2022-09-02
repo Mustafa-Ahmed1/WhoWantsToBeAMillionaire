@@ -19,10 +19,10 @@ import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
+import org.reactivestreams.Subscription
 import java.util.concurrent.TimeUnit
-import kotlin.coroutines.coroutineContext
 
-class QuestionViewModel : BaseViewModel(), QuestionAdapter.QuestionInteractionListener {
+class QuestionViewModel : BaseViewModel(), QuestionInteractionListener {
 
     private val questionsRepository = QuestionsRepository()
     private val stagesRepository = StagesRepository()
@@ -49,7 +49,7 @@ class QuestionViewModel : BaseViewModel(), QuestionAdapter.QuestionInteractionLi
     private val _audienceHelp = MutableLiveData(true)
     val audienceHelp: LiveData<Boolean> = _audienceHelp
 
-    private val _seconds = MutableLiveData<Int>()
+    private val _seconds = MutableLiveData(15)
     val seconds: LiveData<Int>
         get() = _seconds
 
@@ -60,7 +60,7 @@ class QuestionViewModel : BaseViewModel(), QuestionAdapter.QuestionInteractionLi
 
     init {
         getQuestions()
-        emitTimerSeconds()
+        setQuestion()
         setStage()
     }
 
@@ -83,7 +83,8 @@ class QuestionViewModel : BaseViewModel(), QuestionAdapter.QuestionInteractionLi
     }
 
 
-    fun onClickAnyOption() {
+    fun changeQuestion() {
+        emitTimerSeconds()
         when (stageCounter) {
             4 -> nextDifficulty()
             9 -> nextDifficulty()
@@ -104,10 +105,9 @@ class QuestionViewModel : BaseViewModel(), QuestionAdapter.QuestionInteractionLi
     private fun gameOver() {}
 
     private fun setQuestion() {
-        _question.postValue(_questionsList.value?.toData()?.get(questionCounter))
-
-        _answers.postValue(_questionsList.value?.toData()?.get(questionCounter)?.incorrectAnswers
-            ?.plus(_questionsList.value?.toData()?.get(questionCounter)?.correctAnswer))
+        val question = _questionsList.value?.toData()?.get(questionCounter)
+        _question.postValue(question)
+        _answers.postValue(question?.incorrectAnswers?.plus(question.correctAnswer))
     }
 
     private fun setStage() {
@@ -130,18 +130,14 @@ class QuestionViewModel : BaseViewModel(), QuestionAdapter.QuestionInteractionLi
         _audienceHelp.postValue(audience)
     }
 
-
     private fun emitTimerSeconds() {
-        Observable.fromIterable(MAX_DURATION downTo ZERO)
+        val observable = Observable.fromIterable(_seconds.value!! downTo ZERO)
             .zipWith(Observable.interval(1, TimeUnit.SECONDS)) { seconds, _ ->
                 _seconds.postValue(seconds)
             }
             .observeOn(AndroidSchedulers.mainThread())
-            .doOnError { Log.i(SECONDS_TAG, "Error: ${it.message}") }
-            .doOnComplete {
-                // TODO: should go to result screen when time's up
-            }
-            .subscribe()
+            .doOnError { Log.i(SECONDS_TAG, "Error: ${it.message}") }.subscribe()
+
     }
 
 
@@ -157,22 +153,31 @@ class QuestionViewModel : BaseViewModel(), QuestionAdapter.QuestionInteractionLi
     }
 
 
-    val answerState = MutableLiveData<AnswerState>(AnswerState.IS_DEFAULT)
+    private val _answerState = MutableLiveData<AnswerState>()
+    val answerState: LiveData<AnswerState>
+        get() = _answerState
 
-    private val correctAnswer = "Answer"
-
-    private fun isAnswerCorrect(answer:String) =
-        if(answer == correctAnswer) answerState.postValue(AnswerState.IS_CORRECT)
-        else answerState.postValue(AnswerState.IS_WRONG)
 
     override fun onClickAnswer(answerText: String) {
-        answerState.postValue(AnswerState.IS_PRESSED)
+        _answerState.value = AnswerState.IS_PRESSED
+
         Single.just(answerText).delay(3000, TimeUnit.MILLISECONDS)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe { _ ->
-                isAnswerCorrect(answerText)
+                checkAnswerState(answerText)
+                changeQuestion()
             }
+    }
+
+    private fun checkAnswerState(answer: String) {
+        if (answer == _question.value?.correctAnswer) {
+            _answerState.postValue(AnswerState.IS_CORRECT)
+            changeQuestion()
+        } else {
+            _answerState.postValue(AnswerState.IS_WRONG)
+            changeQuestion()
+        }
     }
 
 }

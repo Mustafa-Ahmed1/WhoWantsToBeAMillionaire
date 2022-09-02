@@ -4,6 +4,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
+import androidx.lifecycle.findViewTreeLifecycleOwner
 import com.androchef.happytimer.countdowntimer.CircularCountDownView
 import com.frenchfriesfamily.whowantstobeamillionaire.R
 import com.frenchfriesfamily.whowantstobeamillionaire.model.AnswerState
@@ -12,10 +13,8 @@ import com.frenchfriesfamily.whowantstobeamillionaire.utils.Constants.TimeDurati
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.Constants.TimeDurations.ZERO
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.extensions.getColor
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.extensions.replacePunctuationTextsWithSymbols
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.core.Single
-import io.reactivex.rxjava3.schedulers.Schedulers
-import java.util.concurrent.TimeUnit
+import com.frenchfriesfamily.whowantstobeamillionaire.utils.extensions.setBackground
+
 
 @BindingAdapter(value = ["app:colorStateWithTimer"])
 fun changeTextColorDependingOnTime(view: TextView, remainingSeconds: Int?) {
@@ -54,7 +53,7 @@ fun replacePunctuationTextsWithSymbols(view: TextView, text: String?) {
 
 @BindingAdapter(value = ["app:isHelped"])
 fun isHelped(view: ImageView, Clicked: Boolean) {
-    if (!Clicked){
+    if (!Clicked) {
         view.apply {
             isClickable = Clicked
             setAlpha(80)
@@ -63,12 +62,18 @@ fun isHelped(view: ImageView, Clicked: Boolean) {
 }
 
 @BindingAdapter(value = ["answerState"])
-fun changeAnswerStyle(view: View, state:AnswerState){
-            when(state){
-                AnswerState.IS_PRESSED -> view.setBackgroundResource(R.drawable.rectangle_answer_pressed)
-                AnswerState.IS_CORRECT -> view.setBackgroundResource(R.drawable.rectangle_answer_correct)
-                AnswerState.IS_WRONG -> view.setBackgroundResource(R.drawable.rectangle_answer_wrong)
-                else -> view.setBackgroundResource(R.drawable.rectangle_answer_default)
-            }
+fun changeAnswerStyle(view: View, state: AnswerState?) {
+    when (state) {
+        AnswerState.IS_PRESSED -> view.setBackground(R.drawable.rectangle_answer_pressed)
+        AnswerState.IS_CORRECT -> view.setBackground(R.drawable.rectangle_answer_correct)
+        AnswerState.IS_WRONG -> view.setBackground(R.drawable.rectangle_answer_wrong)
+        else -> view.setBackground(R.drawable.rectangle_answer_default)
+    }
 }
+
+@BindingAdapter(value = ["app:disableViewBasedOnState"])
+fun disableViewBasedOnState(view: View, state: AnswerState?) {
+    view.isClickable = state == AnswerState.IS_DEFAULT
+}
+
 

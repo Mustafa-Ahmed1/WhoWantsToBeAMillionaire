@@ -23,10 +23,6 @@ class QuestionAdapter(
         return position
     }
 
-    interface QuestionInteractionListener : BaseInteractionListener {
-        fun onClickAnswer(answerText: String)
-
-    }
 
 }
 
