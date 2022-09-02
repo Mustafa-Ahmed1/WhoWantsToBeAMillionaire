@@ -21,12 +21,12 @@
             app:lottie_autoPlay="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_loss"
+            app:layout_constraintTop_toBottomOf="@+id/text_winning"
             app:lottie_rawRes="@raw/winnerbadge"
             app:srcCompat="@drawable/sad_face" />
 
         <TextView
-            android:id="@+id/text_loss"
+            android:id="@+id/text_winning"
             style="@style/TextStyle.Large"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -37,7 +37,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/text_losing_massege"
+            android:id="@+id/text_winning_massege"
             style="@style/TextStyle.Small"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

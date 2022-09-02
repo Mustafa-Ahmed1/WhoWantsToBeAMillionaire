@@ -21,11 +21,11 @@
             android:layout_marginTop="32dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_loss"
+            app:layout_constraintTop_toBottomOf="@+id/text_winning"
             app:srcCompat="@drawable/sad_face" />
 
         <TextView
-            android:id="@+id/text_loss"
+            android:id="@+id/text_winning"
             style="@style/TextStyle.Large"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -36,7 +36,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/text_losing_massege"
+            android:id="@+id/text_winning_massege"
             style="@style/TextStyle.Small"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -102,8 +102,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:text="You passed "
-            app:layout_constraintStart_toStartOf="@+id/text_losing_massege"
-            app:layout_constraintTop_toBottomOf="@+id/text_losing_massege" />
+            app:layout_constraintStart_toStartOf="@+id/text_winning_massege"
+            app:layout_constraintTop_toBottomOf="@+id/text_winning_massege" />
 
         <TextView
             android:id="@+id/text_pass_result"
@@ -133,8 +133,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:textColor="@color/green"
-            app:layout_constraintEnd_toEndOf="@+id/text_losing_massege"
-            app:layout_constraintTop_toBottomOf="@+id/text_losing_massege"
+            app:layout_constraintEnd_toEndOf="@+id/text_winning_massege"
+            app:layout_constraintTop_toBottomOf="@+id/text_winning_massege"
             tools:text="7,500 $ " />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
