@@ -10,13 +10,11 @@ abstract class BaseViewModel : ViewModel() {
 
     protected val disposable = CompositeDisposable()
 
-    protected val gameRepository = GameRepositoryImpl(
-    API.apiService,
-    StateWrapper()
-    )
+    protected val gameRepository = GameRepositoryImpl(API.apiService, StateWrapper())
 
     override fun onCleared() {
         super.onCleared()
         disposable.dispose()
     }
+
 }

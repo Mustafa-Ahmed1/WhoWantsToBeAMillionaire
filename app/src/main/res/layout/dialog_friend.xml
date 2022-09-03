@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.frenchfriesfamily.whowantstobeamillionaire.view.question.QuestionViewModel" />
+            type="com.frenchfriesfamily.whowantstobeamillionaire.view.game.GameViewModel" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -67,7 +67,7 @@
                     style="@style/TextStyle.Medium"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="B"
+                    tools:text="B"
                     android:textColor="@color/yellow_light"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@+id/text_i_think"

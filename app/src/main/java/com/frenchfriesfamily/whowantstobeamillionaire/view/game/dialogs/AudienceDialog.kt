@@ -1,4 +1,4 @@
-package com.frenchfriesfamily.whowantstobeamillionaire.view.question.dialogs
+package com.frenchfriesfamily.whowantstobeamillionaire.view.game.dialogs
 
 import android.media.MediaPlayer
 import android.util.Log
@@ -8,7 +8,7 @@ import com.frenchfriesfamily.whowantstobeamillionaire.databinding.DialogAudience
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.Audio
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.Constants
 import com.frenchfriesfamily.whowantstobeamillionaire.view.base.BaseDialogFragment
-import com.frenchfriesfamily.whowantstobeamillionaire.view.question.QuestionViewModel
+import com.frenchfriesfamily.whowantstobeamillionaire.view.game.GameViewModel
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
@@ -18,8 +18,8 @@ import kotlin.random.Random
 
 //TODO: clean up the mess
 class AudienceDialog :
-    BaseDialogFragment<DialogAudienceBinding, QuestionViewModel>(R.layout.dialog_audience) {
-    override val viewModelClass = QuestionViewModel::class.java
+    BaseDialogFragment<DialogAudienceBinding, GameViewModel>(R.layout.dialog_audience) {
+    override val viewModelClass = GameViewModel::class.java
 
     // y-axis bar chart data
     private lateinit var barData: BarData

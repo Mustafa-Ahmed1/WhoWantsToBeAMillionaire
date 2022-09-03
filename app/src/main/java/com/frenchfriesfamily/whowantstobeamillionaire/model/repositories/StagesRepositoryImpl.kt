@@ -3,7 +3,7 @@ package com.frenchfriesfamily.whowantstobeamillionaire.model.repositories
 import com.frenchfriesfamily.whowantstobeamillionaire.model.data.StageDetails
 
 
-class StagesRepositoryImpl: StagesRepository {
+class StagesRepositoryImpl : StagesRepository {
 
     override fun getStages() = listOf(
         StageDetails("$ 1,000,000", 15),

@@ -1,6 +1,5 @@
 package com.frenchfriesfamily.whowantstobeamillionaire.model.network
 
-import android.util.Log
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
 import retrofit2.Response

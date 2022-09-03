@@ -1,16 +1,17 @@
-package com.frenchfriesfamily.whowantstobeamillionaire.view.question.dialogs
+package com.frenchfriesfamily.whowantstobeamillionaire.view.game.dialogs
 
 import android.media.MediaPlayer
 import com.frenchfriesfamily.whowantstobeamillionaire.R
 import com.frenchfriesfamily.whowantstobeamillionaire.databinding.DialogFriendBinding
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.Audio
 import com.frenchfriesfamily.whowantstobeamillionaire.view.base.BaseDialogFragment
-import com.frenchfriesfamily.whowantstobeamillionaire.view.question.QuestionViewModel
+import com.frenchfriesfamily.whowantstobeamillionaire.view.game.GameViewModel
 import kotlin.random.Random
 
 class FriendDialog :
-    BaseDialogFragment<DialogFriendBinding, QuestionViewModel>(R.layout.dialog_friend) {
-    override val viewModelClass = QuestionViewModel::class.java
+    BaseDialogFragment<DialogFriendBinding, GameViewModel>(R.layout.dialog_friend) {
+
+    override val viewModelClass = GameViewModel::class.java
 
     override fun onStart() {
         super.onStart()
@@ -41,4 +42,5 @@ class FriendDialog :
         }
         return friendAnswer
     }
+
 }

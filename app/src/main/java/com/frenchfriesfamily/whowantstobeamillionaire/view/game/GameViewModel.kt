@@ -1,9 +1,9 @@
-package com.frenchfriesfamily.whowantstobeamillionaire.view.question
+package com.frenchfriesfamily.whowantstobeamillionaire.view.game
 
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.frenchfriesfamily.whowantstobeamillionaire.model.AnswerState
+import com.frenchfriesfamily.whowantstobeamillionaire.view.game.enums.AnswerState
 import com.frenchfriesfamily.whowantstobeamillionaire.model.data.StageDetails
 import com.frenchfriesfamily.whowantstobeamillionaire.model.network.State
 import com.frenchfriesfamily.whowantstobeamillionaire.model.repositories.StagesRepositoryImpl
@@ -19,7 +19,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
 
 //TODO: I don't think you can clean this mess easily, use Boy Scout Rule whenever you work
-class QuestionViewModel : BaseViewModel(), QuestionInteractionListener {
+class GameViewModel : BaseViewModel(), GameInteractionListener {
 
     private val stagesRepository = StagesRepositoryImpl()
 
@@ -45,8 +45,7 @@ class QuestionViewModel : BaseViewModel(), QuestionInteractionListener {
     val audienceHelp: LiveData<Boolean> = _audienceHelp
 
     private val _seconds = MutableLiveData(15)
-    val seconds: LiveData<Int>
-        get() = _seconds
+    val seconds: LiveData<Int> = _seconds
 
     var questionCounter = 0
     var stageCounter = 1
@@ -58,6 +57,7 @@ class QuestionViewModel : BaseViewModel(), QuestionInteractionListener {
         setQuestion()
         setStage()
     }
+
 
     private fun getQuestions() {
         gameRepository.getQuestions(
@@ -106,7 +106,9 @@ class QuestionViewModel : BaseViewModel(), QuestionInteractionListener {
         val question = _questionsList.value?.toData()?.get(questionCounter)
         _question.postValue(question)
         val questionValue = _question.value
-        _answers.postValue(questionValue?.incorrectAnswers?.plus(questionValue.correctAnswer)?.shuffled())
+        _answers.postValue(
+            questionValue?.incorrectAnswers?.plus(questionValue.correctAnswer)?.shuffled()
+        )
     }
 
     fun getStageList() = stagesRepository.getStages().reversed()
@@ -141,7 +143,6 @@ class QuestionViewModel : BaseViewModel(), QuestionInteractionListener {
             .subscribe()
             .add(disposable)
     }
-
 
 
     private val _answerState = MutableLiveData<AnswerState>()

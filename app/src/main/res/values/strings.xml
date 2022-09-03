@@ -21,8 +21,16 @@
     <string name="current_stage">Current Stage</string>
     <string name="tap_to_continue">Tap to continue</string>
     <!-- result screen -->
+    <string name="losing_message">Unfortunately, you didn’t pass all questions… But you can try again and again to get the million dollars!</string>
+    <string name="you_ve_lost">You\'ve lost</string>
+    <string name="play_again">Play again</string>
+    <string name="winning_message">You’ve answered all questions, and earned 1,000,000 $!</string>
+    <string name="congratulations">Congratulations!</string>
+    <string name="back_to_home">Back to home</string>
+    <string name="you_passed">You passed</string>
+    <string name="and_got">And got</string>
     <!-- error screen -->
-    <!-- other strings -->
+    <!-- dialogs -->
     <string name="i_think_the_answer_is">I think the answer is</string>
     <string name="calling_a_friend">Calling a Friend…</string>
     <string name="are_you_sure_n_your_progress_won_t_be_saved">Are you sure?\n your progress won’t be saved.</string>
@@ -30,23 +38,5 @@
     <string name="ok">OK</string>
     <string name="stay">Stay</string>
     <string name="leave">leave</string>
-    <string name="title_activity_splash_screen">SplashScreen</string>
-    <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
-
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="loss_message">Unfortunately, you didn’t pass all questions... But you can try again and again to get the million dollars!</string>
-    <string name="loss_text">You\'ve lost</string>
-    <string name="play_again">Play again</string>
-    <string name="winning_message">You’ve answered all questions, and earned 1,000,000 $!</string>
-    <string name="congratulations">Congratulations!</string>
-    <string name="back_to_home">Back to home</string>
-    <string name="you_passed">You passed</string>
-    <string name="and_got">And got</string>
+    <!-- other strings -->
 </resources>

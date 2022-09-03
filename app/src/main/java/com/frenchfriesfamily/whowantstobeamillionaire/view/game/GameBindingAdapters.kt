@@ -1,13 +1,12 @@
-package com.frenchfriesfamily.whowantstobeamillionaire.view.question
+package com.frenchfriesfamily.whowantstobeamillionaire.view.game
 
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
-import androidx.lifecycle.findViewTreeLifecycleOwner
 import com.androchef.happytimer.countdowntimer.CircularCountDownView
 import com.frenchfriesfamily.whowantstobeamillionaire.R
-import com.frenchfriesfamily.whowantstobeamillionaire.model.AnswerState
+import com.frenchfriesfamily.whowantstobeamillionaire.view.game.enums.AnswerState
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.Constants.TimeDurations.FIRST_THIRD_DURATION
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.Constants.TimeDurations.SECOND_THIRD_DURATION
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.Constants.TimeDurations.ZERO
@@ -51,8 +50,8 @@ fun replacePunctuationTextsWithSymbols(view: TextView, text: String?) {
     view.text = text?.replacePunctuationTextsWithSymbols()
 }
 
-@BindingAdapter(value = ["app:isHelped"])
-fun isHelped(view: ImageView, Clicked: Boolean) {
+@BindingAdapter(value = ["app:isUsed"])
+fun isUsed(view: ImageView, Clicked: Boolean) {
     if (!Clicked) {
         view.apply {
             isClickable = Clicked
@@ -61,7 +60,7 @@ fun isHelped(view: ImageView, Clicked: Boolean) {
     }
 }
 
-@BindingAdapter(value = ["answerState"])
+@BindingAdapter(value = ["app:answerState"])
 fun changeAnswerStyle(view: View, state: AnswerState?) {
     when (state) {
         AnswerState.IS_PRESSED -> view.setBackground(R.drawable.rectangle_answer_pressed)

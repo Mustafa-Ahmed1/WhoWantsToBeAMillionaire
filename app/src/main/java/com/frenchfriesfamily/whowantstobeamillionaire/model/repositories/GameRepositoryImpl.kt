@@ -10,7 +10,7 @@ import io.reactivex.rxjava3.core.Observable
 class GameRepositoryImpl(
     private val api: GameService,
     private val stateWrapper: StateWrapper
-): GameRepository {
+) : GameRepository {
     override fun getQuestions(
         amount: Int,
         level: String?,

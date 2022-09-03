@@ -21,6 +21,7 @@ class StageViewModel : BaseViewModel(), StagesAdapter.StageInteractionListener {
         val stageList = repository.getStages()
         _stages.postValue(stageList)
     }
+
 }
 
 

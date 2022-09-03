@@ -1,19 +1,19 @@
-package com.frenchfriesfamily.whowantstobeamillionaire.view.question
+package com.frenchfriesfamily.whowantstobeamillionaire.view.game
 
 import android.media.MediaPlayer
 import android.util.Log
 import androidx.navigation.Navigation
 import com.frenchfriesfamily.whowantstobeamillionaire.R
-import com.frenchfriesfamily.whowantstobeamillionaire.databinding.FragmentQuestionBinding
-import com.frenchfriesfamily.whowantstobeamillionaire.model.AnswerState
+import com.frenchfriesfamily.whowantstobeamillionaire.databinding.FragmentGameBinding
+import com.frenchfriesfamily.whowantstobeamillionaire.view.game.enums.AnswerState
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.Audio
 import com.frenchfriesfamily.whowantstobeamillionaire.view.base.BaseFragment
 
 //TODO: clean up the messy mess
-class QuestionFragment :
-    BaseFragment<FragmentQuestionBinding, QuestionViewModel>(R.layout.fragment_question) {
+class GameFragment :
+    BaseFragment<FragmentGameBinding, GameViewModel>(R.layout.fragment_game) {
 
-    override val viewModelClass = QuestionViewModel::class.java
+    override val viewModelClass = GameViewModel::class.java
 
     override fun setUp() {
         Audio.runAudio(MediaPlayer.create(this.context, R.raw.question))
@@ -26,7 +26,7 @@ class QuestionFragment :
             Log.i("kkk", it?.question.toString())
         }
 
-        val adapter = QuestionAdapter(mutableListOf(), viewModel)
+        val adapter = GameAdapter(mutableListOf(), viewModel)
         viewModel.changeQuestion() //TODO: remove this and replace with the correct something
         binding.recyclerAnswers.adapter = adapter
 
@@ -44,7 +44,7 @@ class QuestionFragment :
                 Audio.runAudio(MediaPlayer.create(context, R.raw.push_audio))
             }
 
-            viewModel?.question?.observe(this@QuestionFragment) {
+            viewModel?.question?.observe(this@GameFragment) {
                 binding.countdownView.apply {
                     initTimer(15)
                     startTimer()
@@ -70,10 +70,10 @@ class QuestionFragment :
     }
 
     private fun navToResultFragment() {
-            val currentStage = viewModel.getStageList()[viewModel.questionCounter - 2]
-            val action =
-                QuestionFragmentDirections.actionQuestionFragmentToResultFragment(currentStage)
-            Navigation.findNavController(binding.root).navigate(action)
+        val currentStage = viewModel.getStageList()[viewModel.questionCounter - 2]
+        val action =
+            GameFragmentDirections.actionQuestionFragmentToResultFragment(currentStage)
+        Navigation.findNavController(binding.root).navigate(action)
 
     }
 
@@ -89,12 +89,12 @@ class QuestionFragment :
             buttonCall.setOnClickListener { view ->
                 Audio.runAudio(MediaPlayer.create(activity?.baseContext, R.raw.push_audio))
                 viewModel?.onCallFriend(false)
-                val action = QuestionFragmentDirections.actionQuestionFragmentToFriendDialog()
+                val action = GameFragmentDirections.actionQuestionFragmentToFriendDialog()
                 Navigation.findNavController(view).navigate(action)
             }
             buttonAudience.setOnClickListener { view ->
                 viewModel?.onAskAudience(false)
-                val action = QuestionFragmentDirections.actionQuestionFragmentToAudienceDialog()
+                val action = GameFragmentDirections.actionQuestionFragmentToAudienceDialog()
                 Navigation.findNavController(view).navigate(action)
                 Audio.runAudio(MediaPlayer.create(activity?.baseContext, R.raw.push_audio))
             }

@@ -5,7 +5,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.frenchfriesfamily.whowantstobeamillionaire.view.question.QuestionViewModel" />
+            type="com.frenchfriesfamily.whowantstobeamillionaire.view.game.GameViewModel" />
     </data>
 
     <com.google.android.material.card.MaterialCardView

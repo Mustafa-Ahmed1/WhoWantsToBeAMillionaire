@@ -11,33 +11,33 @@
 
         <variable
             name="listener"
-            type="com.frenchfriesfamily.whowantstobeamillionaire.view.question.QuestionInteractionListener" />
+            type="com.frenchfriesfamily.whowantstobeamillionaire.view.game.GameInteractionListener" />
 
         <variable
             name="viewModel"
-            type="com.frenchfriesfamily.whowantstobeamillionaire.view.question.QuestionViewModel" />
+            type="com.frenchfriesfamily.whowantstobeamillionaire.view.game.GameViewModel" />
 
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:onClick="@{()-> listener.onClickAnswer(item)}"
-        app:disableViewBasedOnState="@{viewModel.answerState}"
         android:layout_height="44dp"
-        android:layout_marginBottom="@dimen/spacing_medium">
+        android:layout_marginBottom="@dimen/spacing_medium"
+        android:onClick="@{()-> listener.onClickAnswer(item)}"
+        app:disableViewBasedOnState="@{viewModel.answerState}">
 
         <ImageView
             android:id="@+id/imageView"
+            app:answerState="@{viewModel.answerState}"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"
-            tools:src="@drawable/rectangle_answer_default"
-            answerState="@{viewModel.answerState}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="ContentDescription" />
+            tools:ignore="ContentDescription"
+            tools:src="@drawable/rectangle_answer_default" />
 
         <TextView
             android:id="@+id/text_answer_chooses"
@@ -47,6 +47,7 @@
             android:layout_gravity="center"
             android:ellipsize="end"
             android:text="@{item}"
+            app:formatTextBySymbols="@{viewModel.question.question}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

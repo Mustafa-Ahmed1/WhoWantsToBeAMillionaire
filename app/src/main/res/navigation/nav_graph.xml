@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/questionFragment">
+    app:startDestination="@id/homeFragment">
 
     <fragment
         android:id="@+id/homeFragment"
@@ -12,17 +12,17 @@
         tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_homeFragment_to_questionFragment"
-            app:destination="@id/questionFragment" />
+            app:destination="@id/gameFragment" />
         <action
             android:id="@+id/action_homeFragment_to_aboutFragment"
             app:destination="@id/aboutFragment" />
     </fragment>
 
     <fragment
-        android:id="@+id/questionFragment"
-        android:name="com.frenchfriesfamily.whowantstobeamillionaire.view.question.QuestionFragment"
-        android:label="QuestionFragment"
-        tools:layout="@layout/fragment_question">
+        android:id="@+id/gameFragment"
+        android:name="com.frenchfriesfamily.whowantstobeamillionaire.view.game.GameFragment"
+        android:label="GameFragment"
+        tools:layout="@layout/fragment_game">
         <action
             android:id="@+id/action_questionFragment_to_resultFragment"
             app:destination="@id/resultFragment" />
@@ -64,11 +64,11 @@
 
     <dialog
         android:id="@+id/audienceDialog"
-        android:name="com.frenchfriesfamily.whowantstobeamillionaire.view.question.dialogs.AudienceDialog"
+        android:name="com.frenchfriesfamily.whowantstobeamillionaire.view.game.dialogs.AudienceDialog"
         android:label="AudienceDialog" />
     <dialog
         android:id="@+id/friendDialog"
-        android:name="com.frenchfriesfamily.whowantstobeamillionaire.view.question.dialogs.FriendDialog"
+        android:name="com.frenchfriesfamily.whowantstobeamillionaire.view.game.dialogs.FriendDialog"
         android:label="FriendDialog" />
 
 </navigation>
