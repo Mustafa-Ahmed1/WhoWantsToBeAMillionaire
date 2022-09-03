@@ -1,4 +1,4 @@
-package com.frenchfriesfamily.whowantstobeamillionaire.utils
+package com.frenchfriesfamily.whowantstobeamillionaire.utils.bindingAdapters
 
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
