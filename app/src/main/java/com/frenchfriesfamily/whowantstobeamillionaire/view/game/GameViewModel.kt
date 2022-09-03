@@ -3,7 +3,6 @@ package com.frenchfriesfamily.whowantstobeamillionaire.view.game
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.frenchfriesfamily.whowantstobeamillionaire.view.game.enums.AnswerState
 import com.frenchfriesfamily.whowantstobeamillionaire.model.data.StageDetails
 import com.frenchfriesfamily.whowantstobeamillionaire.model.network.State
 import com.frenchfriesfamily.whowantstobeamillionaire.model.repositories.StagesRepositoryImpl
@@ -12,6 +11,7 @@ import com.frenchfriesfamily.whowantstobeamillionaire.utils.Constants
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.Constants.TimeDurations.ZERO
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.extensions.add
 import com.frenchfriesfamily.whowantstobeamillionaire.view.base.BaseViewModel
+import com.frenchfriesfamily.whowantstobeamillionaire.view.game.enums.AnswerState
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
@@ -54,7 +54,6 @@ class GameViewModel : BaseViewModel(), GameInteractionListener {
 
     init {
         getQuestions()
-        setQuestion()
         setStage()
     }
 
@@ -67,14 +66,17 @@ class GameViewModel : BaseViewModel(), GameInteractionListener {
         )
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .doOnComplete {
-                setQuestion()
-            }
             .subscribe {
                 Log.i(QUESTIONS_TAG, "request ${difficulty + 1}: got ${it.toData()?.results}")
                 if (it is State.Success) {
                     _questionsList.postValue(State.Success(it.toData()?.results))
                     _question.postValue(it.toData()?.results?.get(questionCounter))
+
+                    _answers.postValue(
+                        it.toData()?.results?.get(questionCounter)?.incorrectAnswers?.plus(
+                            it.toData()?.results?.get(questionCounter)?.correctAnswer
+                        )
+                    )
                 }
 
             }.add(disposable)
@@ -145,15 +147,14 @@ class GameViewModel : BaseViewModel(), GameInteractionListener {
     }
 
 
-    private val _answerState = MutableLiveData<AnswerState>()
-    val answerState: LiveData<AnswerState>
-        get() = _answerState
+    private val _answerState = MutableLiveData(AnswerState.IS_DEFAULT)
+    val answerState: LiveData<AnswerState> = _answerState
 
 
     override fun onClickAnswer(answerText: String) {
         _answerState.value = AnswerState.IS_PRESSED
 
-        Single.just(answerText).delay(3000, TimeUnit.MILLISECONDS)
+        Single.just(answerText).delay(2000, TimeUnit.MILLISECONDS)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe { _ ->

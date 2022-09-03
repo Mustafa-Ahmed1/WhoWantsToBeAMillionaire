@@ -5,9 +5,9 @@ import android.util.Log
 import androidx.navigation.Navigation
 import com.frenchfriesfamily.whowantstobeamillionaire.R
 import com.frenchfriesfamily.whowantstobeamillionaire.databinding.FragmentGameBinding
-import com.frenchfriesfamily.whowantstobeamillionaire.view.game.enums.AnswerState
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.Audio
 import com.frenchfriesfamily.whowantstobeamillionaire.view.base.BaseFragment
+import com.frenchfriesfamily.whowantstobeamillionaire.view.game.enums.AnswerState
 
 //TODO: clean up the messy mess
 class GameFragment :
@@ -27,7 +27,7 @@ class GameFragment :
         }
 
         val adapter = GameAdapter(mutableListOf(), viewModel)
-        viewModel.changeQuestion() //TODO: remove this and replace with the correct something
+
         binding.recyclerAnswers.adapter = adapter
 
         binding.countdownView.apply {
@@ -70,7 +70,7 @@ class GameFragment :
     }
 
     private fun navToResultFragment() {
-        val currentStage = viewModel.getStageList()[viewModel.questionCounter - 2]
+        val currentStage = viewModel.getStageList()[viewModel.questionCounter]
         val action =
             GameFragmentDirections.actionQuestionFragmentToResultFragment(currentStage)
         Navigation.findNavController(binding.root).navigate(action)

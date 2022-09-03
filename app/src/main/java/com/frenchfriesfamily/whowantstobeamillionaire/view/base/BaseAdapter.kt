@@ -17,6 +17,7 @@ abstract class BaseAdapter<T>(
 
     fun setItems(newItems: List<T>) {
         _items = newItems
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder =
