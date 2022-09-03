@@ -23,7 +23,7 @@ object API {
         .client(client)
         .build()
 
-    val apiService = retrofit.create(GameService::class.java)
+    val apiService: GameService = retrofit.create(GameService::class.java)
 
 }
 
