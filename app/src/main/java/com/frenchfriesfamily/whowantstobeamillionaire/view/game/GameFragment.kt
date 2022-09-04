@@ -6,18 +6,21 @@ import androidx.navigation.Navigation
 import com.frenchfriesfamily.whowantstobeamillionaire.R
 import com.frenchfriesfamily.whowantstobeamillionaire.databinding.FragmentGameBinding
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.Audio
+import com.frenchfriesfamily.whowantstobeamillionaire.view.base.AudioViewModel
 import com.frenchfriesfamily.whowantstobeamillionaire.view.base.BaseFragment
 import com.frenchfriesfamily.whowantstobeamillionaire.view.game.enums.AnswerState
 
 //TODO: clean up the messy mess
 class GameFragment :
-    BaseFragment<FragmentGameBinding, GameViewModel>(R.layout.fragment_game) {
-
+    BaseFragment<FragmentGameBinding, GameViewModel,AudioViewModel>(R.layout.fragment_game) {
     override val viewModelClass = GameViewModel::class.java
+    override val audioViewModelClass = AudioViewModel::class.java
+
+    private val audioInGameFragment = Audio()
 
     override fun setUp() {
-        Audio.runAudio(MediaPlayer.create(this.context, R.raw.question))
-        if (Audio.muteState == 100) {
+        audioInGameFragment.runAudio(MediaPlayer.create(this.context, R.raw.question))
+        if (audioInGameFragment.muteState) {
             binding.buttonSounds.setImageResource(R.drawable.ic_sounds_on)
         } else {
             binding.buttonSounds.setImageResource(R.drawable.ic_sounds_off)
@@ -38,10 +41,10 @@ class GameFragment :
 
         binding.apply {
             buttonReplaceQuestion.setOnClickListener {
-                Audio.runAudio(MediaPlayer.create(context, R.raw.push_audio))
+                audioInGameFragment.runAudio(MediaPlayer.create(context, R.raw.push_audio))
             }
             buttonRemoveTwoAnswers.setOnClickListener {
-                Audio.runAudio(MediaPlayer.create(context, R.raw.push_audio))
+                audioInGameFragment.runAudio(MediaPlayer.create(context, R.raw.push_audio))
             }
 
             viewModel?.question?.observe(this@GameFragment) {
@@ -87,7 +90,12 @@ class GameFragment :
     private fun onClickDialogs() {
         binding.apply {
             buttonCall.setOnClickListener { view ->
-                Audio.runAudio(MediaPlayer.create(activity?.baseContext, R.raw.push_audio))
+                audioInGameFragment.runAudio(
+                    MediaPlayer.create(
+                        activity?.baseContext,
+                        R.raw.push_audio
+                    )
+                )
                 viewModel?.onCallFriend(false)
                 val action = GameFragmentDirections.actionQuestionFragmentToFriendDialog()
                 Navigation.findNavController(view).navigate(action)
@@ -96,22 +104,35 @@ class GameFragment :
                 viewModel?.onAskAudience(false)
                 val action = GameFragmentDirections.actionQuestionFragmentToAudienceDialog()
                 Navigation.findNavController(view).navigate(action)
-                Audio.runAudio(MediaPlayer.create(activity?.baseContext, R.raw.push_audio))
+                audioInGameFragment.runAudio(
+                    MediaPlayer.create(
+                        activity?.baseContext,
+                        R.raw.push_audio
+                    )
+                )
             }
         }
     }
 
     private fun sound() {
         binding.buttonSounds.setOnClickListener {
-            if (Audio.muteState == 100) {
-                binding.buttonSounds.setImageResource(R.drawable.ic_sounds_on)
-                Audio.muteAudio(requireContext())
-            } else {
+            if (audioInGameFragment.muteState) {
                 binding.buttonSounds.setImageResource(R.drawable.ic_sounds_off)
-                Audio.unmuteAudio(requireContext())
-                Audio.runAudio(MediaPlayer.create(activity?.baseContext, R.raw.question))
+                audioInGameFragment.muteAudio(requireContext())
+            } else {
+                binding.buttonSounds.setImageResource(R.drawable.ic_sounds_on)
+                audioInGameFragment.unMuteAudio(requireContext())
+
+                audioInGameFragment.runAudio(
+                    MediaPlayer.create(
+                        activity?.baseContext,
+                        R.raw.question
+                    )
+                )
             }
         }
     }
+
+
 
 }

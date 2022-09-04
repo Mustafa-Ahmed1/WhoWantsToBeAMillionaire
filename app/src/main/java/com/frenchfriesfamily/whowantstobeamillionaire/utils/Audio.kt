@@ -5,22 +5,26 @@ import android.media.AudioManager
 import android.media.MediaPlayer
 
 //TODO: fix audio problems
-object Audio {
-    var muteState = 100
-    fun runAudio(mediaPlayer : MediaPlayer){
+class Audio {
+    var muteState = true
+
+    fun runAudio(mediaPlayer: MediaPlayer) {
         mediaPlayer.start()
     }
-    fun pauseAudio(mediaPlayer : MediaPlayer){
+
+    fun pauseAudio(mediaPlayer: MediaPlayer) {
         mediaPlayer.pause()
     }
-    fun muteAudio(context: Context){
-        var mAudioManager = context.getSystemService(AudioManager::class.java)
+
+    fun muteAudio(context: Context) {
+        val mAudioManager = context.getSystemService(AudioManager::class.java)
         mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC, 0, 0)
-        muteState = 0
+        muteState = false
     }
-    fun unmuteAudio(context: Context){
-        var mAudioManager = context.getSystemService(AudioManager::class.java)
+
+    fun unMuteAudio(context: Context) {
+        val mAudioManager = context.getSystemService(AudioManager::class.java)
         mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC, 100, 0)
-        muteState = 100
+        muteState = true
     }
 }

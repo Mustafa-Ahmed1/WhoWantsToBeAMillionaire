@@ -10,13 +10,13 @@ import kotlin.random.Random
 
 class FriendDialog :
     BaseDialogFragment<DialogFriendBinding, GameViewModel>(R.layout.dialog_friend) {
-
+    private val audioInFriendDialog =Audio()
     override val viewModelClass = GameViewModel::class.java
 
     override fun onStart() {
         super.onStart()
         binding.buttonOk.setOnClickListener {
-            Audio.runAudio(MediaPlayer.create(this.context, R.raw.push_audio))
+            audioInFriendDialog.runAudio(MediaPlayer.create(this.context, R.raw.push_audio))
             dismiss()
         }
         viewModel.question.observe(this) {
@@ -28,17 +28,17 @@ class FriendDialog :
     private fun calculateProbabilityOfAnswers(correctAnswer: String?): Char {
         var friendAnswer = 'A'
         viewModel.answers.observe(this) {
-            val probabilites = mutableListOf<Float>()
+            val probabilities = mutableListOf<Float>()
 
             it?.forEach { answer ->
                 if (answer == correctAnswer) {
-                    probabilites.add(Random.nextFloat() + 1f)
+                    probabilities.add(Random.nextFloat() + 1f)
                 } else {
-                    probabilites.add(Random.nextFloat())
+                    probabilities.add(Random.nextFloat())
                 }
             }
-            val maximumValue = probabilites.max()
-            friendAnswer = (probabilites.indexOf(maximumValue) + 65).toChar()
+            val maximumValue = probabilities.max()
+            friendAnswer = (probabilities.indexOf(maximumValue) + 65).toChar()
         }
         return friendAnswer
     }

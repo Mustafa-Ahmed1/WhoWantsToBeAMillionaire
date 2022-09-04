@@ -20,14 +20,14 @@ import kotlin.random.Random
 class AudienceDialog :
     BaseDialogFragment<DialogAudienceBinding, GameViewModel>(R.layout.dialog_audience) {
     override val viewModelClass = GameViewModel::class.java
-
+    private val audioInAudienceDialog = Audio()
     // y-axis bar chart data
     private lateinit var barData: BarData
 
     override fun onStart() {
         super.onStart()
         binding.buttonOk.setOnClickListener {
-            Audio.runAudio(MediaPlayer.create(this.context, R.raw.push_audio))
+            audioInAudienceDialog.runAudio(MediaPlayer.create(this.context, R.raw.push_audio))
             Log.i("TEST", "dismissing")
             this.dismiss()
         }
@@ -51,20 +51,20 @@ class AudienceDialog :
     private fun calculateProbabilityOfAnswers(correctAnswer: String?): ArrayList<BarEntry> {
         val barEntries = arrayListOf<BarEntry>()
         viewModel.answers.observe(this) {
-            val probabilites = mutableListOf<Float>()
+            val probabilities = mutableListOf<Float>()
 
             // TODO: implement algorithm in better way
             it?.forEach {  answer ->
                 if (answer == correctAnswer) {
-                    probabilites.add(Random.nextFloat() + 1f)
+                    probabilities.add(Random.nextFloat() + 1f)
                 } else {
-                    probabilites.add(Random.nextFloat())
+                    probabilities.add(Random.nextFloat())
                 }
             }
 
-            val sum = probabilites.sum()
+            val sum = probabilities.sum()
 
-            probabilites.forEachIndexed { index, probability ->
+            probabilities.forEachIndexed { index, probability ->
                 val barEntry = BarEntry(probability/sum*100,index)
                 barEntries.add(barEntry)
 

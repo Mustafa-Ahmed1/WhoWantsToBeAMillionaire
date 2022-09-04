@@ -11,11 +11,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.frenchfriesfamily.whowantstobeamillionaire.BR
 
-abstract class BaseFragment<VDB : ViewDataBinding, VM : ViewModel>(private val layoutId: Int) :
+abstract class BaseFragment<VDB : ViewDataBinding, VM : ViewModel, AVM : ViewModel>(private val layoutId: Int) :
     Fragment() {
 
     lateinit var viewModel: VM
     abstract val viewModelClass: Class<VM>
+    lateinit var audioViewModel: AVM
+    abstract val audioViewModelClass: Class<AVM>
     private lateinit var _binding: VDB
     val binding: VDB get() = _binding
 
@@ -28,6 +30,7 @@ abstract class BaseFragment<VDB : ViewDataBinding, VM : ViewModel>(private val l
         _binding = DataBindingUtil.inflate(inflater, layoutId, container, false)
         _binding.apply {
             setVariable(BR.viewModel, this@BaseFragment.viewModel)
+            setVariable(BR.viewModel, this@BaseFragment.audioViewModel)
             lifecycleOwner = this@BaseFragment
             return root
         }
@@ -42,6 +45,7 @@ abstract class BaseFragment<VDB : ViewDataBinding, VM : ViewModel>(private val l
 
     private fun initViewModel() {
         viewModel = ViewModelProvider(requireActivity())[viewModelClass]
+        audioViewModel = ViewModelProvider(requireActivity())[audioViewModelClass]
     }
 
 }
