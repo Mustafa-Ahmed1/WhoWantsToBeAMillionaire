@@ -47,7 +47,7 @@
             android:layout_gravity="center"
             android:ellipsize="end"
             android:text="@{item}"
-            app:formatTextBySymbols="@{viewModel.question.question}"
+            app:textFormattingBySymbols="@{viewModel.question.question}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
