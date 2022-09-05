@@ -13,7 +13,6 @@ import com.frenchfriesfamily.whowantstobeamillionaire.utils.Constants.TimeDurati
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.extensions.add
 import com.frenchfriesfamily.whowantstobeamillionaire.view.base.BaseViewModel
 import com.frenchfriesfamily.whowantstobeamillionaire.view.game.enums.AnswerState
-import com.frenchfriesfamily.whowantstobeamillionaire.view.game.enums.Select
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
@@ -80,7 +79,7 @@ class GameViewModel : BaseViewModel(), GameInteractionListener {
             _questionsList.postValue(State.Success(this))
             this[questionCounter].let {
                 _question.postValue(it)
-                _answers.postValue(it.incorrectAnswers?.plus(it.correctAnswer))
+                _answers.postValue(it.incorrectAnswers?.plus(it.correctAnswer)?.shuffled())
             }
         }
     }
