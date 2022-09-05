@@ -35,12 +35,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_extra_large"
-            app:soundsState="@{audioViewModel.isMuted}"
-            android:onClick="@{() -> audioViewModel.onButtonClicked()}"
             android:layout_marginEnd="@dimen/spacing_extra_large"
             android:background="@drawable/ic_sounds_on"
+            android:onClick="@{() -> audioViewModel.onButtonClicked()}"
+            app:audio="@{audioViewModel.audio}"
+            app:isMute="@{audioViewModel.isMuted}"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:soundsState="@{audioViewModel.isMuted}" />
 
         <com.androchef.happytimer.countdowntimer.CircularCountDownView
             android:id="@+id/countdownView"
@@ -142,11 +144,11 @@
             android:gravity="center"
             android:maxLines="3"
             android:textColor="@color/white"
-            app:textFormattingBySymbols="@{viewModel.question.question}"
             app:layout_constraintBottom_toBottomOf="@id/view_question"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/text_question_reward"
+            app:textFormattingBySymbols="@{viewModel.question.question}"
             tools:text="Which game is NOT part of the Science Adventure series by 5pb. and Nitroplus?" />
 
         <TextView

@@ -24,17 +24,7 @@ class HomeFragment :
     }
 
     override fun setUp() {
-        muteAppSoundsOrUnMute()
         onClickButtons()
-    }
-
-    private fun muteAppSoundsOrUnMute() {
-        audioViewModel.isMuted.observe(this) {
-            when (it) {
-                true -> audioViewModel.audio.muteAudio(requireContext())
-                else -> audioViewModel.audio.unMuteAudio(requireContext())
-            }
-        }
     }
 
     private fun onClickButtons() {

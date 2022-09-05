@@ -1,5 +1,7 @@
 package com.frenchfriesfamily.whowantstobeamillionaire.utils
 
+import com.frenchfriesfamily.whowantstobeamillionaire.view.game.enums.TimeDuration
+
 //TODO : clean up the mess
 object Constants {
     const val BASE_URL = "https://opentdb.com/"
@@ -12,9 +14,9 @@ object Constants {
     const val QUESTION_TYPE = "multiple"
 
     object TimeDurations {
-        const val MAX_DURATION = 15
-        const val SECOND_THIRD_DURATION = 10
-        const val FIRST_THIRD_DURATION = 5
+        val THIRD_DURATION = TimeDuration.THIRD_DURATION.duration
+        val SECOND_DURATION = TimeDuration.SECOND_DURATION.duration
+        val FIRST_DURATION = TimeDuration.FIRST_DURATION.duration
         const val ZERO = 0
     }
 
