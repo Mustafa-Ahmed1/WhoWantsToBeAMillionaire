@@ -3,7 +3,7 @@ package com.frenchfriesfamily.whowantstobeamillionaire.utils.bindingAdapters
 import androidx.databinding.BindingAdapter
 import com.androchef.happytimer.countdowntimer.CircularCountDownView
 import com.frenchfriesfamily.whowantstobeamillionaire.R
-import com.frenchfriesfamily.whowantstobeamillionaire.utils.TimeDuration
+import com.frenchfriesfamily.whowantstobeamillionaire.view.game.enums.TimeDuration
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.extensions.getColor
 
 @BindingAdapter(value = ["app:colorStateWithTimer"])

@@ -7,6 +7,7 @@ import com.frenchfriesfamily.whowantstobeamillionaire.R
 import com.frenchfriesfamily.whowantstobeamillionaire.databinding.DialogAudienceBinding
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.Audio
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.Constants
+import com.frenchfriesfamily.whowantstobeamillionaire.view.AudioViewModel
 import com.frenchfriesfamily.whowantstobeamillionaire.view.base.BaseDialogFragment
 import com.frenchfriesfamily.whowantstobeamillionaire.view.game.GameViewModel
 import com.github.mikephil.charting.components.XAxis
@@ -18,8 +19,11 @@ import kotlin.random.Random
 
 //TODO: clean up the mess
 class AudienceDialog :
-    BaseDialogFragment<DialogAudienceBinding, GameViewModel>(R.layout.dialog_audience) {
+    BaseDialogFragment<DialogAudienceBinding, GameViewModel, AudioViewModel>(R.layout.dialog_audience) {
+
     override val viewModelClass = GameViewModel::class.java
+    override val audioViewModelClass = AudioViewModel::class.java
+
     private val audioInAudienceDialog = Audio()
     // y-axis bar chart data
     private lateinit var barData: BarData

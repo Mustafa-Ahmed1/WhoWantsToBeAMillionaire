@@ -3,11 +3,11 @@ package com.frenchfriesfamily.whowantstobeamillionaire.view.stage
 import androidx.navigation.Navigation
 import com.frenchfriesfamily.whowantstobeamillionaire.R
 import com.frenchfriesfamily.whowantstobeamillionaire.databinding.FragmentStageBinding
-import com.frenchfriesfamily.whowantstobeamillionaire.view.base.AudioViewModel
+import com.frenchfriesfamily.whowantstobeamillionaire.view.AudioViewModel
 import com.frenchfriesfamily.whowantstobeamillionaire.view.base.BaseFragment
 
 class StageFragment :
-    BaseFragment<FragmentStageBinding, StageViewModel ,AudioViewModel>(R.layout.fragment_stage) {
+    BaseFragment<FragmentStageBinding, StageViewModel, AudioViewModel>(R.layout.fragment_stage) {
 
     override val viewModelClass: Class<StageViewModel> = StageViewModel::class.java
     override val audioViewModelClass = AudioViewModel::class.java

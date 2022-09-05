@@ -30,7 +30,7 @@ abstract class BaseFragment<VDB : ViewDataBinding, VM : ViewModel, AVM : ViewMod
         _binding = DataBindingUtil.inflate(inflater, layoutId, container, false)
         _binding.apply {
             setVariable(BR.viewModel, this@BaseFragment.viewModel)
-            setVariable(BR.viewModel, this@BaseFragment.audioViewModel)
+            setVariable(BR.audioViewModel, this@BaseFragment.audioViewModel)
             lifecycleOwner = this@BaseFragment
             return root
         }

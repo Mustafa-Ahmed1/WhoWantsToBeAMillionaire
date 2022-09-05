@@ -68,6 +68,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     tools:text="B"
+                    app:correctAnswer="@{viewModel.question.correctAnswer}"
+                    app:allAnswers="@{viewModel.answers}"
                     android:textColor="@color/yellow_light"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@+id/text_i_think"

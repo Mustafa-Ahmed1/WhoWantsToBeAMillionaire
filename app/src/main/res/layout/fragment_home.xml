@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <variable
             name="viewModel"
             type="com.frenchfriesfamily.whowantstobeamillionaire.view.home.HomeViewModel" />
+
+        <variable
+            name="audioViewModel"
+            type="com.frenchfriesfamily.whowantstobeamillionaire.view.AudioViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -68,11 +73,13 @@
             android:layout_height="@dimen/button_height_medium"
             android:layout_marginTop="@dimen/spacing_medium"
             android:background="@drawable/button_oval"
-            android:text="@string/sounds_on"
+            android:onClick="@{() -> audioViewModel.onButtonClicked()}"
             android:textAllCaps="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/button_about" />
+            app:layout_constraintTop_toBottomOf="@id/button_about"
+            app:soundsState="@{audioViewModel.isMuted}"
+            tools:text="Sounds: On" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/button_exit"
