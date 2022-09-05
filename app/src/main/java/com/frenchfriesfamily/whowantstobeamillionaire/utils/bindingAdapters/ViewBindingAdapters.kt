@@ -1,10 +1,12 @@
 package com.frenchfriesfamily.whowantstobeamillionaire.utils.bindingAdapters
 
 import android.view.View
+import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import com.frenchfriesfamily.whowantstobeamillionaire.R
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.extensions.setBackground
 import com.frenchfriesfamily.whowantstobeamillionaire.view.game.enums.AnswerState
+import com.frenchfriesfamily.whowantstobeamillionaire.view.game.enums.Select
 
 @BindingAdapter(value = ["app:answerState"])
 fun changeAnswerStyle(view: View, state: AnswerState?) {

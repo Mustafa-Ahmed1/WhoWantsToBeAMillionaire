@@ -6,12 +6,14 @@ import androidx.lifecycle.MutableLiveData
 import com.frenchfriesfamily.whowantstobeamillionaire.model.data.StageDetails
 import com.frenchfriesfamily.whowantstobeamillionaire.model.network.State
 import com.frenchfriesfamily.whowantstobeamillionaire.model.repositories.StagesRepositoryImpl
+import com.frenchfriesfamily.whowantstobeamillionaire.model.response.GameResponse
 import com.frenchfriesfamily.whowantstobeamillionaire.model.response.Question
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.Constants
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.Constants.TimeDurations.ZERO
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.extensions.add
 import com.frenchfriesfamily.whowantstobeamillionaire.view.base.BaseViewModel
 import com.frenchfriesfamily.whowantstobeamillionaire.view.game.enums.AnswerState
+import com.frenchfriesfamily.whowantstobeamillionaire.view.game.enums.Select
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
@@ -47,6 +49,9 @@ class GameViewModel : BaseViewModel(), GameInteractionListener {
     private val _seconds = MutableLiveData(15)
     val seconds: LiveData<Int> = _seconds
 
+    private val _positionOfQuestion = MutableLiveData(0)
+    val positionOfQuestion:LiveData<Int> =_positionOfQuestion
+
     var questionCounter = 0
     var stageCounter = 1
     private var difficulty = 0
@@ -66,32 +71,38 @@ class GameViewModel : BaseViewModel(), GameInteractionListener {
         )
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe {
-                Log.i(QUESTIONS_TAG, "request ${difficulty + 1}: got ${it.toData()?.results}")
-                if (it is State.Success) {
-                    _questionsList.postValue(State.Success(it.toData()?.results))
-                    _question.postValue(it.toData()?.results?.get(questionCounter))
-
-                    _answers.postValue(
-                        it.toData()?.results?.get(questionCounter)?.incorrectAnswers?.plus(
-                            it.toData()?.results?.get(questionCounter)?.correctAnswer
-                        )
-                    )
-                }
-
-            }.add(disposable)
+            .subscribe(::onGetQuestionSuccess,::onGetQuestionError).add(disposable)
     }
 
+    private fun onGetQuestionSuccess(response: State<GameResponse>?) {
+        Log.i(QUESTIONS_TAG, "request ${difficulty + 1}: got ${response?.toData()?.results}")
+        response?.toData()?.results?.apply {
+            _questionsList.postValue(State.Success(this))
+            this[questionCounter].let {
+                _question.postValue(it)
+                _answers.postValue(it.incorrectAnswers?.plus(it.correctAnswer))
+            }
+        }
+    }
 
-    fun changeQuestion() {
+    private fun setQuestion() {
+        _questionsList.value?.toData()?.get(questionCounter).apply {
+            _question.postValue(this)
+            _answers.postValue(this?.incorrectAnswers?.plus(this.correctAnswer))
+        }
+    }
+
+    private fun onGetQuestionError(throwable: Throwable) { }
+
+    fun checkQuestionLevel() {
         emitTimerSeconds()
         when (stageCounter) {
-            4 -> nextDifficulty()
-            9 -> nextDifficulty()
-            14 -> gameOver()
-            else -> questionCounter++
+            5 -> nextDifficulty()
+            10 -> nextDifficulty()
+            15 -> gameOver()
+            else ->{ questionCounter++
+                setQuestion() }
         }
-        setQuestion()
         stageCounter++
         setStage()
     }
@@ -103,15 +114,6 @@ class GameViewModel : BaseViewModel(), GameInteractionListener {
     }
 
     private fun gameOver() {}
-
-    private fun setQuestion() {
-        val question = _questionsList.value?.toData()?.get(questionCounter)
-        _question.postValue(question)
-        val questionValue = _question.value
-        _answers.postValue(
-            questionValue?.incorrectAnswers?.plus(questionValue.correctAnswer)?.shuffled()
-        )
-    }
 
     fun getStageList() = stagesRepository.getStages().reversed()
 
@@ -159,17 +161,16 @@ class GameViewModel : BaseViewModel(), GameInteractionListener {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe { _ ->
                 checkAnswerState(answerText)
-                changeQuestion()
             }
     }
 
     private fun checkAnswerState(answer: String) {
         if (answer == _question.value?.correctAnswer) {
             _answerState.postValue(AnswerState.IS_CORRECT)
-            changeQuestion()
+            checkQuestionLevel()
         } else {
             _answerState.postValue(AnswerState.IS_WRONG)
-            changeQuestion()
+            gameOver()
         }
     }
 
