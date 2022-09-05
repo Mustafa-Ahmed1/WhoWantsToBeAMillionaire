@@ -8,7 +8,6 @@ import com.frenchfriesfamily.whowantstobeamillionaire.model.network.State
 import com.frenchfriesfamily.whowantstobeamillionaire.model.repositories.StagesRepositoryImpl
 import com.frenchfriesfamily.whowantstobeamillionaire.model.response.Question
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.Constants
-import com.frenchfriesfamily.whowantstobeamillionaire.utils.Constants.TimeDurations.ZERO
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.extensions.add
 import com.frenchfriesfamily.whowantstobeamillionaire.view.base.BaseViewModel
 import com.frenchfriesfamily.whowantstobeamillionaire.view.game.enums.AnswerState
@@ -69,6 +68,7 @@ class GameViewModel : BaseViewModel(), GameInteractionListener {
             .subscribe {
                 Log.i(QUESTIONS_TAG, "request ${difficulty + 1}: got ${it.toData()?.results}")
                 if (it is State.Success) {
+                    emitTimerSeconds()
                     _questionsList.postValue(State.Success(it.toData()?.results))
                     _question.postValue(it.toData()?.results?.get(questionCounter))
 
@@ -136,14 +136,15 @@ class GameViewModel : BaseViewModel(), GameInteractionListener {
     }
 
     private fun emitTimerSeconds() {
-        Observable.fromIterable(_seconds.value!! downTo ZERO)
-            .zipWith(Observable.interval(1, TimeUnit.SECONDS)) { seconds, _ ->
-                _seconds.postValue(seconds)
-            }
+        disposable.clear()
+        val gameTimer = Observable.intervalRange(0, 16, 0, 1, TimeUnit.SECONDS)
+            .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .doOnError { Log.i(SECONDS_TAG, "Error: ${it.message}") }
-            .subscribe()
-            .add(disposable)
+        gameTimer.subscribe({second ->
+            _seconds.postValue(15 - second.toInt())
+        }, {
+            Log.e("Timer", "Error: ${it.message}")
+        }).add(disposable)
     }
 
 
