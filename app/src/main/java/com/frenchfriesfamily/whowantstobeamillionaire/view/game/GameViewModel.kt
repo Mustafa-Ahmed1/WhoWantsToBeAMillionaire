@@ -48,11 +48,9 @@ class GameViewModel : BaseViewModel(), GameInteractionListener {
     private val _seconds = MutableLiveData(15)
     val seconds: LiveData<Int> = _seconds
 
-    private val _positionOfQuestion = MutableLiveData(0)
-    val positionOfQuestion:LiveData<Int> =_positionOfQuestion
 
     var questionCounter = 0
-    var stageCounter = 1
+    var stageCounter = 0
     private var difficulty = 0
 
 
@@ -91,15 +89,16 @@ class GameViewModel : BaseViewModel(), GameInteractionListener {
         }
     }
 
-    private fun onGetQuestionError(throwable: Throwable) { }
+    private fun onGetQuestionError(throwable: Throwable) {  }
 
     fun checkQuestionLevel() {
         emitTimerSeconds()
         when (stageCounter) {
-            5 -> nextDifficulty()
-            10 -> nextDifficulty()
-            15 -> gameOver()
-            else ->{ questionCounter++
+            4 -> nextDifficulty()
+            9 -> nextDifficulty()
+            14 -> gameOver()
+            else ->{
+                questionCounter++
                 setQuestion() }
         }
         stageCounter++
@@ -118,7 +117,7 @@ class GameViewModel : BaseViewModel(), GameInteractionListener {
 
     private fun setStage() {
         val stageList = getStageList()
-        _stage.postValue(stageList[stageCounter])
+        _stage.postValue(stageList[stageCounter.plus(1)])
     }
 
     fun onChangeQuestion() {

@@ -70,9 +70,8 @@ class GameFragment :
     }
 
     private fun navToResultFragment() {
-        val currentStage = viewModel.getStageList()[viewModel.questionCounter]
-        val action =
-            GameFragmentDirections.actionQuestionFragmentToResultFragment(currentStage)
+        val currentStage = viewModel.getStageList()[viewModel.stageCounter]
+        val action = GameFragmentDirections.actionQuestionFragmentToResultFragment(currentStage)
         Navigation.findNavController(binding.root).navigate(action)
 
     }
