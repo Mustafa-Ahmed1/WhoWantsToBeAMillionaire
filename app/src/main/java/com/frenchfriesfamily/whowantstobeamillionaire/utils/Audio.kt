@@ -3,24 +3,29 @@ package com.frenchfriesfamily.whowantstobeamillionaire.utils
 import android.content.Context
 import android.media.AudioManager
 import android.media.MediaPlayer
+import com.frenchfriesfamily.whowantstobeamillionaire.R
 
-//TODO: fix audio problems
-object Audio {
-    var muteState = 100
-    fun runAudio(mediaPlayer : MediaPlayer){
+class Audio {
+    var soundState = true
+
+    fun runAudio(mediaPlayer: MediaPlayer) {
         mediaPlayer.start()
     }
-    fun pauseAudio(mediaPlayer : MediaPlayer){
-        mediaPlayer.pause()
-    }
-    fun muteAudio(context: Context){
-        var mAudioManager = context.getSystemService(AudioManager::class.java)
+
+    fun muteAudio(context: Context) {
+        val mAudioManager = context.getSystemService(AudioManager::class.java)
         mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC, 0, 0)
-        muteState = 0
+        soundState = false
     }
-    fun unmuteAudio(context: Context){
-        var mAudioManager = context.getSystemService(AudioManager::class.java)
+
+    fun unMuteAudio(context: Context) {
+        val mAudioManager = context.getSystemService(AudioManager::class.java)
         mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC, 100, 0)
-        muteState = 100
+        soundState = true
     }
+
+    fun playButtonSound(context: Context) {
+        MediaPlayer.create(context, R.raw.push_audio).start()
+    }
+
 }

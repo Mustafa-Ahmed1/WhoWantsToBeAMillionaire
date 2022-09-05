@@ -1,4 +1,4 @@
-package com.frenchfriesfamily.whowantstobeamillionaire.view
+package com.frenchfriesfamily.whowantstobeamillionaire.view.main
 
 import com.frenchfriesfamily.whowantstobeamillionaire.R
 import com.frenchfriesfamily.whowantstobeamillionaire.databinding.ActivityMainBinding

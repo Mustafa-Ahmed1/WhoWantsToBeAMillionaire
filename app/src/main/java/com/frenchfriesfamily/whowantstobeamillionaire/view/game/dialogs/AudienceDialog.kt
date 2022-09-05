@@ -7,6 +7,7 @@ import com.frenchfriesfamily.whowantstobeamillionaire.R
 import com.frenchfriesfamily.whowantstobeamillionaire.databinding.DialogAudienceBinding
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.Audio
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.Constants
+import com.frenchfriesfamily.whowantstobeamillionaire.view.AudioViewModel
 import com.frenchfriesfamily.whowantstobeamillionaire.view.base.BaseDialogFragment
 import com.frenchfriesfamily.whowantstobeamillionaire.view.game.GameViewModel
 import com.github.mikephil.charting.components.XAxis
@@ -18,16 +19,19 @@ import kotlin.random.Random
 
 //TODO: clean up the mess
 class AudienceDialog :
-    BaseDialogFragment<DialogAudienceBinding, GameViewModel>(R.layout.dialog_audience) {
-    override val viewModelClass = GameViewModel::class.java
+    BaseDialogFragment<DialogAudienceBinding, GameViewModel, AudioViewModel>(R.layout.dialog_audience) {
 
+    override val viewModelClass = GameViewModel::class.java
+    override val audioViewModelClass = AudioViewModel::class.java
+
+    private val audioInAudienceDialog = Audio()
     // y-axis bar chart data
     private lateinit var barData: BarData
 
     override fun onStart() {
         super.onStart()
         binding.buttonOk.setOnClickListener {
-            Audio.runAudio(MediaPlayer.create(this.context, R.raw.push_audio))
+            audioInAudienceDialog.runAudio(MediaPlayer.create(this.context, R.raw.push_audio))
             Log.i("TEST", "dismissing")
             this.dismiss()
         }
@@ -51,20 +55,20 @@ class AudienceDialog :
     private fun calculateProbabilityOfAnswers(correctAnswer: String?): ArrayList<BarEntry> {
         val barEntries = arrayListOf<BarEntry>()
         viewModel.answers.observe(this) {
-            val probabilites = mutableListOf<Float>()
+            val probabilities = mutableListOf<Float>()
 
             // TODO: implement algorithm in better way
             it?.forEach {  answer ->
                 if (answer == correctAnswer) {
-                    probabilites.add(Random.nextFloat() + 1f)
+                    probabilities.add(Random.nextFloat() + 1f)
                 } else {
-                    probabilites.add(Random.nextFloat())
+                    probabilities.add(Random.nextFloat())
                 }
             }
 
-            val sum = probabilites.sum()
+            val sum = probabilities.sum()
 
-            probabilites.forEachIndexed { index, probability ->
+            probabilities.forEachIndexed { index, probability ->
                 val barEntry = BarEntry(probability/sum*100,index)
                 barEntries.add(barEntry)
 

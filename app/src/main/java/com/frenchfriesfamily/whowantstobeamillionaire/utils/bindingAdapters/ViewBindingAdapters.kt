@@ -3,6 +3,7 @@ package com.frenchfriesfamily.whowantstobeamillionaire.utils.bindingAdapters
 import android.view.View
 import androidx.databinding.BindingAdapter
 import com.frenchfriesfamily.whowantstobeamillionaire.R
+import com.frenchfriesfamily.whowantstobeamillionaire.utils.Audio
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.extensions.setBackground
 import com.frenchfriesfamily.whowantstobeamillionaire.view.game.enums.AnswerState
 
@@ -19,4 +20,12 @@ fun changeAnswerStyle(view: View, state: AnswerState?) {
 @BindingAdapter(value = ["app:disableViewBasedOnState"])
 fun disableViewBasedOnState(view: View, state: AnswerState?) {
     view.isClickable = state == AnswerState.IS_DEFAULT
+}
+
+@BindingAdapter("app:isMute", "app:audio")
+fun setSoundState(view: View, isMute: Boolean?, audio: Audio?) {
+    when (isMute) {
+        true -> audio?.muteAudio(view.context)
+        else -> audio?.unMuteAudio(view.context)
+    }
 }

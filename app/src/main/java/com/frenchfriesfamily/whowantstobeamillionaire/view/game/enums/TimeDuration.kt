@@ -1,4 +1,4 @@
-package com.frenchfriesfamily.whowantstobeamillionaire.utils
+package com.frenchfriesfamily.whowantstobeamillionaire.view.game.enums
 
 enum class TimeDuration(val duration: IntRange) {
     FIRST_DURATION(0..5),
