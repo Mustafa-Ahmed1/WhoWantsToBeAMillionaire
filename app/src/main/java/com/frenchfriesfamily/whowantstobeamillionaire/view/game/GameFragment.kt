@@ -6,13 +6,13 @@ import androidx.navigation.Navigation
 import com.frenchfriesfamily.whowantstobeamillionaire.R
 import com.frenchfriesfamily.whowantstobeamillionaire.databinding.FragmentGameBinding
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.Audio
+import com.frenchfriesfamily.whowantstobeamillionaire.utils.Constants
 import com.frenchfriesfamily.whowantstobeamillionaire.view.base.BaseFragment
 import com.frenchfriesfamily.whowantstobeamillionaire.view.game.enums.AnswerState
 
 //TODO: clean up the messy mess
 class GameFragment :
     BaseFragment<FragmentGameBinding, GameViewModel>(R.layout.fragment_game) {
-
     override val viewModelClass = GameViewModel::class.java
 
     override fun setUp() {
@@ -51,6 +51,11 @@ class GameFragment :
                 }
             }
         }
+
+        viewModel.seconds.observe(this) {
+            if (it == Constants.TimeDurations.ZERO) navToResultFragment()
+        }
+
         viewModel.answerState.observe(this) { state ->
             binding.countdownView.apply {
                 if (state != AnswerState.IS_DEFAULT) {
