@@ -3,6 +3,7 @@ package com.frenchfriesfamily.whowantstobeamillionaire.view.game
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.navigation.Navigation
 import com.frenchfriesfamily.whowantstobeamillionaire.model.data.StageDetails
 import com.frenchfriesfamily.whowantstobeamillionaire.model.network.State
 import com.frenchfriesfamily.whowantstobeamillionaire.model.repositories.StagesRepositoryImpl
@@ -73,7 +74,8 @@ class GameViewModel : BaseViewModel(), GameInteractionListener {
 
     private fun onGetQuestionSuccess(response: State<GameResponse>?) {
         Log.i(QUESTIONS_TAG, "request ${difficulty + 1}: got ${response?.toData()?.results}")
-        response?.toData()?.results?.apply {
+        response?.toData()?.results?.apply{
+            emitTimerSeconds()
             _questionsList.postValue(State.Success(this))
             this[questionCounter].let {
                 _question.postValue(it)
@@ -136,14 +138,17 @@ class GameViewModel : BaseViewModel(), GameInteractionListener {
     }
 
     private fun emitTimerSeconds() {
-        Observable.fromIterable(_seconds.value!! downTo ZERO)
-            .zipWith(Observable.interval(1, TimeUnit.SECONDS)) { seconds, _ ->
-                _seconds.postValue(seconds)
-            }
+        disposable.clear()
+        val gameTimer = Observable.intervalRange(0, 16, 0, 1, TimeUnit.SECONDS)
+            .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .doOnError { Log.i(SECONDS_TAG, "Error: ${it.message}") }
-            .subscribe()
-            .add(disposable)
+        gameTimer.subscribe({
+            _seconds.postValue(15 - it.toInt())
+        }, {
+            Log.e("Timer", "Error: ${it.message}")
+        },{
+
+        }).add(this.disposable)
     }
 
 
