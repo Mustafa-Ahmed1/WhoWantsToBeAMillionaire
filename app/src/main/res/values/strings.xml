@@ -30,6 +30,9 @@
     <string name="you_passed">You passed</string>
     <string name="and_got">And got</string>
     <!-- error screen -->
+    <string name="oops">Oops!</string>
+    <string name="there_is_no_internet_connection_please_check_it_out">There is no internet connection \n Please check it out</string>
+    <string name="try_again">Try again</string>
     <!-- dialogs -->
     <string name="i_think_the_answer_is">I think the answer is</string>
     <string name="calling_a_friend">Calling a Friend…</string>
