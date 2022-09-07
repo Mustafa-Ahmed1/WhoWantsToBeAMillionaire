@@ -25,7 +25,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:visibility="visible"
-            app:showWhenSuccess="@{viewModel.states}">
+            app:showWhenSuccess="@{viewModel.questionsList}">
 
             <ImageView
                 android:id="@+id/button_leave"
@@ -247,7 +247,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:visibility="gone"
-            app:showWhenError="@{viewModel.states}">
+            app:showWhenError="@{viewModel.questionsList}">
 
             <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/lottie_lost_internet"
@@ -312,7 +312,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:visibility="gone"
-            app:showWhenLoading="@{viewModel.states}">
+            app:showWhenLoading="@{viewModel.questionsList}">
 
             <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/lottie_loading"

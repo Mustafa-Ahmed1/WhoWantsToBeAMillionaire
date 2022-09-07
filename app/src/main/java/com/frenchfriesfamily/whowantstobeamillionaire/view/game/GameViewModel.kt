@@ -20,7 +20,9 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.disposables.CompositeDisposable
+import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.schedulers.Schedulers
+import kotlinx.coroutines.delay
 import java.util.concurrent.TimeUnit
 
 class GameViewModel : BaseViewModel(), GameInteractionListener {
@@ -28,9 +30,6 @@ class GameViewModel : BaseViewModel(), GameInteractionListener {
     private val stagesRepository = StagesRepositoryImpl()
 
     private val timerDisposable = CompositeDisposable()
-
-    private val _states = MutableLiveData<State<GameResponse>?>()
-    val states: LiveData<State<GameResponse>?> = _states
 
     private val _questionsList = MutableLiveData<State<List<Question>?>>()
     val questionsList: LiveData<State<List<Question>?>> = _questionsList
@@ -109,21 +108,18 @@ class GameViewModel : BaseViewModel(), GameInteractionListener {
 
     private fun onGetQuestionSuccess(response: State<GameResponse>) {
         when (response) {
-            is State.Loading -> _states.postValue(response)
+            is State.Loading -> _questionsList.postValue(response)
             is State.Success -> {
-                _states.postValue(response)
-                response.toData()?.results.apply {
-                    _questionsList.value = State.Success(this)
-                    emitTimerSeconds()
-                    setQuestion()
-                }
+                _questionsList.value = State.Success(response.toData()?.results)
+                emitTimerSeconds()
+                setQuestion()
             }
-            is State.Error -> _states.postValue(State.Error(response.message))
+            is State.Error -> _questionsList.postValue(State.Error(response.message))
         }
     }
 
     private fun onGetQuestionError(throwable: Throwable) {
-        _states.postValue(State.Error(throwable.message.toString()))
+        _questionsList.postValue(State.Error(throwable.message.toString()))
     }
 
     private fun setQuestion() {
@@ -149,14 +145,6 @@ class GameViewModel : BaseViewModel(), GameInteractionListener {
     }
 
     private fun gameOver(){
-        when(stageCounter) {
-            15 -> gameResult()
-            else -> gameResult()
-        }
-        setStage()
-    }
-
-    private fun gameResult(){
         setStage()
         _gameOver.postValue(Event(true))
     }
