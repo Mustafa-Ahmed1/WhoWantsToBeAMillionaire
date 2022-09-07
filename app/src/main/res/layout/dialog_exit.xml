@@ -9,7 +9,6 @@
             type="com.frenchfriesfamily.whowantstobeamillionaire.view.game.GameViewModel" />
     </data>
 
-
     <com.google.android.material.card.MaterialCardView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -25,7 +24,6 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-
             <TextView
                 android:id="@+id/text_exit"
                 style="@style/TextStyle.Large"
@@ -37,7 +35,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-
 
             <TextView
                 style="@style/TextStyle.Small"
@@ -57,7 +54,6 @@
                 android:layout_height="match_parent"
                 android:layout_marginTop="@dimen/spacing_large">
 
-
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/button_leave"
                     style="@style/TextStyle.Medium"
@@ -67,6 +63,7 @@
                     android:layout_marginEnd="@dimen/spacing_extra_large"
                     android:layout_marginBottom="@dimen/spacing_large"
                     android:background="@drawable/button_red"
+                    android:onClick="@{() -> viewModel.onLeaveClicked()}"
                     android:src="@drawable/button_red"
                     android:text="@string/leave"
                     android:textAllCaps="false"
@@ -80,7 +77,8 @@
                     android:layout_height="32dp"
                     android:layout_marginStart="@dimen/spacing_extra_large"
                     android:layout_marginBottom="@dimen/spacing_large"
-                    android:background="@drawable/button_green"
+                    android:background="@drawable/button_green_small"
+                    android:onClick="@{() -> viewModel.onStayClicked()}"
                     android:text="@string/stay"
                     android:textAllCaps="false"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -88,9 +86,7 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-
         </LinearLayout>
-
 
     </com.google.android.material.card.MaterialCardView>
 </layout>

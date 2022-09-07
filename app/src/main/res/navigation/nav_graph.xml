@@ -35,6 +35,9 @@
         <action
             android:id="@+id/action_questionFragment_to_friendDialog"
             app:destination="@id/friendDialog" />
+        <action
+            android:id="@+id/action_gameFragment_to_exitDialog"
+            app:destination="@id/exitDialog" />
     </fragment>
 
     <fragment
@@ -47,7 +50,7 @@
         android:id="@+id/resultFragment"
         android:name="com.frenchfriesfamily.whowantstobeamillionaire.view.result.ResultFragment"
         android:label="ResultFragment"
-        tools:layout="@layout/fragment_result" >
+        tools:layout="@layout/fragment_result">
         <argument
             android:name="stageDetails"
             app:argType="com.frenchfriesfamily.whowantstobeamillionaire.model.data.StageDetails"
@@ -58,9 +61,7 @@
         android:id="@+id/stageFragment"
         android:name="com.frenchfriesfamily.whowantstobeamillionaire.view.stage.StageFragment"
         android:label="StageScreen"
-        tools:layout="@layout/fragment_stage" >
-
-    </fragment>
+        tools:layout="@layout/fragment_stage" />
 
     <dialog
         android:id="@+id/audienceDialog"
@@ -70,5 +71,9 @@
         android:id="@+id/friendDialog"
         android:name="com.frenchfriesfamily.whowantstobeamillionaire.view.game.dialogs.FriendDialog"
         android:label="FriendDialog" />
+    <dialog
+        android:id="@+id/exitDialog"
+        android:name="com.frenchfriesfamily.whowantstobeamillionaire.view.game.dialogs.ExitDialog"
+        android:label="ExitDialog" />
 
 </navigation>
