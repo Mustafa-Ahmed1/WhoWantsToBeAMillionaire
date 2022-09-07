@@ -82,6 +82,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_extra_large"
+            android:onClick="@{() -> viewModel.onAudienceClicked()}"
             android:src="@drawable/ic_audience"
             app:isUsed="@{viewModel.audienceHelp}"
             app:layout_constraintEnd_toStartOf="@+id/button_call"
@@ -94,32 +95,33 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_call"
+            android:onClick="@{() -> viewModel.onCallFriendClicked()}"
             app:isUsed="@{viewModel.friendHelp}"
-            app:layout_constraintEnd_toStartOf="@+id/button_replace_question"
+            app:layout_constraintEnd_toStartOf="@+id/button_replace"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/button_audience"
             app:layout_constraintTop_toTopOf="@id/button_audience" />
 
         <ImageView
-            android:id="@+id/button_replace_question"
+            android:id="@+id/button_replace"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="@{()-> viewModel.onChangeQuestion()}"
             android:src="@drawable/ic_replace"
             app:isUsed="@{viewModel.changeQuestion}"
-            app:layout_constraintEnd_toStartOf="@+id/button_remove_two_answers"
+            app:layout_constraintEnd_toStartOf="@+id/button_remove"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/button_call"
             app:layout_constraintTop_toTopOf="@id/button_audience" />
 
         <ImageView
-            android:id="@+id/button_remove_two_answers"
+            android:id="@+id/button_remove"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_remove_two"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/button_replace_question"
+            app:layout_constraintStart_toEndOf="@+id/button_replace"
             app:layout_constraintTop_toTopOf="@id/button_audience" />
 
 
@@ -223,6 +225,7 @@
             android:layout_marginEnd="@dimen/spacing_medium"
             android:overScrollMode="never"
             app:items="@{viewModel.answers}"
+            app:gameAdapter="@{viewModel}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.58"

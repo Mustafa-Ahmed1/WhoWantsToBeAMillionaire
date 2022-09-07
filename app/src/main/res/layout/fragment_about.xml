@@ -34,6 +34,7 @@
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:layout_marginStart="32dp"
+                    android:onClick="@{() -> viewModel.onBackToHomeClicked()}"
                     android:layout_marginTop="20dp"
                     android:layout_marginBottom="20dp"
                     android:src="@drawable/ic_arrow_back"

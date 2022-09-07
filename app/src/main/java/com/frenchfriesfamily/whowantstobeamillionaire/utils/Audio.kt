@@ -25,7 +25,7 @@ class Audio {
     }
 
     fun playButtonSound(context: Context) {
-        MediaPlayer.create(context, R.raw.push_audio).start()
+        MediaPlayer.create(context, R.raw.click_button_audio).start()
     }
 
 }

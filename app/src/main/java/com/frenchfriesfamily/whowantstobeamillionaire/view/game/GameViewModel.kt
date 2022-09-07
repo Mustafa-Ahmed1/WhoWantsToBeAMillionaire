@@ -3,15 +3,15 @@ package com.frenchfriesfamily.whowantstobeamillionaire.view.game
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.navigation.Navigation
 import com.frenchfriesfamily.whowantstobeamillionaire.model.data.StageDetails
 import com.frenchfriesfamily.whowantstobeamillionaire.model.network.State
 import com.frenchfriesfamily.whowantstobeamillionaire.model.repositories.StagesRepositoryImpl
 import com.frenchfriesfamily.whowantstobeamillionaire.model.response.GameResponse
 import com.frenchfriesfamily.whowantstobeamillionaire.model.response.Question
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.Constants
-import com.frenchfriesfamily.whowantstobeamillionaire.utils.Constants.TimeDurations.ZERO
+import com.frenchfriesfamily.whowantstobeamillionaire.utils.Event
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.extensions.add
+import com.frenchfriesfamily.whowantstobeamillionaire.utils.extensions.postEvent
 import com.frenchfriesfamily.whowantstobeamillionaire.view.base.BaseViewModel
 import com.frenchfriesfamily.whowantstobeamillionaire.view.game.enums.AnswerState
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -48,6 +48,33 @@ class GameViewModel : BaseViewModel(), GameInteractionListener {
 
     private val _seconds = MutableLiveData(15)
     val seconds: LiveData<Int> = _seconds
+
+
+    private val _audienceClick = MutableLiveData<Event<Boolean>>()
+    val audienceClick: LiveData<Event<Boolean>> = _audienceClick
+
+    private val _callFriendClick = MutableLiveData<Event<Boolean>>()
+    val callFriendClick: LiveData<Event<Boolean>> = _callFriendClick
+
+    private val _okCLick = MutableLiveData<Event<Boolean>>()
+    val okCLick: LiveData<Event<Boolean>> = _okCLick
+
+    private val _exitClick = MutableLiveData<Event<Boolean>>()
+    val exitCLick: LiveData<Event<Boolean>> = _exitClick
+
+    private val _stayCLick = MutableLiveData<Event<Boolean>>()
+    val stayCLick: LiveData<Event<Boolean>> = _stayCLick
+
+    private val _leaveClick = MutableLiveData<Event<Boolean>>()
+    val leaveClick: LiveData<Event<Boolean>> = _leaveClick
+
+
+    fun onAudienceClicked() = _audienceClick.postEvent()
+    fun onCallFriendClicked() = _callFriendClick.postEvent()
+    fun onOkClicked() = _okCLick.postEvent()
+    fun onExitCLicked() = _exitClick.postEvent()
+    fun onStayClicked() = _stayCLick.postEvent()
+    fun onLeaveClicked() = _leaveClick.postEvent()
 
 
     var questionCounter = 0

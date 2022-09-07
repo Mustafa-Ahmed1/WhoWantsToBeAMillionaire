@@ -2,12 +2,11 @@ package com.frenchfriesfamily.whowantstobeamillionaire.view.game
 
 import android.content.Context
 import android.media.MediaPlayer
-import androidx.navigation.Navigation
 import com.frenchfriesfamily.whowantstobeamillionaire.R
 import com.frenchfriesfamily.whowantstobeamillionaire.databinding.FragmentGameBinding
-import com.frenchfriesfamily.whowantstobeamillionaire.view.AudioViewModel
-import com.frenchfriesfamily.whowantstobeamillionaire.utils.Audio
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.Constants
+import com.frenchfriesfamily.whowantstobeamillionaire.utils.EventObserver
+import com.frenchfriesfamily.whowantstobeamillionaire.view.AudioViewModel
 import com.frenchfriesfamily.whowantstobeamillionaire.view.base.BaseFragment
 import com.frenchfriesfamily.whowantstobeamillionaire.view.game.enums.AnswerState
 
@@ -26,13 +25,18 @@ class GameFragment :
     }
 
     override fun setUp() {
-        val adapter = GameAdapter(mutableListOf(), viewModel)
-        binding.recyclerAnswers.adapter = adapter
-
+        observeEvents()
+        onClickRemainingButtons()
         handleTimer()
-        onClickButtons()
     }
 
+    private fun observeEvents() {
+        viewModel.apply {
+            audienceClick.observe(this@GameFragment, EventObserver { navToAudienceDialog() })
+            callFriendClick.observe(this@GameFragment, EventObserver { navToCallFriendDialog() })
+            exitCLick.observe(this@GameFragment, EventObserver { navToExitDialog() })
+        }
+    }
 
     // TODO: should be improved
     private fun handleTimer() {
@@ -59,64 +63,42 @@ class GameFragment :
                 }
             }
             if (state == AnswerState.IS_WRONG) {
-                navToResultFragment()
+                navToResult()
             }
         }
     }
 
 
-    private fun onClickButtons() {
-        navToHomeFragment()
-        onClickAudienceButton()
-        onClickCallButton()
-        onClickReplaceButton()
-        onClickRemoveButton()
-    }
-
-    private fun navToHomeFragment() {
-        binding.buttonLeave.setOnClickListener { view ->
-            audioViewModel.audio.playButtonSound(requireContext())
-            Navigation.findNavController(view)
-                .popBackStack()
-        }
-    }
-
-    private fun navToResultFragment() {
+    private fun navToResult() {
         val currentStage = viewModel.getStageList()[viewModel.stageCounter]
-        val action = GameFragmentDirections.actionQuestionFragmentToResultFragment(currentStage)
-        Navigation.findNavController(binding.root).navigate(action)
+        navigate(GameFragmentDirections.actionQuestionFragmentToResultFragment(currentStage))
     }
 
-    private fun onClickAudienceButton() {
-        binding.buttonAudience.setOnClickListener { view ->
-            audioViewModel.audio.playButtonSound(requireContext())
-            viewModel.onAskAudience(false)
-            val action = GameFragmentDirections.actionQuestionFragmentToAudienceDialog()
-            Navigation.findNavController(view).navigate(action)
+    private fun navToAudienceDialog() {
+        playButtonSound()
+        viewModel.onAskAudience(false)
+        navigate(GameFragmentDirections.actionQuestionFragmentToAudienceDialog())
+    }
+
+    private fun navToCallFriendDialog() {
+        playButtonSound()
+        viewModel.onCallFriend(false)
+        navigate(GameFragmentDirections.actionQuestionFragmentToFriendDialog())
+    }
+
+    private fun navToExitDialog() {
+        playButtonSound()
+        navigate(GameFragmentDirections.actionGameFragmentToExitDialog())
+    }
+
+    private fun onClickRemainingButtons() {
+        binding.apply {
+            buttonReplace.setOnClickListener { playButtonSound() }
+            buttonRemove.setOnClickListener { playButtonSound() }
         }
     }
 
-    private fun onClickCallButton() {
-        binding.buttonCall.setOnClickListener { view ->
-            audioViewModel.audio.playButtonSound(requireContext())
-            viewModel.onCallFriend(false)
-            val action = GameFragmentDirections.actionQuestionFragmentToFriendDialog()
-            Navigation.findNavController(view).navigate(action)
-        }
-    }
-
-    private fun onClickReplaceButton() {
-        binding.buttonReplaceQuestion.setOnClickListener {
-            audioViewModel.audio.playButtonSound(requireContext())
-        }
-    }
-
-    private fun onClickRemoveButton() {
-        binding.buttonRemoveTwoAnswers.setOnClickListener {
-            audioViewModel.audio.playButtonSound(requireContext())
-        }
-    }
-
+    private fun playButtonSound() = audioViewModel.audio.playButtonSound(requireContext())
 
     override fun onPause() {
         super.onPause()

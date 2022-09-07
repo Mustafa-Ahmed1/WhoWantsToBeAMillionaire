@@ -3,6 +3,7 @@ package com.frenchfriesfamily.whowantstobeamillionaire.view.about
 import androidx.navigation.Navigation
 import com.frenchfriesfamily.whowantstobeamillionaire.R
 import com.frenchfriesfamily.whowantstobeamillionaire.databinding.FragmentAboutBinding
+import com.frenchfriesfamily.whowantstobeamillionaire.utils.EventObserver
 import com.frenchfriesfamily.whowantstobeamillionaire.view.AudioViewModel
 import com.frenchfriesfamily.whowantstobeamillionaire.view.base.BaseFragment
 
@@ -13,14 +14,12 @@ class AboutFragment :
     override val audioViewModelClass = AudioViewModel::class.java
 
     override fun setUp() {
-        navToHomeFragment()
+        viewModel.homeCLick.observe(this, EventObserver { navToHome() })
     }
 
-    private fun navToHomeFragment() {
-        binding.backToHome.setOnClickListener { view ->
-            audioViewModel.audio.playButtonSound(requireContext())
-            Navigation.findNavController(view).popBackStack()
-        }
+    private fun navToHome() {
+        audioViewModel.audio.playButtonSound(requireContext())
+        Navigation.findNavController(requireView()).popBackStack()
     }
 
 }

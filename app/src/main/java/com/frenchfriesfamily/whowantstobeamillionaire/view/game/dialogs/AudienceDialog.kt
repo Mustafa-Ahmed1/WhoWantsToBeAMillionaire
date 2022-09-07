@@ -31,7 +31,7 @@ class AudienceDialog :
     override fun onStart() {
         super.onStart()
         binding.buttonOk.setOnClickListener {
-            audioInAudienceDialog.runAudio(MediaPlayer.create(this.context, R.raw.push_audio))
+            audioInAudienceDialog.runAudio(MediaPlayer.create(this.context, R.raw.click_button_audio))
             Log.i("TEST", "dismissing")
             this.dismiss()
         }

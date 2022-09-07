@@ -1,3 +1,17 @@
 package com.frenchfriesfamily.whowantstobeamillionaire.utils
 
-//TODO: study Event class recommended by google and implement it, then explain it to your teammates
+open class Event<out T>(private val content: T) {
+    
+    var hasBeenHandled = false
+        private set
+
+    fun getContentIfNotHandled(): T? {
+        return if (hasBeenHandled) {
+            null
+        } else {
+            hasBeenHandled = true
+            content
+        }
+    }
+
+}

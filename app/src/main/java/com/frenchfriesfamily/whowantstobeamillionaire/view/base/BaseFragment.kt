@@ -9,6 +9,8 @@ import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavDirections
+import androidx.navigation.fragment.findNavController
 import com.frenchfriesfamily.whowantstobeamillionaire.BR
 
 abstract class BaseFragment<VDB : ViewDataBinding, VM : ViewModel, AVM : ViewModel>(private val layoutId: Int) :
@@ -46,6 +48,10 @@ abstract class BaseFragment<VDB : ViewDataBinding, VM : ViewModel, AVM : ViewMod
     private fun initViewModel() {
         viewModel = ViewModelProvider(requireActivity())[viewModelClass]
         audioViewModel = ViewModelProvider(requireActivity())[audioViewModelClass]
+    }
+
+    fun navigate(action: NavDirections) {
+        return findNavController().navigate(action)
     }
 
 }
