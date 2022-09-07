@@ -9,7 +9,7 @@ class AudioViewModel : BaseViewModel() {
 
     val audio = Audio()
 
-    private val _isMuted = MutableLiveData(false)
+    private val _isMuted = MutableLiveData(true)
     val isMuted: LiveData<Boolean> = _isMuted
 
     fun onButtonClicked() {

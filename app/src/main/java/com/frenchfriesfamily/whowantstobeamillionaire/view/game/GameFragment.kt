@@ -35,6 +35,7 @@ class GameFragment :
             audienceClick.observe(this@GameFragment, EventObserver { navToAudienceDialog() })
             callFriendClick.observe(this@GameFragment, EventObserver { navToCallFriendDialog() })
             exitCLick.observe(this@GameFragment, EventObserver { navToExitDialog() })
+            gameOver.observe(this@GameFragment, EventObserver{navToResult()})
         }
     }
 
@@ -55,17 +56,6 @@ class GameFragment :
         viewModel.seconds.observe(this) {
             if (it == Constants.TimeDurations.ZERO) {
                 viewModel.stageCounter--
-                navToResult()
-            }
-        }
-
-        viewModel.answerState.observe(this) { state ->
-            binding.countdownView.apply {
-                if (state != AnswerState.IS_DEFAULT) {
-                    pauseTimer()
-                }
-            }
-            if (state == AnswerState.IS_WRONG) {
                 navToResult()
             }
         }

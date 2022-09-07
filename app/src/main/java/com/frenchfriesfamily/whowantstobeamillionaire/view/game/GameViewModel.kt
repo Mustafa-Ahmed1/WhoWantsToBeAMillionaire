@@ -186,13 +186,9 @@ class GameViewModel : BaseViewModel(), GameInteractionListener {
         }).add(timerDisposable)
     }
 
-
-    private val _answerState = MutableLiveData(AnswerState.IS_DEFAULT)
-    val answerState: LiveData<AnswerState> = _answerState
-
     override fun onClickAnswer(answerText: Answer) {
         _answers.value = _answers.value.apply { answerText.state = AnswerState.IS_PRESSED }
-        Single.just(answerText).delay(2000, TimeUnit.MILLISECONDS)
+        Single.timer(2000, TimeUnit.MILLISECONDS)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe { _ ->
@@ -200,15 +196,28 @@ class GameViewModel : BaseViewModel(), GameInteractionListener {
             }
     }
 
-    private fun checkAnswerState(answer: Answer) {
+    private val _gameOver = MutableLiveData<Event<Boolean>>()
+    val gameOver: LiveData<Event<Boolean>> = _gameOver
+
+    private fun checkAnswerState(answer: Answer){
         _answers.value = _answers.value.apply {
             if (answer.answer == _question.value?.correctAnswer) {
                 answer.state = AnswerState.IS_CORRECT
-                checkQuestionLevel()
+                Single.timer(2000, TimeUnit.MILLISECONDS)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe { _ ->
+                        checkQuestionLevel()
+                    }
             }
             else {
                 answer.state = AnswerState.IS_WRONG
-                gameOver()
+                Single.timer(2000, TimeUnit.MILLISECONDS)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe { _ ->
+                        _gameOver.postValue(Event(true))
+                    }
             }
         }
     }
