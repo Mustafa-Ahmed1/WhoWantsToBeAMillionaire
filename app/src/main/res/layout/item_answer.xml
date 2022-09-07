@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
@@ -7,15 +8,11 @@
 
         <variable
             name="item"
-            type="String" />
+            type="com.frenchfriesfamily.whowantstobeamillionaire.view.game.enums.Answer" />
 
         <variable
             name="listener"
             type="com.frenchfriesfamily.whowantstobeamillionaire.view.game.GameInteractionListener" />
-
-        <variable
-            name="viewModel"
-            type="com.frenchfriesfamily.whowantstobeamillionaire.view.game.GameViewModel" />
 
     </data>
 
@@ -23,15 +20,15 @@
         android:layout_width="match_parent"
         android:layout_height="44dp"
         android:layout_marginBottom="@dimen/spacing_medium"
-        android:onClick="@{()-> listener.onClickAnswer(item)}"
-        app:disableViewBasedOnState="@{viewModel.answerState}">
+        app:disableViewBasedOnState="@{item.state}" >
 
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"
-            app:answerState="@{viewModel.answerState}"
+            android:onClick="@{()-> listener.onClickAnswer(item)}"
+            app:answerState="@{item.state}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -46,6 +43,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginHorizontal="@dimen/spacing_large"
+            app:textFormattingBySymbols="@{item.answer}"
             android:ellipsize="end"
             android:gravity="center"
             android:maxLines="1"
@@ -53,7 +51,6 @@
             app:layout_constraintEnd_toEndOf="@id/imageView"
             app:layout_constraintStart_toStartOf="@id/imageView"
             app:layout_constraintTop_toTopOf="@id/imageView"
-            app:textFormattingBySymbols="@{item}"
             tools:text="Answer" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

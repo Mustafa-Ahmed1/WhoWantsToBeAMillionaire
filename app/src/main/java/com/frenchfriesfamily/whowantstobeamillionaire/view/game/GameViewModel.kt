@@ -12,7 +12,10 @@ import com.frenchfriesfamily.whowantstobeamillionaire.utils.Constants
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.Event
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.extensions.add
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.extensions.postEvent
+import com.frenchfriesfamily.whowantstobeamillionaire.utils.extensions.printLog
+import com.frenchfriesfamily.whowantstobeamillionaire.utils.extensions.toAnswer
 import com.frenchfriesfamily.whowantstobeamillionaire.view.base.BaseViewModel
+import com.frenchfriesfamily.whowantstobeamillionaire.view.game.enums.Answer
 import com.frenchfriesfamily.whowantstobeamillionaire.view.game.enums.AnswerState
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
@@ -35,9 +38,6 @@ class GameViewModel : BaseViewModel(), GameInteractionListener {
 
     private val _question = MutableLiveData<Question?>()
     val question: LiveData<Question?> = _question
-
-    private val _answers = MutableLiveData<List<String?>?>()
-    val answers: LiveData<List<String?>?> = _answers
 
     private val _stage = MutableLiveData<StageDetails>()
     val stage: LiveData<StageDetails> = _stage
@@ -105,18 +105,18 @@ class GameViewModel : BaseViewModel(), GameInteractionListener {
             .add(disposable)
     }
 
+    private val _answers = MutableLiveData<List<Answer>?>()
+    val answers: LiveData<List<Answer>?> = _answers
+
     private fun onGetQuestionSuccess(response: State<GameResponse>) {
         when (response) {
             is State.Loading -> _states.postValue(response)
             is State.Success -> {
                 _states.postValue(response)
                 response.toData()?.results.apply {
+                    _questionsList.value = State.Success(this)
                     emitTimerSeconds()
-                    _questionsList.postValue(State.Success(this))
-                    this?.get(questionCounter)?.let {
-                        _question.postValue(it)
-                        _answers.postValue(it.incorrectAnswers?.plus(it.correctAnswer)?.shuffled())
-                    }
+                    setQuestion()
                 }
             }
             is State.Error -> _states.postValue(State.Error(response.message))
@@ -130,7 +130,7 @@ class GameViewModel : BaseViewModel(), GameInteractionListener {
     private fun setQuestion() {
         _questionsList.value?.toData()?.get(questionCounter).apply {
             _question.postValue(this)
-            _answers.postValue(this?.incorrectAnswers?.plus(this.correctAnswer))
+            _answers.postValue(this?.toAnswer())
         }
     }
 
@@ -191,10 +191,8 @@ class GameViewModel : BaseViewModel(), GameInteractionListener {
     private val _answerState = MutableLiveData(AnswerState.IS_DEFAULT)
     val answerState: LiveData<AnswerState> = _answerState
 
-
-    override fun onClickAnswer(answerText: String) {
-        _answerState.value = AnswerState.IS_PRESSED
-
+    override fun onClickAnswer(answerText: Answer) {
+        _answers.value = _answers.value.apply { answerText.state = AnswerState.IS_PRESSED }
         Single.just(answerText).delay(2000, TimeUnit.MILLISECONDS)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -203,13 +201,16 @@ class GameViewModel : BaseViewModel(), GameInteractionListener {
             }
     }
 
-    private fun checkAnswerState(answer: String) {
-        if (answer == _question.value?.correctAnswer) {
-            _answerState.postValue(AnswerState.IS_CORRECT)
-            checkQuestionLevel()
-        } else {
-            _answerState.postValue(AnswerState.IS_WRONG)
-            gameOver()
+    private fun checkAnswerState(answer: Answer) {
+        _answers.value = _answers.value.apply {
+            if (answer.answer == _question.value?.correctAnswer) {
+                answer.state = AnswerState.IS_CORRECT
+                checkQuestionLevel()
+            }
+            else {
+                answer.state = AnswerState.IS_WRONG
+                gameOver()
+            }
         }
     }
 

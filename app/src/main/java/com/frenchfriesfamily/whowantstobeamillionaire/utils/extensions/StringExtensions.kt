@@ -1,10 +1,20 @@
 package com.frenchfriesfamily.whowantstobeamillionaire.utils.extensions
 
+import com.frenchfriesfamily.whowantstobeamillionaire.model.response.Question
+import com.frenchfriesfamily.whowantstobeamillionaire.view.game.enums.Answer
+import com.frenchfriesfamily.whowantstobeamillionaire.view.game.enums.AnswerState
 import com.github.mikephil.charting.data.BarEntry
 import org.jsoup.Jsoup
 import kotlin.random.Random
 
 fun String.replacePunctuationTextsWithSymbols(): String = Jsoup.parse(this).text()
+
+fun Question.toAnswer(): List<Answer>? {
+    val list = this.incorrectAnswers?.toMutableList()?.apply {
+        this.add(correctAnswer)
+    }?.map { Answer(it, AnswerState.IS_DEFAULT) }
+    return list
+}
 
 fun String.getProbableAnswer(answers: List<String?>?): Char {
     val probabilities = mutableListOf<Float>()
