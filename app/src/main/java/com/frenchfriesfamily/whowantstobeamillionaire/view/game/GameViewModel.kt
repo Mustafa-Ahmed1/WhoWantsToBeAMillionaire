@@ -20,7 +20,6 @@ import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
 
-//TODO: I don't think you can clean this mess easily, use Boy Scout Rule whenever you work
 class GameViewModel : BaseViewModel(), GameInteractionListener {
 
     private val stagesRepository = StagesRepositoryImpl()
@@ -96,12 +95,12 @@ class GameViewModel : BaseViewModel(), GameInteractionListener {
         )
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(::onGetQuestionSuccess,::onGetQuestionError).add(disposable)
+            .subscribe(::onGetQuestionSuccess, ::onGetQuestionError).add(disposable)
     }
 
     private fun onGetQuestionSuccess(response: State<GameResponse>?) {
         Log.i(QUESTIONS_TAG, "request ${difficulty + 1}: got ${response?.toData()?.results}")
-        response?.toData()?.results?.apply{
+        response?.toData()?.results?.apply {
             emitTimerSeconds()
             _questionsList.postValue(State.Success(this))
             this[questionCounter].let {
@@ -118,7 +117,7 @@ class GameViewModel : BaseViewModel(), GameInteractionListener {
         }
     }
 
-    private fun onGetQuestionError(throwable: Throwable) {  }
+    private fun onGetQuestionError(throwable: Throwable) {}
 
     fun checkQuestionLevel() {
         emitTimerSeconds()
@@ -126,9 +125,10 @@ class GameViewModel : BaseViewModel(), GameInteractionListener {
             4 -> nextDifficulty()
             9 -> nextDifficulty()
             14 -> gameOver()
-            else ->{
+            else -> {
                 questionCounter++
-                setQuestion() }
+                setQuestion()
+            }
         }
         stageCounter++
         setStage()
@@ -156,13 +156,9 @@ class GameViewModel : BaseViewModel(), GameInteractionListener {
     }
 
 
-    fun onCallFriend(call: Boolean) {
-        _friendHelp.postValue(call)
-    }
+    fun onCallFriend(call: Boolean) = _friendHelp.postValue(call)
+    fun onAskAudience(audience: Boolean) = _audienceHelp.postValue(audience)
 
-    fun onAskAudience(audience: Boolean) {
-        _audienceHelp.postValue(audience)
-    }
 
     private fun emitTimerSeconds() {
         disposable.clear()
@@ -173,7 +169,7 @@ class GameViewModel : BaseViewModel(), GameInteractionListener {
             _seconds.postValue(15 - it.toInt())
         }, {
             Log.e("Timer", "Error: ${it.message}")
-        },{
+        }, {
 
         }).add(this.disposable)
     }

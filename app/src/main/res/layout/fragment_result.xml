@@ -149,49 +149,33 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/button_play_again"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/spacing_large"
-            app:layout_constraintBottom_toTopOf="@+id/button_back_to_home"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:srcCompat="@drawable/ic_play_again_btn"
-            tools:ignore="ContentDescription" />
-
-        <TextView
-            android:id="@+id/play_again_text"
             style="@style/TextStyle.Large"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_marginBottom="@dimen/spacing_large"
+            android:background="@drawable/button_green_large"
             android:text="@string/play_again"
-            app:layout_constraintBottom_toBottomOf="@+id/button_play_again"
-            app:layout_constraintEnd_toEndOf="@+id/button_play_again"
-            app:layout_constraintStart_toStartOf="@+id/button_play_again"
-            app:layout_constraintTop_toTopOf="@+id/button_play_again" />
+            android:textAllCaps="false"
+            app:layout_constraintBottom_toTopOf="@+id/button_back_to_home"
+            app:layout_constraintEnd_toEndOf="@+id/button_back_to_home"
+            app:layout_constraintStart_toStartOf="@+id/button_back_to_home" />
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/button_back_to_home"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="64dp"
+            style="@style/TextStyle.Large"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:background="@drawable/button_purple_large"
+            android:onClick="@{() -> viewModel.onBackToHomeClicked()}"
+            android:text="@string/back_to_home"
+            android:layout_marginHorizontal="@dimen/spacing_extra_large"
+            android:layout_marginBottom="@dimen/spacing_xx_large"
+            android:textAllCaps="false"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:srcCompat="@drawable/ic_back_to_home_btn"
-            tools:ignore="ContentDescription" />
-
-        <TextView
-            android:id="@+id/back_to_home_text"
-            style="@style/TextStyle.Large"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/back_to_home"
-            app:layout_constraintBottom_toBottomOf="@+id/button_back_to_home"
-            app:layout_constraintEnd_toEndOf="@+id/button_back_to_home"
-            app:layout_constraintStart_toStartOf="@+id/button_back_to_home"
-            app:layout_constraintTop_toTopOf="@+id/button_back_to_home" />
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -9,6 +9,7 @@ import com.frenchfriesfamily.whowantstobeamillionaire.utils.Constants.TimeDurati
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.extensions.getColor
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.extensions.getProbableAnswer
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.extensions.replacePunctuationTextsWithSymbols
+import com.frenchfriesfamily.whowantstobeamillionaire.utils.extensions.setBackground
 
 @BindingAdapter(value = ["app:colorStateWithTimer"])
 fun changeTextColorDependingOnTime(view: TextView, remainingSeconds: Int?) {
@@ -26,10 +27,9 @@ fun formatTextBySymbols(view: TextView, text: String?) {
 
 @BindingAdapter(value = ["app:soundsState"])
 fun setTextBasedOnSoundsState(view: TextView, isMuted: Boolean?) {
-    if (isMuted == true) {
-        view.text = view.context.getString(R.string.sounds_off)
-    } else {
-        view.text = view.context.getString(R.string.sounds_on)
+    when (isMuted) {
+        true -> view.text = view.context.getString(R.string.sounds_off)
+        else -> view.text = view.context.getString(R.string.sounds_on)
     }
 }
 

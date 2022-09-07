@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -67,14 +67,14 @@
                     style="@style/TextStyle.Medium"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:text="B"
-                    app:correctAnswer="@{viewModel.question.correctAnswer}"
-                    app:allAnswers="@{viewModel.answers}"
                     android:textColor="@color/yellow_light"
+                    app:allAnswers="@{viewModel.answers}"
+                    app:correctAnswer="@{viewModel.question.correctAnswer}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@+id/text_i_think"
                     app:layout_constraintStart_toStartOf="@+id/text_i_think"
-                    app:layout_constraintTop_toBottomOf="@+id/text_i_think" />
+                    app:layout_constraintTop_toBottomOf="@+id/text_i_think"
+                    tools:text="B" />
 
                 <ImageView
                     android:id="@+id/horizontal_bar"

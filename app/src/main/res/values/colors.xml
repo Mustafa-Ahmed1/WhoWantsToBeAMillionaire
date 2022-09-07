@@ -4,13 +4,16 @@
     <color name="white">#FFFFFFFF</color>
     <color name="white_87">#DEFFFFFF</color>
     <color name="gray">#909090</color>
+
+    <color name="purple_dark">#2B0938</color>
     <color name="purple">#3C0A4F</color>
     <color name="purple_light">#662280</color>
     <color name="purple_lightest">#B699C5</color>
-    <color name="purple_dark">#2B0938</color>
+
+    <color name="yellow_dark">#595914</color>
     <color name="yellow">#7F8022</color>
     <color name="yellow_light">#D2D32A</color>
-    <color name="yellow_dark">#595914</color>
+
     <color name="red">#DB2832</color>
     <color name="green">#23B26B</color>
 </resources>

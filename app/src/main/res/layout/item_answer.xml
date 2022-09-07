@@ -41,11 +41,11 @@
 
         <TextView
             android:id="@+id/text_answer_chooses"
-            style="@style/TextStyle.Medium"
+            style="@style/TextStyle.Small"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginHorizontal="@dimen/marginLarge"
+            android:layout_marginHorizontal="@dimen/spacing_large"
             android:ellipsize="end"
             android:gravity="center"
             android:maxLines="1"

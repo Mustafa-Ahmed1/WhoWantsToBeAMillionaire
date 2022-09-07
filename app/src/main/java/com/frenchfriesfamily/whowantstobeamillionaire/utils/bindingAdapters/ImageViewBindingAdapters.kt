@@ -17,9 +17,8 @@ fun isUsed(view: ImageView, Clicked: Boolean) {
 
 @BindingAdapter(value = ["app:soundsState"])
 fun setImageBasedOnSoundsState(view: ImageView, isMuted: Boolean?) {
-    if (isMuted == true) {
-        view.setBackground(R.drawable.ic_sounds_off)
-    } else {
-        view.setBackground(R.drawable.ic_sounds_on)
+    when (isMuted) {
+        true -> view.setBackground(R.drawable.ic_sounds_off)
+        else -> view.setBackground(R.drawable.ic_sounds_on)
     }
 }

@@ -3,7 +3,6 @@ package com.frenchfriesfamily.whowantstobeamillionaire.utils.extensions
 import android.view.View
 import androidx.core.content.ContextCompat
 
-//TODO: add more view extensions to simplify the code
 fun View.getColor(color: Int): Int {
     return ContextCompat.getColor(this.context, color)
 }

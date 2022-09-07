@@ -53,7 +53,10 @@ class GameFragment :
         }
 
         viewModel.seconds.observe(this) {
-            if (it == Constants.TimeDurations.ZERO) navToResultFragment()
+            if (it == Constants.TimeDurations.ZERO) {
+                viewModel.stageCounter--
+                navToResult()
+            }
         }
 
         viewModel.answerState.observe(this) { state ->

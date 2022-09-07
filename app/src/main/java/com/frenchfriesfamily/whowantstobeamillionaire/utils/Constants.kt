@@ -2,11 +2,9 @@ package com.frenchfriesfamily.whowantstobeamillionaire.utils
 
 import com.frenchfriesfamily.whowantstobeamillionaire.view.game.enums.TimeDuration
 
-//TODO : clean up the mess
 object Constants {
     const val BASE_URL = "https://opentdb.com/"
 
-    // x-axis bar chart data
     val ANSWER_OPTIONS = listOf("A", "B", "C", "D")
 
     val DIFFICULTY = listOf("easy", "medium", "hard")
