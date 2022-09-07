@@ -93,7 +93,7 @@ class GameViewModel : BaseViewModel(), GameInteractionListener {
     }
 
 
-    private fun getQuestions() {
+    fun getQuestions() {
         gameRepository.getQuestions(
             Constants.AMOUNT_OF_QUESTION,
             Constants.DIFFICULTY[difficulty],
@@ -108,18 +108,25 @@ class GameViewModel : BaseViewModel(), GameInteractionListener {
     private fun onGetQuestionSuccess(response: State<GameResponse>) {
         when (response) {
             is State.Loading -> _states.postValue(response)
-            is State.Success -> {
-                _states.postValue(response)
-                response.toData()?.results.apply {
-                    emitTimerSeconds()
-                    _questionsList.postValue(State.Success(this))
-                    this?.get(questionCounter)?.let {
-                        _question.postValue(it)
-                        _answers.postValue(it.incorrectAnswers?.plus(it.correctAnswer)?.shuffled())
-                    }
-                }
+            is State.Success -> onStateSuccess(response)
+            is State.Error -> onStateError(response.message)
+        }
+    }
+
+    private fun onStateError(response: String) {
+        _states.postValue(State.Error(response))
+        timerDisposable.clear()
+    }
+
+    private fun onStateSuccess(response: State<GameResponse>) {
+        _states.postValue(response)
+        response.toData()?.results.apply {
+            emitTimerSeconds()
+            _questionsList.postValue(State.Success(this))
+            this?.get(questionCounter)?.let {
+                _question.postValue(it)
+                _answers.postValue(it.incorrectAnswers?.plus(it.correctAnswer)?.shuffled())
             }
-            is State.Error -> _states.postValue(State.Error(response.message))
         }
     }
 
@@ -170,21 +177,20 @@ class GameViewModel : BaseViewModel(), GameInteractionListener {
         setQuestion()
     }
 
-
     fun onCallFriend(call: Boolean) = _friendHelp.postValue(call)
     fun onAskAudience(audience: Boolean) = _audienceHelp.postValue(audience)
 
 
     private fun emitTimerSeconds() {
         timerDisposable.clear()
+
         val gameTimer = Observable.intervalRange(0, 16, 0, 1, TimeUnit.SECONDS)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-        gameTimer.subscribe({
+
+        gameTimer.subscribe {
             _seconds.postValue(15 - it.toInt())
-        }, {
-            Log.e("Timer", "Error: ${it.message}")
-        }).add(timerDisposable)
+        }.add(timerDisposable)
     }
 
 
