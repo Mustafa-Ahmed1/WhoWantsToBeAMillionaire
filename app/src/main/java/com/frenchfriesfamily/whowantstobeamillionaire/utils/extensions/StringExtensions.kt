@@ -19,7 +19,6 @@ fun String.getProbableAnswer(answers: List<String?>?): Char {
     val maximumValue = probabilities.max()
 
     return (probabilities.indexOf(maximumValue) + 65).toChar()
-
 }
 
 fun List<String?>?.getProbableAudienceAnswers(correctAnswer: String?): ArrayList<BarEntry> {
@@ -27,17 +26,15 @@ fun List<String?>?.getProbableAudienceAnswers(correctAnswer: String?): ArrayList
     val probabilities = mutableListOf<Float>()
 
     this?.forEach { answer ->
-        if (answer == correctAnswer) {
-            probabilities.add(Random.nextFloat() + 1f)
-        } else {
-            probabilities.add(Random.nextFloat())
+        when (answer) {
+            correctAnswer -> probabilities.add(Random.nextFloat() + 1f)
+            else -> probabilities.add(Random.nextFloat())
         }
     }
 
     val sum = probabilities.sum()
     probabilities.forEachIndexed { index, probability ->
-        val barEntry = BarEntry(probability / sum * 100, index)
-        barEntries.add(barEntry)
+        barEntries.add(BarEntry(probability / sum * 100, index))
     }
 
     return barEntries

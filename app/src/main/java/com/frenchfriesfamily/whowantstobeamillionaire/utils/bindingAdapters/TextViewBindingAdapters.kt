@@ -33,7 +33,7 @@ fun setTextBasedOnSoundsState(view: TextView, isMuted: Boolean?) {
     }
 }
 
-@BindingAdapter("app:correctAnswer", "app:allAnswers")
+@BindingAdapter(value = ["app:correctAnswer", "app:allAnswers"])
 fun setTextToProbableAnswer(view: TextView, correctAnswer: String?, allAnswers: List<String?>?) {
     view.text = correctAnswer?.getProbableAnswer(allAnswers).toString()
 }

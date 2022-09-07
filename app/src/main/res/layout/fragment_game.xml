@@ -24,7 +24,7 @@
             android:id="@+id/screen_on_success"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="gone"
+            tools:visibility="visible"
             app:showWhenSuccess="@{viewModel.states}">
 
             <ImageView
@@ -103,9 +103,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_call"
-                android:onClick="@{() -> viewModel.onCallFriendClicked()}
+                android:onClick="@{() -> viewModel.onCallFriendClicked()}"
                 app:isUsed="@{viewModel.friendHelp}"
-                app:layout_constraintEnd_toStartOf="@+id/button_replace_question"
+                app:layout_constraintEnd_toStartOf="@+id/button_replace"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/button_audience"
                 app:layout_constraintTop_toTopOf="@id/button_audience" />
@@ -142,7 +142,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@id/text_question_reward" />
-
 
             <TextView
                 android:id="@+id/text_question"
@@ -224,7 +223,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/C" />
 
-
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_answers"
                 android:layout_width="wrap_content"
@@ -248,7 +246,7 @@
             android:id="@+id/screen_on_fail"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="visible"
+            tools:visibility="gone"
             app:showWhenError="@{viewModel.states}">
 
             <com.airbnb.lottie.LottieAnimationView
@@ -307,14 +305,13 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/text_lost_internet_description" />
 
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/screen_on_loading"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="gone"
+            tools:visibility="gone"
             app:showWhenLoading="@{viewModel.states}">
 
             <com.airbnb.lottie.LottieAnimationView
@@ -326,10 +323,11 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:lottie_autoPlay="true"
+                app:lottie_speed="2"
                 app:lottie_loop="true"
                 app:lottie_rawRes="@raw/loading" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
 
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

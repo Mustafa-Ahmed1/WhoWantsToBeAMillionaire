@@ -11,9 +11,9 @@ import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 
-@BindingAdapter(value = ["app:Theme"])
-fun setUpBarChartTheme(view: BarChart, boolean: Boolean) {
-    if (boolean) {
+@BindingAdapter(value = ["app:audienceBarChartTheme"])
+fun setUpBarChartTheme(view: BarChart, isActivated: Boolean?) {
+    if (isActivated == true) {
         view.apply {
             setBackgroundColor(resources.getColor(R.color.purple))
             animateXY(2000, 2000)
@@ -33,11 +33,9 @@ fun setUpBarChartTheme(view: BarChart, boolean: Boolean) {
             invalidate()
         }
     }
-
 }
 
-
-@BindingAdapter("app:correctAnswerAudience", "app:allAnswersAudience")
+@BindingAdapter(value = ["app:correctAnswerAudience", "app:allAnswersAudience"])
 fun setBareDataAsChart(view: BarChart, correctAnswer: String?, allAnswers: List<String?>?) {
     view.data = BarData(Constants.ANSWER_OPTIONS,
         BarDataSet(allAnswers.getProbableAudienceAnswers(correctAnswer), null)

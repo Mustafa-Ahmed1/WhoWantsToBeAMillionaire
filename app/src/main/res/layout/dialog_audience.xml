@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.frenchfriesfamily.whowantstobeamillionaire.view.game.GameViewModel" />
@@ -41,11 +42,11 @@
                     android:id="@+id/bar_chart"
                     android:layout_width="160dp"
                     android:layout_height="120dp"
-                    app:Theme="@{true}"
-                    app:allAnswersAudience="@{viewModel.answers}"
-                    app:correctAnswerAudience="@{viewModel.question.correctAnswer}"
                     android:layout_marginHorizontal="@dimen/spacing_extra_large"
                     android:layout_marginVertical="@dimen/spacing_large"
+                    app:audienceBarChartTheme="@{true}"
+                    app:allAnswersAudience="@{viewModel.answers}"
+                    app:correctAnswerAudience="@{viewModel.question.correctAnswer}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -53,17 +54,18 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/button_ok"
                 style="@style/TextStyle.Medium"
                 android:layout_width="64dp"
                 android:layout_height="32dp"
                 android:layout_marginTop="@dimen/spacing_medium"
+                android:onClick="@{() -> viewModel.onOkClicked()}"
                 android:background="@drawable/button_green_small"
                 android:text="@string/ok" />
 
         </LinearLayout>
+
     </com.google.android.material.card.MaterialCardView>
 
 </layout>
