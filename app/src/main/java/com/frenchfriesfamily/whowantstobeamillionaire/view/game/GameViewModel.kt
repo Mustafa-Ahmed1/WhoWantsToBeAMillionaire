@@ -17,12 +17,18 @@ import com.frenchfriesfamily.whowantstobeamillionaire.view.game.enums.AnswerStat
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
+import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
 
 class GameViewModel : BaseViewModel(), GameInteractionListener {
 
     private val stagesRepository = StagesRepositoryImpl()
+
+    private val timerDisposable = CompositeDisposable()
+
+    private val _states = MutableLiveData<State<GameResponse>?>()
+    val states: LiveData<State<GameResponse>?> = _states
 
     private val _questionsList = MutableLiveData<State<List<Question>?>>()
     val questionsList: LiveData<State<List<Question>?>> = _questionsList
@@ -95,19 +101,30 @@ class GameViewModel : BaseViewModel(), GameInteractionListener {
         )
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(::onGetQuestionSuccess, ::onGetQuestionError).add(disposable)
+            .subscribe(::onGetQuestionSuccess, ::onGetQuestionError)
+            .add(disposable)
     }
 
-    private fun onGetQuestionSuccess(response: State<GameResponse>?) {
-        Log.i(QUESTIONS_TAG, "request ${difficulty + 1}: got ${response?.toData()?.results}")
-        response?.toData()?.results?.apply {
-            emitTimerSeconds()
-            _questionsList.postValue(State.Success(this))
-            this[questionCounter].let {
-                _question.postValue(it)
-                _answers.postValue(it.incorrectAnswers?.plus(it.correctAnswer)?.shuffled())
+    private fun onGetQuestionSuccess(response: State<GameResponse>) {
+        when (response) {
+            is State.Loading -> _states.postValue(response)
+            is State.Success -> {
+                _states.postValue(response)
+                response.toData()?.results.apply {
+                    emitTimerSeconds()
+                    _questionsList.postValue(State.Success(this))
+                    this?.get(questionCounter)?.let {
+                        _question.postValue(it)
+                        _answers.postValue(it.incorrectAnswers?.plus(it.correctAnswer)?.shuffled())
+                    }
+                }
             }
+            is State.Error -> _states.postValue(State.Error(response.message))
         }
+    }
+
+    private fun onGetQuestionError(throwable: Throwable) {
+        _states.postValue(State.Error(throwable.message.toString()))
     }
 
     private fun setQuestion() {
@@ -116,8 +133,6 @@ class GameViewModel : BaseViewModel(), GameInteractionListener {
             _answers.postValue(this?.incorrectAnswers?.plus(this.correctAnswer))
         }
     }
-
-    private fun onGetQuestionError(throwable: Throwable) {}
 
     fun checkQuestionLevel() {
         emitTimerSeconds()
@@ -161,7 +176,7 @@ class GameViewModel : BaseViewModel(), GameInteractionListener {
 
 
     private fun emitTimerSeconds() {
-        disposable.clear()
+        timerDisposable.clear()
         val gameTimer = Observable.intervalRange(0, 16, 0, 1, TimeUnit.SECONDS)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -169,9 +184,7 @@ class GameViewModel : BaseViewModel(), GameInteractionListener {
             _seconds.postValue(15 - it.toInt())
         }, {
             Log.e("Timer", "Error: ${it.message}")
-        }, {
-
-        }).add(this.disposable)
+        }).add(timerDisposable)
     }
 
 
@@ -204,5 +217,4 @@ class GameViewModel : BaseViewModel(), GameInteractionListener {
         const val QUESTIONS_TAG = "QUESTIONS_TAG"
         const val SECONDS_TAG = "SECONDS_TAG"
     }
-
 }

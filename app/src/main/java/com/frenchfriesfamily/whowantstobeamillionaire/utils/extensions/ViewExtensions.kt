@@ -10,3 +10,11 @@ fun View.getColor(color: Int): Int {
 fun View.setBackground(drawableId: Int) {
     this.background = ContextCompat.getDrawable(this.context, drawableId)
 }
+
+fun View.hide() {
+    this.visibility = View.GONE
+}
+
+fun View.show() {
+    this.visibility = View.VISIBLE
+}
