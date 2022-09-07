@@ -12,7 +12,6 @@ import com.frenchfriesfamily.whowantstobeamillionaire.utils.Constants
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.Event
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.extensions.add
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.extensions.postEvent
-import com.frenchfriesfamily.whowantstobeamillionaire.utils.extensions.printLog
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.extensions.toAnswer
 import com.frenchfriesfamily.whowantstobeamillionaire.view.base.BaseViewModel
 import com.frenchfriesfamily.whowantstobeamillionaire.view.game.enums.Answer

@@ -10,6 +10,7 @@ import com.frenchfriesfamily.whowantstobeamillionaire.utils.extensions.getColor
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.extensions.getProbableAnswer
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.extensions.replacePunctuationTextsWithSymbols
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.extensions.setBackground
+import com.frenchfriesfamily.whowantstobeamillionaire.view.game.enums.Answer
 
 @BindingAdapter(value = ["app:colorStateWithTimer"])
 fun changeTextColorDependingOnTime(view: TextView, remainingSeconds: Int?) {
@@ -34,6 +35,6 @@ fun setTextBasedOnSoundsState(view: TextView, isMuted: Boolean?) {
 }
 
 @BindingAdapter(value = ["app:correctAnswer", "app:allAnswers"])
-fun setTextToProbableAnswer(view: TextView, correctAnswer: String?, allAnswers: List<String?>?) {
+fun setTextToProbableAnswer(view: TextView, correctAnswer: String?, allAnswers: List<Answer?>?) {
     view.text = correctAnswer?.getProbableAnswer(allAnswers).toString()
 }

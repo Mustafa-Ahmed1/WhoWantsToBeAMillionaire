@@ -6,6 +6,7 @@ import com.frenchfriesfamily.whowantstobeamillionaire.R
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.Constants
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.extensions.getColor
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.extensions.getProbableAudienceAnswers
+import com.frenchfriesfamily.whowantstobeamillionaire.view.game.enums.Answer
 import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.BarData
@@ -36,7 +37,7 @@ fun setUpBarChartTheme(view: BarChart, isActivated: Boolean?) {
 }
 
 @BindingAdapter(value = ["app:correctAnswerAudience", "app:allAnswersAudience"])
-fun setBareDataAsChart(view: BarChart, correctAnswer: String?, allAnswers: List<String?>?) {
+fun setBareDataAsChart(view: BarChart, correctAnswer: String?, allAnswers: List<Answer?>?) {
     view.data = BarData(Constants.ANSWER_OPTIONS,
         BarDataSet(allAnswers.getProbableAudienceAnswers(correctAnswer), null)
             .apply {

@@ -12,15 +12,15 @@ fun String.replacePunctuationTextsWithSymbols(): String = Jsoup.parse(this).text
 fun Question.toAnswer(): List<Answer>? {
     val list = this.incorrectAnswers?.toMutableList()?.apply {
         this.add(correctAnswer)
-    }?.map { Answer(it, AnswerState.IS_DEFAULT) }
+    }?.map { Answer(it, AnswerState.IS_DEFAULT) }?.shuffled()
     return list
 }
 
-fun String.getProbableAnswer(answers: List<String?>?): Char {
+fun String.getProbableAnswer(answers: List<Answer?>?): Char {
     val probabilities = mutableListOf<Float>()
 
     answers?.forEach { answer ->
-        when (answer) {
+        when (answer?.answer) {
             this -> probabilities.add(Random.nextFloat() + 1f)
             else -> probabilities.add(Random.nextFloat())
         }
@@ -31,12 +31,12 @@ fun String.getProbableAnswer(answers: List<String?>?): Char {
     return (probabilities.indexOf(maximumValue) + 65).toChar()
 }
 
-fun List<String?>?.getProbableAudienceAnswers(correctAnswer: String?): ArrayList<BarEntry> {
+fun List<Answer?>?.getProbableAudienceAnswers(correctAnswer: String?): ArrayList<BarEntry> {
     val barEntries = arrayListOf<BarEntry>()
     val probabilities = mutableListOf<Float>()
 
     this?.forEach { answer ->
-        when (answer) {
+        when (answer?.answer) {
             correctAnswer -> probabilities.add(Random.nextFloat() + 1f)
             else -> probabilities.add(Random.nextFloat())
         }
