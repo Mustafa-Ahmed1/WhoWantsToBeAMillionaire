@@ -82,7 +82,7 @@ class GameViewModel : BaseViewModel(), GameInteractionListener {
 
 
     var questionCounter = 0
-    var stageCounter = 0
+    var stageCounter = 1
     private var difficulty = 0
 
 
@@ -136,31 +136,44 @@ class GameViewModel : BaseViewModel(), GameInteractionListener {
     fun checkQuestionLevel() {
         emitTimerSeconds()
         when (stageCounter) {
-            4 -> nextDifficulty()
-            9 -> nextDifficulty()
-            14 -> gameOver()
+            5 -> nextDifficulty()
+            10 -> nextDifficulty()
+            15 -> gameOver()
             else -> {
                 questionCounter++
+                stageCounter++
+                setStage()
                 setQuestion()
             }
         }
-        stageCounter++
+    }
+
+    private fun gameOver(){
+        when(stageCounter) {
+            15 -> gameResult()
+            else -> gameResult()
+        }
         setStage()
+    }
+
+    private fun gameResult(){
+        setStage()
+        _gameOver.postValue(Event(true))
     }
 
     private fun nextDifficulty() {
         questionCounter = 0
+        stageCounter++
         difficulty++
+        setStage()
         getQuestions()
     }
-
-    private fun gameOver() {}
 
     fun getStageList() = stagesRepository.getStages().reversed()
 
     private fun setStage() {
         val stageList = getStageList()
-        _stage.postValue(stageList[stageCounter.plus(1)])
+        _stage.postValue(stageList[stageCounter])
     }
 
     fun onChangeQuestion() {
@@ -203,7 +216,7 @@ class GameViewModel : BaseViewModel(), GameInteractionListener {
         _answers.value = _answers.value.apply {
             if (answer.answer == _question.value?.correctAnswer) {
                 answer.state = AnswerState.IS_CORRECT
-                Single.timer(2000, TimeUnit.MILLISECONDS)
+                Single.timer(1000, TimeUnit.MILLISECONDS)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe { _ ->
@@ -212,11 +225,12 @@ class GameViewModel : BaseViewModel(), GameInteractionListener {
             }
             else {
                 answer.state = AnswerState.IS_WRONG
-                Single.timer(2000, TimeUnit.MILLISECONDS)
+                Single.timer(1000, TimeUnit.MILLISECONDS)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe { _ ->
-                        _gameOver.postValue(Event(true))
+                        stageCounter--
+                        gameOver()
                     }
             }
         }
