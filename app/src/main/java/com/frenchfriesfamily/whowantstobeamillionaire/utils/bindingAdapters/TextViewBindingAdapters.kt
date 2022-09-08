@@ -3,6 +3,7 @@ package com.frenchfriesfamily.whowantstobeamillionaire.utils.bindingAdapters
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.frenchfriesfamily.whowantstobeamillionaire.R
+import com.frenchfriesfamily.whowantstobeamillionaire.model.data.StageDetails
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.Constants.TimeDurations.FIRST_DURATION
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.Constants.TimeDurations.SECOND_DURATION
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.Constants.TimeDurations.THIRD_DURATION
@@ -37,4 +38,14 @@ fun setTextBasedOnSoundsState(view: TextView, isMuted: Boolean?) {
 @BindingAdapter(value = ["app:correctAnswer", "app:allAnswers"])
 fun setTextToProbableAnswer(view: TextView, correctAnswer: String?, allAnswers: List<Answer?>?) {
     view.text = correctAnswer?.getProbableAnswer(allAnswers).toString()
+}
+
+@BindingAdapter(value = ["app:levelText"])
+fun setLevelText(view: TextView, stage: StageDetails?) {
+    view.text = stage?.level.toString()
+}
+
+@BindingAdapter(value = ["app:rewardText"])
+fun setRewardText(view: TextView, stage: StageDetails?) {
+    view.text = stage?.reward
 }

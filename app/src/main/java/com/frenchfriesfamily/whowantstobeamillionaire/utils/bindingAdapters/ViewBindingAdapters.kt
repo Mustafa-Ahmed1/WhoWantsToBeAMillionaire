@@ -1,10 +1,13 @@
 package com.frenchfriesfamily.whowantstobeamillionaire.utils.bindingAdapters
 
 import android.view.View
+import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.frenchfriesfamily.whowantstobeamillionaire.R
+import com.frenchfriesfamily.whowantstobeamillionaire.model.data.StageDetails
 import com.frenchfriesfamily.whowantstobeamillionaire.model.network.State
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.Audio
+import com.frenchfriesfamily.whowantstobeamillionaire.utils.Constants.LAST_LEVEL
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.extensions.hide
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.extensions.setBackground
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.extensions.show
@@ -54,5 +57,21 @@ fun <T> showWhenSuccess(view: View, state: State<T>?) {
     when (state) {
         is State.Success -> view.show()
         else -> view.hide()
+    }
+}
+
+@BindingAdapter(value = ["app:showWhenWin"])
+fun showWhenWin(view: View, stage: StageDetails?) {
+    when (stage?.level) {
+        LAST_LEVEL -> view.show()
+        else -> view.hide()
+    }
+}
+
+@BindingAdapter(value = ["app:showWhenLose"])
+fun showWhenLose(view: View, stage: StageDetails?) {
+    when (stage?.level) {
+        LAST_LEVEL -> view.hide()
+        else -> view.show()
     }
 }

@@ -20,7 +20,8 @@
             android:id="@+id/screen_on_winning"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="gone">
+            app:showWhenWin="@{viewModel.stage}"
+            tools:visibility="gone">
 
             <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/winner_badge"
@@ -65,6 +66,7 @@
             android:id="@+id/screen_on_losing"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            app:showWhenLose="@{viewModel.stage}"
             tools:visibility="visible">
 
             <ImageView
@@ -123,6 +125,7 @@
                 android:textColor="@color/green"
                 app:layout_constraintStart_toEndOf="@+id/pass_title"
                 app:layout_constraintTop_toTopOf="@+id/pass_title"
+                app:levelText="@{viewModel.stage}"
                 tools:text="0" />
 
 
@@ -145,7 +148,8 @@
                 android:textColor="@color/green"
                 app:layout_constraintEnd_toEndOf="@+id/loss_textView"
                 app:layout_constraintTop_toBottomOf="@+id/loss_textView"
-                tools:text="0 $ " />
+                app:rewardText="@{viewModel.stage}"
+                tools:text="$ 0" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -167,11 +171,11 @@
             style="@style/TextStyle.Large"
             android:layout_width="0dp"
             android:layout_height="48dp"
+            android:layout_marginHorizontal="@dimen/spacing_extra_large"
+            android:layout_marginBottom="@dimen/spacing_xx_large"
             android:background="@drawable/button_purple_large"
             android:onClick="@{() -> viewModel.onBackToHomeClicked()}"
             android:text="@string/back_to_home"
-            android:layout_marginHorizontal="@dimen/spacing_extra_large"
-            android:layout_marginBottom="@dimen/spacing_xx_large"
             android:textAllCaps="false"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
