@@ -1,5 +1,6 @@
 package com.frenchfriesfamily.whowantstobeamillionaire.view.result
 
+import androidx.activity.OnBackPressedCallback
 import androidx.navigation.fragment.navArgs
 import com.frenchfriesfamily.whowantstobeamillionaire.R
 import com.frenchfriesfamily.whowantstobeamillionaire.databinding.FragmentResultBinding
@@ -19,6 +20,14 @@ class ResultFragment :
         super.onStart()
         args.stageDetails?.let { viewModel.getCurrentStage(it) }
         observeEvents()
+        handleOnBackPressed()
+    }
+
+    private fun handleOnBackPressed(){
+        val callback = object : OnBackPressedCallback(true){
+            override fun handleOnBackPressed() { navToHome() }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
     }
 
     private fun observeEvents() {

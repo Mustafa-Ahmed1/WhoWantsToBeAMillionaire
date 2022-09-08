@@ -1,6 +1,7 @@
 package com.frenchfriesfamily.whowantstobeamillionaire.view.game
 
 import android.media.MediaPlayer
+import androidx.activity.OnBackPressedCallback
 import com.frenchfriesfamily.whowantstobeamillionaire.R
 import com.frenchfriesfamily.whowantstobeamillionaire.databinding.FragmentGameBinding
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.Constants
@@ -25,6 +26,14 @@ class GameFragment :
         changeQuestion()
         callFriend()
         audienceHelp()
+        handleOnBackPressed()
+    }
+
+    private fun handleOnBackPressed(){
+        val callback = object : OnBackPressedCallback(true){
+            override fun handleOnBackPressed() =  navToExitDialog()
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
     }
 
     private fun playGameSound() {
