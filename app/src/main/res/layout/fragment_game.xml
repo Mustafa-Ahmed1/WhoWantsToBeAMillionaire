@@ -24,19 +24,20 @@
             android:id="@+id/screen_on_success"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:visibility="visible"
-            app:showWhenSuccess="@{viewModel.questionsList}">
+            app:showWhenSuccess="@{viewModel.questionsList}"
+            tools:visibility="visible">
 
             <ImageView
                 android:id="@+id/button_leave"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="@{() -> viewModel.onExitCLicked()}"
                 android:layout_marginStart="@dimen/spacing_extra_large"
                 android:layout_marginTop="@dimen/spacing_extra_large"
                 android:src="@drawable/ic_leave"
+                app:audio="@{audioViewModel.audio}"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:onClickButton="@{viewModel.onExitCLicked}" />
 
             <ImageView
                 android:id="@+id/button_sounds"
@@ -90,37 +91,40 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/spacing_extra_large"
-                android:onClick="@{() -> viewModel.onAudienceClicked()}"
                 android:src="@drawable/ic_audience"
+                app:audio="@{audioViewModel.audio}"
                 app:isUsed="@{viewModel.audienceHelp}"
                 app:layout_constraintEnd_toStartOf="@+id/button_call"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/countdownView" />
+                app:layout_constraintTop_toBottomOf="@id/countdownView"
+                app:onClickButton="@{viewModel.onAudienceClicked}" />
 
             <ImageView
                 android:id="@+id/button_call"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_call"
-                android:onClick="@{() -> viewModel.onCallFriendClicked()}"
+                app:audio="@{audioViewModel.audio}"
                 app:isUsed="@{viewModel.friendHelp}"
                 app:layout_constraintEnd_toStartOf="@+id/button_replace"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/button_audience"
-                app:layout_constraintTop_toTopOf="@id/button_audience" />
+                app:layout_constraintTop_toTopOf="@id/button_audience"
+                app:onClickButton="@{viewModel.onCallFriendClicked}" />
 
             <ImageView
                 android:id="@+id/button_replace"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="@{()-> viewModel.onChangeQuestion()}"
                 android:src="@drawable/ic_replace"
+                app:audio="@{audioViewModel.audio}"
                 app:isUsed="@{viewModel.changeQuestion}"
                 app:layout_constraintEnd_toStartOf="@+id/button_remove"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/button_call"
-                app:layout_constraintTop_toTopOf="@id/button_audience" />
+                app:layout_constraintTop_toTopOf="@id/button_audience"
+                app:onClickButton="@{viewModel.onChangeQuestion}" />
 
             <ImageView
                 android:id="@+id/button_remove"
@@ -131,7 +135,6 @@
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/button_replace"
                 app:layout_constraintTop_toTopOf="@id/button_audience" />
-
 
             <View
                 android:id="@+id/view_question"
@@ -230,8 +233,8 @@
                 android:layout_marginTop="@dimen/spacing_large"
                 android:layout_marginEnd="@dimen/spacing_medium"
                 android:overScrollMode="never"
-                app:items="@{viewModel.answers}"
                 app:gameAdapter="@{viewModel}"
+                app:items="@{viewModel.answers}"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.58"
@@ -242,12 +245,13 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/screen_on_fail"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:visibility="gone"
-            app:showWhenError="@{viewModel.questionsList}">
+            app:showWhenError="@{viewModel.questionsList}"
+            tools:visibility="gone">
 
             <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/lottie_lost_internet"
@@ -307,12 +311,13 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/screen_on_loading"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:visibility="gone"
-            app:showWhenLoading="@{viewModel.questionsList}">
+            app:showWhenLoading="@{viewModel.questionsList}"
+            tools:visibility="gone">
 
             <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/lottie_loading"
@@ -323,9 +328,9 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:lottie_autoPlay="true"
-                app:lottie_speed="2"
                 app:lottie_loop="true"
-                app:lottie_rawRes="@raw/loading" />
+                app:lottie_rawRes="@raw/loading"
+                app:lottie_speed="2" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -8,8 +8,10 @@ import com.frenchfriesfamily.whowantstobeamillionaire.model.network.State
 import com.frenchfriesfamily.whowantstobeamillionaire.model.repositories.StagesRepositoryImpl
 import com.frenchfriesfamily.whowantstobeamillionaire.model.response.GameResponse
 import com.frenchfriesfamily.whowantstobeamillionaire.model.response.Question
-import com.frenchfriesfamily.whowantstobeamillionaire.utils.Constants
-import com.frenchfriesfamily.whowantstobeamillionaire.utils.Event
+import com.frenchfriesfamily.whowantstobeamillionaire.utils.Constants.Game.AMOUNT_OF_QUESTION
+import com.frenchfriesfamily.whowantstobeamillionaire.utils.Constants.Game.DIFFICULTY
+import com.frenchfriesfamily.whowantstobeamillionaire.utils.Constants.Game.QUESTION_TYPE
+import com.frenchfriesfamily.whowantstobeamillionaire.utils.event.Event
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.extensions.add
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.extensions.postEvent
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.extensions.toAnswer
@@ -20,9 +22,7 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.disposables.CompositeDisposable
-import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.schedulers.Schedulers
-import kotlinx.coroutines.delay
 import java.util.concurrent.TimeUnit
 
 class GameViewModel : BaseViewModel(), GameInteractionListener {
@@ -40,6 +40,9 @@ class GameViewModel : BaseViewModel(), GameInteractionListener {
     private val _stage = MutableLiveData<StageDetails>()
     val stage: LiveData<StageDetails> = _stage
 
+    private val _answers = MutableLiveData<List<Answer>?>()
+    val answers: LiveData<List<Answer>?> = _answers
+
     private val _changeQuestion = MutableLiveData(true)
     val changeQuestion: LiveData<Boolean> = _changeQuestion
 
@@ -51,6 +54,9 @@ class GameViewModel : BaseViewModel(), GameInteractionListener {
 
     private val _seconds = MutableLiveData(15)
     val seconds: LiveData<Int> = _seconds
+
+    private val _gameOver = MutableLiveData<Event<Boolean>>()
+    val gameOver: LiveData<Event<Boolean>> = _gameOver
 
 
     private val _audienceClick = MutableLiveData<Event<Boolean>>()
@@ -72,15 +78,15 @@ class GameViewModel : BaseViewModel(), GameInteractionListener {
     val leaveClick: LiveData<Event<Boolean>> = _leaveClick
 
 
-    fun onAudienceClicked() = _audienceClick.postEvent()
-    fun onCallFriendClicked() = _callFriendClick.postEvent()
-    fun onOkClicked() = _okCLick.postEvent()
-    fun onExitCLicked() = _exitClick.postEvent()
-    fun onStayClicked() = _stayCLick.postEvent()
-    fun onLeaveClicked() = _leaveClick.postEvent()
+    val onAudienceClicked = fun() = _audienceClick.postEvent()
+    val onCallFriendClicked = fun() = _callFriendClick.postEvent()
+    val onOkClicked = fun() = _okCLick.postEvent()
+    val onExitCLicked = fun() = _exitClick.postEvent()
+    val onStayClicked = fun() = _stayCLick.postEvent()
+    val onLeaveClicked = fun() = _leaveClick.postEvent()
 
 
-    var questionCounter = 0
+    private var questionCounter = 0
     var stageCounter = 1
     private var difficulty = 0
 
@@ -93,18 +99,15 @@ class GameViewModel : BaseViewModel(), GameInteractionListener {
 
     private fun getQuestions() {
         gameRepository.getQuestions(
-            Constants.AMOUNT_OF_QUESTION,
-            Constants.DIFFICULTY[difficulty],
-            Constants.QUESTION_TYPE
+            AMOUNT_OF_QUESTION,
+            DIFFICULTY[difficulty],
+            QUESTION_TYPE
         )
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(::onGetQuestionSuccess, ::onGetQuestionError)
             .add(disposable)
     }
-
-    private val _answers = MutableLiveData<List<Answer>?>()
-    val answers: LiveData<List<Answer>?> = _answers
 
     private fun onGetQuestionSuccess(response: State<GameResponse>) {
         when (response) {
@@ -144,9 +147,9 @@ class GameViewModel : BaseViewModel(), GameInteractionListener {
         }
     }
 
-    private fun gameOver(){
+    private fun gameOver() {
         setStage()
-        _gameOver.postValue(Event(true))
+        _gameOver.postEvent()
     }
 
     private fun nextDifficulty() {
@@ -164,7 +167,7 @@ class GameViewModel : BaseViewModel(), GameInteractionListener {
         _stage.postValue(stageList[stageCounter])
     }
 
-    fun onChangeQuestion() {
+    val onChangeQuestion = fun() {
         _changeQuestion.postValue(false)
         questionCounter++
         setQuestion()
@@ -197,10 +200,7 @@ class GameViewModel : BaseViewModel(), GameInteractionListener {
             }
     }
 
-    private val _gameOver = MutableLiveData<Event<Boolean>>()
-    val gameOver: LiveData<Event<Boolean>> = _gameOver
-
-    private fun checkAnswerState(answer: Answer){
+    private fun checkAnswerState(answer: Answer) {
         _answers.value = _answers.value.apply {
             if (answer.answer == _question.value?.correctAnswer) {
                 answer.state = AnswerState.IS_CORRECT
@@ -210,8 +210,7 @@ class GameViewModel : BaseViewModel(), GameInteractionListener {
                     .subscribe { _ ->
                         checkQuestionLevel()
                     }
-            }
-            else {
+            } else {
                 answer.state = AnswerState.IS_WRONG
                 Single.timer(1000, TimeUnit.MILLISECONDS)
                     .subscribeOn(Schedulers.io())
@@ -228,4 +227,5 @@ class GameViewModel : BaseViewModel(), GameInteractionListener {
         const val QUESTIONS_TAG = "QUESTIONS_TAG"
         const val SECONDS_TAG = "SECONDS_TAG"
     }
+
 }

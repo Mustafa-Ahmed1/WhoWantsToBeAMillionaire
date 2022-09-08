@@ -4,11 +4,7 @@ import com.frenchfriesfamily.whowantstobeamillionaire.model.response.Question
 import com.frenchfriesfamily.whowantstobeamillionaire.view.game.enums.Answer
 import com.frenchfriesfamily.whowantstobeamillionaire.view.game.enums.AnswerState
 import com.github.mikephil.charting.data.BarEntry
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.core.Single
-import io.reactivex.rxjava3.schedulers.Schedulers
 import org.jsoup.Jsoup
-import java.util.concurrent.TimeUnit
 import kotlin.random.Random
 
 fun String.replacePunctuationTextsWithSymbols(): String = Jsoup.parse(this).text()

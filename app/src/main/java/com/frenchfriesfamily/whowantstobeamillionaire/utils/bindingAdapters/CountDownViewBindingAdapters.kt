@@ -7,7 +7,6 @@ import com.frenchfriesfamily.whowantstobeamillionaire.utils.Constants.TimeDurati
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.Constants.TimeDurations.SECOND_DURATION
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.Constants.TimeDurations.THIRD_DURATION
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.extensions.getColor
-import com.frenchfriesfamily.whowantstobeamillionaire.view.game.enums.TimeDuration
 
 @BindingAdapter(value = ["app:colorStateWithTimer"])
 fun changeCircularTimerColorDependingOnTime(view: CircularCountDownView, remainingSeconds: Int?) {

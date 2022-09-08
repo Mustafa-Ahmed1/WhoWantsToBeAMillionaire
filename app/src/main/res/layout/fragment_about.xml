@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <variable
             name="viewModel"
             type="com.frenchfriesfamily.whowantstobeamillionaire.view.about.AboutViewModel" />
+
+        <variable
+            name="audioViewModel"
+            type="com.frenchfriesfamily.whowantstobeamillionaire.view.AudioViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -34,10 +38,11 @@
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:layout_marginStart="32dp"
-                    android:onClick="@{() -> viewModel.onBackToHomeClicked()}"
                     android:layout_marginTop="20dp"
                     android:layout_marginBottom="20dp"
                     android:src="@drawable/ic_arrow_back"
+                    app:audio="@{audioViewModel.audio}"
+                    app:onClickButton="@{viewModel.onBackToHomeClicked}"
                     tools:ignore="ContentDescription" />
 
                 <TextView
@@ -64,7 +69,6 @@
         <TextView
             android:id="@+id/game_roles_details"
             style="@style/TextStyle.Small"
-            android:textSize="12sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/spacing_extra_large"
@@ -72,6 +76,7 @@
             android:layout_marginEnd="@dimen/spacing_extra_large"
             android:justificationMode="inter_word"
             android:text="@string/game_roles_details"
+            android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/game_roles"
@@ -93,10 +98,10 @@
             style="@style/TextStyle.Small"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="12sp"
             android:layout_marginTop="@dimen/spacing_medium"
             android:gravity="center"
             android:text="@string/app_developers_details"
+            android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/app_developers" />

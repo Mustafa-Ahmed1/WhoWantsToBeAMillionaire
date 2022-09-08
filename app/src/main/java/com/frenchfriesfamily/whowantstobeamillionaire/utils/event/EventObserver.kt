@@ -1,4 +1,4 @@
-package com.frenchfriesfamily.whowantstobeamillionaire.utils
+package com.frenchfriesfamily.whowantstobeamillionaire.utils.event
 
 import androidx.lifecycle.Observer
 

@@ -7,6 +7,10 @@
         <variable
             name="viewModel"
             type="com.frenchfriesfamily.whowantstobeamillionaire.view.game.GameViewModel" />
+
+        <variable
+            name="audioViewModel"
+            type="com.frenchfriesfamily.whowantstobeamillionaire.view.AudioViewModel" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -56,33 +60,35 @@
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/button_leave"
-                    style="@style/TextStyle.Medium"
+                    style="@style/TextStyle.Small"
                     android:layout_width="64dp"
                     android:layout_height="32dp"
                     android:layout_marginTop="@dimen/spacing_large"
                     android:layout_marginEnd="@dimen/spacing_extra_large"
                     android:layout_marginBottom="@dimen/spacing_large"
                     android:background="@drawable/button_red"
-                    android:onClick="@{() -> viewModel.onLeaveClicked()}"
                     android:src="@drawable/button_red"
                     android:text="@string/leave"
                     android:textAllCaps="false"
+                    app:audio="@{audioViewModel.audio}"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent" />
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:onClickButton="@{viewModel.onLeaveClicked}" />
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/button_stay"
-                    style="@style/TextStyle.Medium"
+                    style="@style/TextStyle.Small"
                     android:layout_width="64dp"
                     android:layout_height="32dp"
                     android:layout_marginStart="@dimen/spacing_extra_large"
                     android:layout_marginBottom="@dimen/spacing_large"
                     android:background="@drawable/button_green_small"
-                    android:onClick="@{() -> viewModel.onStayClicked()}"
                     android:text="@string/stay"
                     android:textAllCaps="false"
+                    app:audio="@{audioViewModel.audio}"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:onClickButton="@{viewModel.onStayClicked}" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

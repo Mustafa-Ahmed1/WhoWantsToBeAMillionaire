@@ -1,7 +1,6 @@
 package com.frenchfriesfamily.whowantstobeamillionaire.utils.bindingAdapters
 
 import android.view.View
-import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.frenchfriesfamily.whowantstobeamillionaire.R
 import com.frenchfriesfamily.whowantstobeamillionaire.model.data.StageDetails
@@ -73,5 +72,13 @@ fun showWhenLose(view: View, stage: StageDetails?) {
     when (stage?.level) {
         LAST_LEVEL -> view.hide()
         else -> view.show()
+    }
+}
+
+@BindingAdapter(value = ["app:audio", "app:onClickButton"])
+fun onClickButton(view: View, audio: Audio?, function: () -> Unit) {
+    view.setOnClickListener {
+        audio?.playButtonSound(view.context)
+        function()
     }
 }

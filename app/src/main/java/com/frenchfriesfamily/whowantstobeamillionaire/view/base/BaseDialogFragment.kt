@@ -11,6 +11,7 @@ import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.frenchfriesfamily.whowantstobeamillionaire.BR
 
 abstract class BaseDialogFragment<VDB : ViewDataBinding, VM : ViewModel, AVM : ViewModel>(private val layoutId: Int) :
@@ -47,6 +48,10 @@ abstract class BaseDialogFragment<VDB : ViewDataBinding, VM : ViewModel, AVM : V
     private fun initViewModel() {
         viewModel = ViewModelProvider(requireActivity())[viewModelClass]
         audioViewModel = ViewModelProvider(requireActivity())[audioViewModelClass]
+    }
+
+    fun popBackStack(id: Int) {
+        findNavController().popBackStack(id, false)
     }
 
 }

@@ -8,6 +8,10 @@
         <variable
             name="viewModel"
             type="com.frenchfriesfamily.whowantstobeamillionaire.view.result.ResultsViewModel" />
+
+        <variable
+            name="audioViewModel"
+            type="com.frenchfriesfamily.whowantstobeamillionaire.view.AudioViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -77,7 +81,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/loss_text"
-                app:srcCompat="@drawable/image_lose"
+                app:srcCompat="@drawable/ic_lost"
                 tools:ignore="ContentDescription" />
 
             <TextView
@@ -162,9 +166,11 @@
             android:background="@drawable/button_green_large"
             android:text="@string/play_again"
             android:textAllCaps="false"
+            app:audio="@{audioViewModel.audio}"
             app:layout_constraintBottom_toTopOf="@+id/button_back_to_home"
             app:layout_constraintEnd_toEndOf="@+id/button_back_to_home"
-            app:layout_constraintStart_toStartOf="@+id/button_back_to_home" />
+            app:layout_constraintStart_toStartOf="@+id/button_back_to_home"
+            app:onClickButton="@{viewModel.onPlayAgainClicked}" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/button_back_to_home"
@@ -174,12 +180,13 @@
             android:layout_marginHorizontal="@dimen/spacing_extra_large"
             android:layout_marginBottom="@dimen/spacing_xx_large"
             android:background="@drawable/button_purple_large"
-            android:onClick="@{() -> viewModel.onBackToHomeClicked()}"
             android:text="@string/back_to_home"
             android:textAllCaps="false"
+            app:audio="@{audioViewModel.audio}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:onClickButton="@{viewModel.onBackToHomeClicked}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

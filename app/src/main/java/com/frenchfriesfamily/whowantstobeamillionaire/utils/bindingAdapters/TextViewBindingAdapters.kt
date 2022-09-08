@@ -10,7 +10,6 @@ import com.frenchfriesfamily.whowantstobeamillionaire.utils.Constants.TimeDurati
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.extensions.getColor
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.extensions.getProbableAnswer
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.extensions.replacePunctuationTextsWithSymbols
-import com.frenchfriesfamily.whowantstobeamillionaire.utils.extensions.setBackground
 import com.frenchfriesfamily.whowantstobeamillionaire.view.game.enums.Answer
 
 @BindingAdapter(value = ["app:colorStateWithTimer"])

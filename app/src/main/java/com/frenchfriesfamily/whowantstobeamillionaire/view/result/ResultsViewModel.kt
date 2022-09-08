@@ -19,8 +19,9 @@ class ResultsViewModel : BaseViewModel() {
     val stage: LiveData<StageDetails> = _stage
 
 
-    fun onBackToHomeClicked() = _homeClick.postEvent()
-    fun onPlayAgainClicked() = _gameClick.postEvent()
+    val onBackToHomeClicked = fun() = _homeClick.postEvent()
+    val onPlayAgainClicked = fun() = _gameClick.postEvent()
+
 
     fun getCurrentStage(currentStage: StageDetails) = _stage.postValue(currentStage)
 

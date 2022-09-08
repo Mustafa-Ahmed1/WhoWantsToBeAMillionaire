@@ -11,7 +11,7 @@
         android:label="HomeFragment"
         tools:layout="@layout/fragment_home">
         <action
-            android:id="@+id/action_homeFragment_to_questionFragment"
+            android:id="@+id/action_homeFragment_to_gameFragment"
             app:destination="@id/gameFragment" />
         <action
             android:id="@+id/action_homeFragment_to_aboutFragment"
@@ -24,13 +24,13 @@
         android:label="GameFragment"
         tools:layout="@layout/fragment_game">
         <action
-            android:id="@+id/action_questionFragment_to_resultFragment"
+            android:id="@+id/action_gameFragment_to_resultFragment"
             app:destination="@id/resultFragment" />
         <action
-            android:id="@+id/action_questionFragment_to_audienceDialog"
+            android:id="@+id/action_gameFragment_to_audienceDialog"
             app:destination="@id/audienceDialog" />
         <action
-            android:id="@+id/action_questionFragment_to_friendDialog"
+            android:id="@+id/action_gameFragment_to_friendDialog"
             app:destination="@id/friendDialog" />
         <action
             android:id="@+id/action_gameFragment_to_exitDialog"

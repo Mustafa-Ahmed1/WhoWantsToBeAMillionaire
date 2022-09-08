@@ -8,6 +8,10 @@
         <variable
             name="viewModel"
             type="com.frenchfriesfamily.whowantstobeamillionaire.view.game.GameViewModel" />
+
+        <variable
+            name="audioViewModel"
+            type="com.frenchfriesfamily.whowantstobeamillionaire.view.AudioViewModel" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -81,7 +85,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="1dp"
-                    android:background="@drawable/horizontal_line"
+                    android:background="@drawable/line_horizontal"
                     app:layout_constraintBottom_toBottomOf="@+id/image_human_thinking"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/image_human_thinking"
@@ -96,8 +100,9 @@
                 android:layout_height="32dp"
                 android:layout_marginTop="@dimen/spacing_medium"
                 android:background="@drawable/button_green_small"
-                android:onClick="@{() -> viewModel.onOkClicked()}"
-                android:text="@string/ok" />
+                android:text="@string/ok"
+                app:audio="@{audioViewModel.audio}"
+                app:onClickButton="@{viewModel.onOkClicked}" />
 
         </LinearLayout>
 

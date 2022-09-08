@@ -18,8 +18,10 @@ abstract class BaseFragment<VDB : ViewDataBinding, VM : ViewModel, AVM : ViewMod
 
     lateinit var viewModel: VM
     abstract val viewModelClass: Class<VM>
+
     lateinit var audioViewModel: AVM
     abstract val audioViewModelClass: Class<AVM>
+
     private lateinit var _binding: VDB
     val binding: VDB get() = _binding
 
@@ -38,20 +40,15 @@ abstract class BaseFragment<VDB : ViewDataBinding, VM : ViewModel, AVM : ViewMod
         }
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        setUp()
-    }
-
-    abstract fun setUp()
-
     private fun initViewModel() {
         viewModel = ViewModelProvider(requireActivity())[viewModelClass]
         audioViewModel = ViewModelProvider(requireActivity())[audioViewModelClass]
     }
 
-    fun navigate(action: NavDirections) {
-        return findNavController().navigate(action)
-    }
+    fun navigate(action: NavDirections) = findNavController().navigate(action)
+
+    fun popBackStack(id: Int) = findNavController().popBackStack(id, false)
+
+    fun popBackStack() = findNavController().popBackStack()
 
 }

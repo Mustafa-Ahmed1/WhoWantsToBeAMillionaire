@@ -1,9 +1,8 @@
 package com.frenchfriesfamily.whowantstobeamillionaire.view.game.dialogs
 
-import androidx.navigation.fragment.findNavController
 import com.frenchfriesfamily.whowantstobeamillionaire.R
 import com.frenchfriesfamily.whowantstobeamillionaire.databinding.DialogExitBinding
-import com.frenchfriesfamily.whowantstobeamillionaire.utils.EventObserver
+import com.frenchfriesfamily.whowantstobeamillionaire.utils.event.EventObserver
 import com.frenchfriesfamily.whowantstobeamillionaire.view.AudioViewModel
 import com.frenchfriesfamily.whowantstobeamillionaire.view.base.BaseDialogFragment
 import com.frenchfriesfamily.whowantstobeamillionaire.view.game.GameViewModel
@@ -21,19 +20,11 @@ class ExitDialog :
 
     private fun observeEvents() {
         viewModel.apply {
-            stayCLick.observe(this@ExitDialog, EventObserver { dismissDialog() })
-            leaveClick.observe(this@ExitDialog, EventObserver { exitToHome() })
+            stayCLick.observe(viewLifecycleOwner, EventObserver { dismiss() })
+            leaveClick.observe(viewLifecycleOwner, EventObserver { exitToHome() })
         }
     }
 
-    private fun dismissDialog() {
-        audioViewModel.audio.playButtonSound(requireContext())
-        dismiss()
-    }
-
-    private fun exitToHome() {
-        audioViewModel.audio.playButtonSound(requireContext())
-        findNavController().popBackStack(R.id.homeFragment, false)
-    }
+    private fun exitToHome() = popBackStack(R.id.homeFragment)
 
 }

@@ -47,12 +47,13 @@
             android:layout_height="@dimen/button_height_large"
             android:layout_marginTop="@dimen/spacing_xx_large"
             android:background="@drawable/button_start"
-            android:onClick="@{() -> viewModel.onStartClicked()}"
             android:text="@string/start"
             android:textAllCaps="false"
+            app:audio="@{audioViewModel.audio}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/logo" />
+            app:layout_constraintTop_toBottomOf="@id/logo"
+            app:onClickButton="@{viewModel.onStartClicked}" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/button_about"
@@ -61,12 +62,13 @@
             android:layout_height="@dimen/button_height_medium"
             android:layout_marginTop="@dimen/spacing_large"
             android:background="@drawable/button_oval"
-            android:onClick="@{() -> viewModel.onAboutClicked()}"
             android:text="@string/about"
             android:textAllCaps="false"
+            app:audio="@{audioViewModel.audio}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/button_start" />
+            app:layout_constraintTop_toBottomOf="@id/button_start"
+            app:onClickButton="@{viewModel.onAboutClicked}" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/button_sound"
@@ -92,12 +94,13 @@
             android:layout_height="@dimen/button_height_medium"
             android:layout_marginTop="@dimen/spacing_medium"
             android:background="@drawable/button_oval"
-            android:onClick="@{() -> viewModel.onExitClicked()}"
             android:text="@string/exit"
             android:textAllCaps="false"
+            app:audio="@{audioViewModel.audio}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/button_sound" />
+            app:layout_constraintTop_toBottomOf="@id/button_sound"
+            app:onClickButton="@{viewModel.onExitClicked}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

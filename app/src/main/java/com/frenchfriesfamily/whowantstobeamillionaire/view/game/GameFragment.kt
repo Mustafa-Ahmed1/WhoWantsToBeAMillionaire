@@ -1,14 +1,12 @@
 package com.frenchfriesfamily.whowantstobeamillionaire.view.game
 
-import android.content.Context
 import android.media.MediaPlayer
 import com.frenchfriesfamily.whowantstobeamillionaire.R
 import com.frenchfriesfamily.whowantstobeamillionaire.databinding.FragmentGameBinding
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.Constants
-import com.frenchfriesfamily.whowantstobeamillionaire.utils.EventObserver
+import com.frenchfriesfamily.whowantstobeamillionaire.utils.event.EventObserver
 import com.frenchfriesfamily.whowantstobeamillionaire.view.AudioViewModel
 import com.frenchfriesfamily.whowantstobeamillionaire.view.base.BaseFragment
-import com.frenchfriesfamily.whowantstobeamillionaire.view.game.enums.AnswerState
 
 class GameFragment :
     BaseFragment<FragmentGameBinding, GameViewModel, AudioViewModel>(R.layout.fragment_game) {
@@ -18,8 +16,14 @@ class GameFragment :
 
     private lateinit var gameMusic: MediaPlayer
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
+    override fun onStart() {
+        super.onStart()
+        playGameSound()
+        observeEvents()
+        handleTimer()
+    }
+
+    private fun playGameSound() {
         gameMusic = MediaPlayer.create(context, R.raw.game_audio)
         gameMusic.start()
     }
@@ -32,21 +36,16 @@ class GameFragment :
 
     private fun observeEvents() {
         viewModel.apply {
-            audienceClick.observe(this@GameFragment, EventObserver { navToAudienceDialog() })
-            callFriendClick.observe(this@GameFragment, EventObserver { navToCallFriendDialog() })
-            exitCLick.observe(this@GameFragment, EventObserver { navToExitDialog() })
-            gameOver.observe(this@GameFragment, EventObserver{navToResult()})
+            audienceClick.observe(viewLifecycleOwner, EventObserver { navToAudienceDialog() })
+            callFriendClick.observe(viewLifecycleOwner, EventObserver { navToCallFriendDialog() })
+            exitCLick.observe(viewLifecycleOwner, EventObserver { navToExitDialog() })
+            gameOver.observe(viewLifecycleOwner, EventObserver { navToResult() })
         }
     }
 
     // TODO: should be improved
     private fun handleTimer() {
-        binding.countdownView.apply {
-            initTimer(15)
-            startTimer()
-        }
-
-        viewModel.question.observe(this@GameFragment) {
+        viewModel.question.observe(viewLifecycleOwner) {
             binding.countdownView.apply {
                 initTimer(15)
                 startTimer()
@@ -61,37 +60,25 @@ class GameFragment :
         }
     }
 
-
     private fun navToResult() {
         val currentStage = viewModel.getStageList()[viewModel.stageCounter]
-        navigate(GameFragmentDirections.actionQuestionFragmentToResultFragment(currentStage))
+        navigate(GameFragmentDirections.actionGameFragmentToResultFragment(currentStage))
     }
 
     private fun navToAudienceDialog() {
-        playButtonSound()
         viewModel.onAskAudience(false)
-        navigate(GameFragmentDirections.actionQuestionFragmentToAudienceDialog())
+        navigate(GameFragmentDirections.actionGameFragmentToAudienceDialog())
     }
 
     private fun navToCallFriendDialog() {
-        playButtonSound()
         viewModel.onCallFriend(false)
-        navigate(GameFragmentDirections.actionQuestionFragmentToFriendDialog())
+        navigate(GameFragmentDirections.actionGameFragmentToFriendDialog())
     }
 
     private fun navToExitDialog() {
-        playButtonSound()
         navigate(GameFragmentDirections.actionGameFragmentToExitDialog())
     }
 
-    private fun onClickRemainingButtons() {
-        binding.apply {
-            buttonReplace.setOnClickListener { playButtonSound() }
-            buttonRemove.setOnClickListener { playButtonSound() }
-        }
-    }
-
-    private fun playButtonSound() = audioViewModel.audio.playButtonSound(requireContext())
 
     override fun onPause() {
         super.onPause()

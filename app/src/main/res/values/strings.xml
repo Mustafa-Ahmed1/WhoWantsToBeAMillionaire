@@ -8,18 +8,15 @@
     <string name="sounds_off">Sounds: Off</string>
     <string name="exit">Exit</string>
     <!-- about screen -->
-    <string name="game_roles">Game Roles</string>
+    <string name="game_roles">Game Rules</string>
     <string name="game_roles_details">Who Wants to Be a Millionaire is a cultural game, consists of 15 questions from different categories, such as geography, science, entertainment, etc. First five questions are easy in difficulty, second ones are medium, and last five are hard. \nYou can use help options if the you’re not sure about the answer:\n  • Audience answers.\n  • Call a friend.\n  • Replace the question.\n  • Delete two options.\nYou’ll get dollar rewards for each question you got right, starting from 100$ to 1,000,000$. Have fun!</string>
     <string name="app_developers">App Developers</string>
-    <string name="app_developers_details">Mustafa Ahmed\nWesam Nabeel\nShahad Abdulhasan\nMostafa Mohamed\nRawad Jamal\nMohammed Najm\nSalah Hasan</string>
+    <string name="app_developers_details">Mustafa Ahmed\nWesam Nabeel\nShahad Abdulhasan\nMostafa Mohammed\nRawad Jamal\nMohammed Najm\nSalah Hasan\nAbdulaziz Mohammed</string>
     <!-- game screen -->
     <string name="a">A</string>
     <string name="b">B</string>
     <string name="c">C</string>
     <string name="d">D</string>
-    <!-- stage screen -->
-    <string name="current_stage">Current Stage</string>
-    <string name="tap_to_continue">Tap to continue</string>
     <!-- result screen -->
     <string name="losing_message">Unfortunately, you didn’t pass all questions… But you can try again and again to get the million dollars!</string>
     <string name="you_ve_lost">You\'ve lost</string>

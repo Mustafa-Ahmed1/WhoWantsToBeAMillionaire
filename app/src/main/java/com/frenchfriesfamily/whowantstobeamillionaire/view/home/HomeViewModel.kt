@@ -2,7 +2,7 @@ package com.frenchfriesfamily.whowantstobeamillionaire.view.home
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.frenchfriesfamily.whowantstobeamillionaire.utils.Event
+import com.frenchfriesfamily.whowantstobeamillionaire.utils.event.Event
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.extensions.postEvent
 import com.frenchfriesfamily.whowantstobeamillionaire.view.base.BaseViewModel
 
@@ -17,8 +17,8 @@ class HomeViewModel : BaseViewModel() {
     private val _exitClick = MutableLiveData<Event<Boolean>>()
     val exitClick: LiveData<Event<Boolean>> = _exitClick
 
-    fun onStartClicked() = _startClick.postEvent()
-    fun onAboutClicked() = _aboutCLick.postEvent()
-    fun onExitClicked() = _exitClick.postEvent()
+    val onStartClicked = fun() = _startClick.postEvent()
+    val onAboutClicked = fun() = _aboutCLick.postEvent()
+    val onExitClicked = fun() = _exitClick.postEvent()
 
 }

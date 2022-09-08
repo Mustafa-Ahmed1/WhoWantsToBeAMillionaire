@@ -3,13 +3,17 @@ package com.frenchfriesfamily.whowantstobeamillionaire.utils
 import com.frenchfriesfamily.whowantstobeamillionaire.view.game.enums.TimeDuration
 
 object Constants {
+
     const val BASE_URL = "https://opentdb.com/"
 
-    val ANSWER_OPTIONS = listOf("A", "B", "C", "D")
+    const val LAST_LEVEL = 15
 
-    val DIFFICULTY = listOf("easy", "medium", "hard")
-    const val AMOUNT_OF_QUESTION = 6
-    const val QUESTION_TYPE = "multiple"
+    object Game {
+        val ANSWER_OPTIONS = listOf("A", "B", "C", "D")
+        val DIFFICULTY = listOf("easy", "medium", "hard")
+        const val AMOUNT_OF_QUESTION = 6
+        const val QUESTION_TYPE = "multiple"
+    }
 
     object TimeDurations {
         val THIRD_DURATION = TimeDuration.THIRD_DURATION.duration

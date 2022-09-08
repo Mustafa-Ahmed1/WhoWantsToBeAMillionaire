@@ -6,21 +6,18 @@ import android.media.MediaPlayer
 import com.frenchfriesfamily.whowantstobeamillionaire.R
 
 class Audio {
-    var soundState = true
 
-    fun runAudio(mediaPlayer: MediaPlayer) {
-        mediaPlayer.start()
-    }
+    private var soundState = true
 
     fun muteAudio(context: Context) {
-        val mAudioManager = context.getSystemService(AudioManager::class.java)
-        mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC, 0, 0)
+        val audioManager = context.getSystemService(AudioManager::class.java)
+        audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, 0, 0)
         soundState = false
     }
 
     fun unMuteAudio(context: Context) {
-        val mAudioManager = context.getSystemService(AudioManager::class.java)
-        mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC, 100, 0)
+        val audioManager = context.getSystemService(AudioManager::class.java)
+        audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, 100, 0)
         soundState = true
     }
 

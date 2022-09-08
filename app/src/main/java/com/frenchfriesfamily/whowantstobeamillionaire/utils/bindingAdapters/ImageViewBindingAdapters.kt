@@ -10,7 +10,7 @@ fun isUsed(view: ImageView, Clicked: Boolean) {
     if (!Clicked) {
         view.apply {
             isClickable = Clicked
-            setAlpha(80)
+            alpha = 0.3f
         }
     }
 }

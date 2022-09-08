@@ -1,6 +1,5 @@
 package com.frenchfriesfamily.whowantstobeamillionaire.view.result
 
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.frenchfriesfamily.whowantstobeamillionaire.R
 import com.frenchfriesfamily.whowantstobeamillionaire.databinding.FragmentResultBinding
@@ -16,14 +15,21 @@ class ResultFragment :
 
     private val args: ResultFragmentArgs by navArgs()
 
-    override fun setUp() {
+    override fun onStart() {
+        super.onStart()
         args.stageDetails?.let { viewModel.getCurrentStage(it) }
-        viewModel.homeCLick.observe(this, EventObserver { navToHome() })
+        observeEvents()
     }
 
-    private fun navToHome() {
-        audioViewModel.audio.playButtonSound(requireContext())
-        findNavController().popBackStack(R.id.homeFragment, false)
+    private fun observeEvents() {
+        viewModel.apply {
+            homeCLick.observe(viewLifecycleOwner, EventObserver { navToHome() })
+            gameClick.observe(viewLifecycleOwner, EventObserver { navToGame() })
+        }
     }
+
+    private fun navToHome() = popBackStack(R.id.homeFragment)
+
+    private fun navToGame() = popBackStack()
 
 }
