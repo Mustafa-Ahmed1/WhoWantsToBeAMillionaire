@@ -28,11 +28,9 @@ class GameFragment :
         gameMusic.start()
     }
 
-    override fun setUp() {
-        observeEvents()
-        onClickRemainingButtons()
-        handleTimer()
-    }
+    // call this function in onStart() to restart game when leave it and start it again
+    // ToDO: it needs to be improved, test it to notice problems
+    private fun startGame() = viewModel.resetGameData()
 
     private fun observeEvents() {
         viewModel.apply {

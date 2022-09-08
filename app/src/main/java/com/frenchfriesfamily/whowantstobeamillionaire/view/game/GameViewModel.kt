@@ -223,9 +223,14 @@ class GameViewModel : BaseViewModel(), GameInteractionListener {
         }
     }
 
-    companion object {
-        const val QUESTIONS_TAG = "QUESTIONS_TAG"
-        const val SECONDS_TAG = "SECONDS_TAG"
+
+    fun resetGameData() {
+        questionCounter = 0
+        stageCounter = 1
+        difficulty = 0
+        getQuestions()
+        setStage()
+        emitTimerSeconds()
     }
 
 }
