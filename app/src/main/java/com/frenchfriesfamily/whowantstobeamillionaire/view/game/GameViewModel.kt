@@ -180,10 +180,8 @@ class GameViewModel : BaseViewModel(), GameInteractionListener {
 
     private fun emitTimerSeconds() {
         timerDisposable.clear()
-        val gameTimer = Observable.intervalRange(0, 16, 0, 1, TimeUnit.SECONDS)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-        gameTimer.subscribe({
+        _stateTimer.postValue(false)
+        gameRepository.gameTimer().subscribe({
             _seconds.postValue(15 - it.toInt())
         }, {
             Log.e("Timer", "Error: ${it.message}")
@@ -192,33 +190,27 @@ class GameViewModel : BaseViewModel(), GameInteractionListener {
 
     override fun onClickAnswer(answerText: Answer) {
         _answers.value = _answers.value.apply { answerText.state = AnswerState.IS_PRESSED }
-        Single.timer(2000, TimeUnit.MILLISECONDS)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
+        timerDisposable.clear()
+        _stateTimer.postValue(true)
+        gameRepository.delayTime(2)
             .subscribe { _ ->
                 checkAnswerState(answerText)
-            }
+            }.add(disposable)
     }
 
     private fun checkAnswerState(answer: Answer) {
         _answers.value = _answers.value.apply {
             if (answer.answer == _question.value?.correctAnswer) {
                 answer.state = AnswerState.IS_CORRECT
-                Single.timer(1000, TimeUnit.MILLISECONDS)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe { _ ->
+                gameRepository.delayTime(1).subscribe { _ ->
                         checkQuestionLevel()
-                    }
+                    }.add(disposable)
             } else {
                 answer.state = AnswerState.IS_WRONG
-                Single.timer(1000, TimeUnit.MILLISECONDS)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe { _ ->
+                gameRepository.delayTime(1).subscribe { _ ->
                         stageCounter--
                         gameOver()
-                    }
+                    }.add(disposable)
             }
         }
     }
