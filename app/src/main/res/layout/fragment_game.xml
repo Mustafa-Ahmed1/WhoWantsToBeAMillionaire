@@ -59,6 +59,7 @@
                 android:layout_height="@dimen/timer_scale"
                 android:layout_marginTop="@dimen/spacing_extra_large"
                 app:colorStateWithTimer="@{viewModel.seconds}"
+                app:stopTimeBasedOnState="@{viewModel.stateTimer}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/button_leave"

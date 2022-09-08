@@ -21,6 +21,7 @@ class GameFragment :
         playGameSound()
         observeEvents()
         handleTimer()
+        startGame()
     }
 
     private fun playGameSound() {

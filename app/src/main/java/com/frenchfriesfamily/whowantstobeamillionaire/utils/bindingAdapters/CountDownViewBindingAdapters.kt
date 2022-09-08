@@ -16,3 +16,8 @@ fun changeCircularTimerColorDependingOnTime(view: CircularCountDownView, remaini
         in FIRST_DURATION -> view.strokeColorForeground = view.getColor(R.color.red)
     }
 }
+
+@BindingAdapter(value = ["app:stopTimeBasedOnState"])
+fun stopTimeBasedOnState(view: CircularCountDownView, state: Boolean) {
+    if (state) view.pauseTimer()
+}

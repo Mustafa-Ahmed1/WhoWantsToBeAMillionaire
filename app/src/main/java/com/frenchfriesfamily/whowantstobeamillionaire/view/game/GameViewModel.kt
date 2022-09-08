@@ -19,11 +19,8 @@ import com.frenchfriesfamily.whowantstobeamillionaire.view.base.BaseViewModel
 import com.frenchfriesfamily.whowantstobeamillionaire.view.game.enums.Answer
 import com.frenchfriesfamily.whowantstobeamillionaire.view.game.enums.AnswerState
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.core.Observable
-import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
-import java.util.concurrent.TimeUnit
 
 class GameViewModel : BaseViewModel(), GameInteractionListener {
 
@@ -76,6 +73,9 @@ class GameViewModel : BaseViewModel(), GameInteractionListener {
 
     private val _leaveClick = MutableLiveData<Event<Boolean>>()
     val leaveClick: LiveData<Event<Boolean>> = _leaveClick
+
+    private val _stateTimer = MutableLiveData<Boolean>()
+    val stateTimer : LiveData<Boolean> = _stateTimer
 
 
     val onAudienceClicked = fun() = _audienceClick.postEvent()
@@ -231,5 +231,4 @@ class GameViewModel : BaseViewModel(), GameInteractionListener {
         setStage()
         emitTimerSeconds()
     }
-
 }
