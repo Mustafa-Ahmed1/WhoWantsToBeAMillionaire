@@ -97,7 +97,7 @@ class GameViewModel : BaseViewModel(), GameInteractionListener {
     }
 
 
-    private fun getQuestions() {
+    fun getQuestions() {
         gameRepository.getQuestions(
             AMOUNT_OF_QUESTION,
             DIFFICULTY[difficulty],
@@ -112,13 +112,19 @@ class GameViewModel : BaseViewModel(), GameInteractionListener {
     private fun onGetQuestionSuccess(response: State<GameResponse>) {
         when (response) {
             is State.Loading -> _questionsList.postValue(response)
-            is State.Success -> {
-                _questionsList.value = State.Success(response.toData()?.results)
-                emitTimerSeconds()
-                setQuestion()
-            }
-            is State.Error -> _questionsList.postValue(State.Error(response.message))
+            is State.Success -> onStateSuccess(response)
+            is State.Error -> onStateError(response.message)
         }
+    }
+
+    private fun onStateError(message: String) {
+        timerDisposable.clear()
+        _questionsList.postValue(State.Error(message))
+    }
+
+    private fun onStateSuccess(response: State<GameResponse>) {
+        _questionsList.value = State.Success(response.toData()?.results)
+        setQuestion()
     }
 
     private fun onGetQuestionError(throwable: Throwable) {
@@ -126,6 +132,7 @@ class GameViewModel : BaseViewModel(), GameInteractionListener {
     }
 
     private fun setQuestion() {
+        emitTimerSeconds()
         _questionsList.value?.toData()?.get(questionCounter).apply {
             _question.postValue(this)
             _answers.postValue(this?.toAnswer())
