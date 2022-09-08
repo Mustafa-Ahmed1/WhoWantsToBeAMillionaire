@@ -12,6 +12,11 @@ fun isUsed(view: ImageView, Clicked: Boolean) {
             isClickable = Clicked
             alpha = 0.3f
         }
+    } else {
+        view.apply {
+            isClickable = Clicked
+            alpha = 1f
+        }
     }
 }
 

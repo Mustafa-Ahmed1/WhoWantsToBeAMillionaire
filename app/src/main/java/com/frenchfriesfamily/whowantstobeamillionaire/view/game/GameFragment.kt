@@ -22,6 +22,9 @@ class GameFragment :
         observeEvents()
         handleTimer()
         startGame()
+        changeQuestion()
+        callFriend()
+        audienceHelp()
     }
 
     private fun playGameSound() {
@@ -32,7 +35,9 @@ class GameFragment :
     // call this function in onStart() to restart game when leave it and start it again
     // ToDO: it needs to be improved, test it to notice problems
     private fun startGame() = viewModel.resetGameData()
-
+    private fun changeQuestion() = viewModel.changeQuestion()
+    private fun audienceHelp() = viewModel.audienceHelp()
+    private fun callFriend() = viewModel.callFriend()
     private fun observeEvents() {
         viewModel.apply {
             audienceClick.observe(viewLifecycleOwner, EventObserver { navToAudienceDialog() })

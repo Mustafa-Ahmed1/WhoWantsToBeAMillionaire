@@ -180,7 +180,9 @@ class GameViewModel : BaseViewModel(), GameInteractionListener {
         setQuestion()
     }
 
-
+    fun changeQuestion() = _changeQuestion.postValue(true)
+    fun callFriend() = _friendHelp.postValue(true)
+    fun audienceHelp() = _audienceHelp.postValue(true)
     fun onCallFriend(call: Boolean) = _friendHelp.postValue(call)
     fun onAskAudience(audience: Boolean) = _audienceHelp.postValue(audience)
 
