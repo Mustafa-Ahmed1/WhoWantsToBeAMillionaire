@@ -23,12 +23,27 @@ class GameFragment :
         super.onViewCreated(view, savedInstanceState)
         startGame()
         handleOnBackPressed()
+        initTime()
+        endGameWhenTimeIsDone()
+    }
+
+    private fun endGameWhenTimeIsDone() {
         viewModel.remainingSeconds.observe(this) {
             if (it == Constants.TimeDurations.ZERO) {
                 viewModel.gameOver()
             }
         }
     }
+
+    private fun initTime() {
+        viewModel.question.observe(this) {
+            binding.countdownView.apply {
+                initTimer(15)
+                startTimer()
+            }
+        }
+    }
+
 
     override fun observeEvents() {
         viewModel.apply {

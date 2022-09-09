@@ -61,7 +61,7 @@
                 android:layout_height="@dimen/timer_scale"
                 android:layout_marginTop="@dimen/spacing_extra_large"
                 app:progressBarColor="@{viewModel.remainingSeconds}"
-                app:initTime="@{15}"
+
                 app:stopTimeBasedOnState="@{viewModel.isEmittingSeconds}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -124,21 +124,12 @@
                 android:src="@drawable/ic_replace"
                 app:audio="@{audioViewModel.audio}"
                 app:isUsed="@{viewModel.isChangeQuestionHelpAvailable}"
-                app:layout_constraintEnd_toStartOf="@+id/button_remove"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/button_call"
                 app:layout_constraintTop_toTopOf="@id/button_audience"
                 app:onClickButton="@{viewModel.onChangeQuestion}" />
 
-            <ImageView
-                android:id="@+id/button_remove"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_remove_two"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/button_replace"
-                app:layout_constraintTop_toTopOf="@id/button_audience" />
 
             <View
                 android:id="@+id/view_question"
