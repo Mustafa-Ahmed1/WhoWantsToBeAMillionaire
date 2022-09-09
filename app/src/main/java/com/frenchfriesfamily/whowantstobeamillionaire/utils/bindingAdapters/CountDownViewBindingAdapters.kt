@@ -21,3 +21,11 @@ fun changeProgressBarDependingOnTime(view: CircularCountDownView, remainingSecon
 fun stopTimeBasedOnState(view: CircularCountDownView, state: Boolean) {
     if (state) view.pauseTimer()
 }
+
+@BindingAdapter(value = ["app:initTime"])
+fun initTime(view: CircularCountDownView, initialTime: Int) {
+    view.apply {
+        initTimer(initialTime)
+        startTimer()
+    }
+}

@@ -4,5 +4,5 @@ import com.frenchfriesfamily.whowantstobeamillionaire.view.base.BaseInteractionL
 import com.frenchfriesfamily.whowantstobeamillionaire.view.game.enums.Answer
 
 interface GameInteractionListener : BaseInteractionListener {
-    fun onClickAnswer(answerText: Answer)
+    fun onClickAnswer(answer: Answer)
 }

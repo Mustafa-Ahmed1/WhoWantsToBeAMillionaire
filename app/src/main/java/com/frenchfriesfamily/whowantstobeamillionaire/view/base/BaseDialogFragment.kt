@@ -47,6 +47,11 @@ abstract class BaseDialogFragment<VDB : ViewDataBinding, VM : ViewModel, AVM : V
         }
     }
 
+    override fun onStart() {
+        super.onStart()
+        observeEvents()
+    }
+
     private fun initViewModel() {
         viewModel = ViewModelProvider(requireActivity())[viewModelClass]
         audioViewModel = ViewModelProvider(requireActivity())[audioViewModelClass]

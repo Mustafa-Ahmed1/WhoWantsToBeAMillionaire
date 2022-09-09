@@ -27,7 +27,7 @@ class ExitDialog :
     }
 
     private fun onTimeDone() {
-        viewModel.seconds.observe(this) { if (it == TIME_ABOUT_TO_DONE) dismiss() }
+        viewModel.remainingSeconds.observe(this) { if (it == TIME_ABOUT_TO_DONE) dismiss() }
     }
 
 

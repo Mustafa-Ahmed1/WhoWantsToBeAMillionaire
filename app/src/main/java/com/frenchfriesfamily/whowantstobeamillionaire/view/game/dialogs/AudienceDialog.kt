@@ -16,7 +16,7 @@ class AudienceDialog :
 
     override fun observeEvents() {
         viewModel.okCLick.observe(this, EventObserver { dismiss() })
-        viewModel.seconds.observe(this) { if (it == TIME_ABOUT_TO_DONE) dismiss() }
+        viewModel.remainingSeconds.observe(this) { if (it == TIME_ABOUT_TO_DONE) dismiss() }
     }
 
 }

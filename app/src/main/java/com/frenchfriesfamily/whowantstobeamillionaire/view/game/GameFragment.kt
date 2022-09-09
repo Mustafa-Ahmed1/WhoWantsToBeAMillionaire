@@ -1,6 +1,8 @@
 package com.frenchfriesfamily.whowantstobeamillionaire.view.game
 
 import android.media.MediaPlayer
+import android.os.Bundle
+import android.view.View
 import androidx.activity.OnBackPressedCallback
 import com.frenchfriesfamily.whowantstobeamillionaire.R
 import com.frenchfriesfamily.whowantstobeamillionaire.databinding.FragmentGameBinding
@@ -17,16 +19,14 @@ class GameFragment :
 
     private lateinit var mediaPlayer: MediaPlayer
 
-    override fun onStart() {
-        super.onStart()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         handleTimer()
         startGame()
-        changeQuestion()
-        callFriend()
-        audienceHelp()
         handleOnBackPressed()
         playGameSound()
     }
+
 
     private fun handleOnBackPressed() {
         val callback = object : OnBackPressedCallback(true) {
@@ -41,18 +41,6 @@ class GameFragment :
         viewModel.resetGameData()
     }
 
-    private fun changeQuestion() {
-        viewModel.changeQuestion()
-    }
-
-    private fun audienceHelp() {
-        viewModel.audienceHelp()
-    }
-
-    private fun callFriend() {
-        viewModel.callFriend()
-    }
-
     override fun observeEvents() {
         viewModel.apply {
             audienceClick.observe(viewLifecycleOwner, EventObserver { navToAudienceDialog() })
@@ -64,23 +52,16 @@ class GameFragment :
 
     // TODO: should be improved
     private fun handleTimer() {
-        viewModel.question.observe(viewLifecycleOwner) {
-            binding.countdownView.apply {
-                initTimer(15)
-                startTimer()
-            }
-        }
 
-        viewModel.seconds.observe(this) {
+        viewModel.remainingSeconds.observe(this) {
             if (it == Constants.TimeDurations.ZERO) {
-                viewModel.stageCounter--
-                navToResult()
+               viewModel.gameOver
             }
         }
     }
 
     private fun navToResult() {
-        val currentStage = viewModel.getStageList()[viewModel.stageCounter]
+        val currentStage = viewModel.getStageList()[viewModel.currentStage]
         navigate(GameFragmentDirections.actionGameFragmentToResultFragment(currentStage))
     }
 
