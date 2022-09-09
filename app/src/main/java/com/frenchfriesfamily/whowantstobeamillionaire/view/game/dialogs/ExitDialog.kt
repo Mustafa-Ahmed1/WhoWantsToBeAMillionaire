@@ -2,6 +2,7 @@ package com.frenchfriesfamily.whowantstobeamillionaire.view.game.dialogs
 
 import com.frenchfriesfamily.whowantstobeamillionaire.R
 import com.frenchfriesfamily.whowantstobeamillionaire.databinding.DialogExitBinding
+import com.frenchfriesfamily.whowantstobeamillionaire.utils.Constants.TIME_ABOUT_TO_DONE
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.event.EventObserver
 import com.frenchfriesfamily.whowantstobeamillionaire.view.AudioViewModel
 import com.frenchfriesfamily.whowantstobeamillionaire.view.base.BaseDialogFragment
@@ -15,6 +16,7 @@ class ExitDialog :
 
     override fun onStart() {
         super.onStart()
+        onTimeDone()
         observeEvents()
     }
 
@@ -24,6 +26,11 @@ class ExitDialog :
             leaveClick.observe(viewLifecycleOwner, EventObserver { exitToHome() })
         }
     }
+
+    private fun onTimeDone() {
+        viewModel.seconds.observe(this) { if (it == TIME_ABOUT_TO_DONE) dismiss() }
+    }
+
 
     private fun exitToHome() = popBackStack(R.id.homeFragment)
 

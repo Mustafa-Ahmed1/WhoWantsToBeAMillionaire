@@ -7,6 +7,7 @@ object Constants {
     const val BASE_URL = "https://opentdb.com/"
 
     const val LAST_LEVEL = 15
+    const val TIME_ABOUT_TO_DONE = 1
 
     object Game {
         val ANSWER_OPTIONS = listOf("A", "B", "C", "D")
