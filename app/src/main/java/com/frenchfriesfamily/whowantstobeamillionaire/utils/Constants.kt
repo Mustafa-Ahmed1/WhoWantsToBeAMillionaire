@@ -9,6 +9,8 @@ object Constants {
     const val LAST_LEVEL = 15
     const val TIME_ABOUT_TO_DONE = 1
 
+    const val MINIMUM_PROBABILITY = 0.7f
+
     object Game {
         val ANSWER_OPTIONS = listOf("A", "B", "C", "D")
         val DIFFICULTY = listOf("easy", "medium", "hard")
