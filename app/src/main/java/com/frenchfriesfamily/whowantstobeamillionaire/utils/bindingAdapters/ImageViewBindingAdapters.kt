@@ -6,18 +6,9 @@ import com.frenchfriesfamily.whowantstobeamillionaire.R
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.extensions.setBackground
 
 @BindingAdapter(value = ["app:isUsed"])
-fun isUsed(view: ImageView, Clicked: Boolean) {
-    if (!Clicked) {
-        view.apply {
-            isClickable = Clicked
-            alpha = 0.3f
-        }
-    } else {
-        view.apply {
-            isClickable = Clicked
-            alpha = 1f
-        }
-    }
+fun isUsed(view: ImageView, isClicked: Boolean) {
+    view.alpha = if (isClicked) 1f else 0.3f
+    view.isClickable = isClicked
 }
 
 @BindingAdapter(value = ["app:soundsState"])

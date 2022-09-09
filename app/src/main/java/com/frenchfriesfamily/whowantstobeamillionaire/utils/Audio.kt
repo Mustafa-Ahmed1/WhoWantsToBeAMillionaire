@@ -17,7 +17,7 @@ class Audio {
         soundState = false
     }
 
-    fun unMuteAudio(context: Context) {
+    fun unmuteAudio(context: Context) {
         val audioManager = context.getSystemService(AudioManager::class.java)
         audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, 100, 0)
         soundState = true

@@ -11,6 +11,7 @@ import com.frenchfriesfamily.whowantstobeamillionaire.model.response.Question
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.Constants.Game.AMOUNT_OF_QUESTION
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.Constants.Game.DIFFICULTY
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.Constants.Game.QUESTION_TYPE
+import com.frenchfriesfamily.whowantstobeamillionaire.utils.TimerUtils
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.event.Event
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.extensions.add
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.extensions.postEvent
@@ -18,14 +19,12 @@ import com.frenchfriesfamily.whowantstobeamillionaire.utils.extensions.toAnswer
 import com.frenchfriesfamily.whowantstobeamillionaire.view.base.BaseViewModel
 import com.frenchfriesfamily.whowantstobeamillionaire.view.game.enums.Answer
 import com.frenchfriesfamily.whowantstobeamillionaire.view.game.enums.AnswerState
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
-import io.reactivex.rxjava3.schedulers.Schedulers
 
 class GameViewModel : BaseViewModel(), GameInteractionListener {
 
     private val stagesRepository = StagesRepositoryImpl()
-
+    private val timerUtils = TimerUtils()
     private val timerDisposable = CompositeDisposable()
 
     private val _questionsList = MutableLiveData<State<List<Question>?>>()
@@ -75,7 +74,7 @@ class GameViewModel : BaseViewModel(), GameInteractionListener {
     val leaveClick: LiveData<Event<Boolean>> = _leaveClick
 
     private val _stateTimer = MutableLiveData<Boolean>()
-    val stateTimer : LiveData<Boolean> = _stateTimer
+    val stateTimer: LiveData<Boolean> = _stateTimer
 
 
     val onAudienceClicked = fun() = _audienceClick.postEvent()
@@ -103,8 +102,6 @@ class GameViewModel : BaseViewModel(), GameInteractionListener {
             DIFFICULTY[difficulty],
             QUESTION_TYPE
         )
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
             .subscribe(::onGetQuestionSuccess, ::onGetQuestionError)
             .add(disposable)
     }
@@ -190,7 +187,7 @@ class GameViewModel : BaseViewModel(), GameInteractionListener {
     private fun emitTimerSeconds() {
         timerDisposable.clear()
         _stateTimer.postValue(false)
-        gameRepository.gameTimer().subscribe({
+        timerUtils.gameTimer().subscribe({
             _seconds.postValue(15 - it.toInt())
         }, {
             Log.e("Timer", "Error: ${it.message}")
@@ -201,7 +198,7 @@ class GameViewModel : BaseViewModel(), GameInteractionListener {
         _answers.value = _answers.value.apply { answerText.state = AnswerState.IS_PRESSED }
         timerDisposable.clear()
         _stateTimer.postValue(true)
-        gameRepository.delayTime(2)
+        timerUtils.delayTime(2)
             .subscribe { _ ->
                 checkAnswerState(answerText)
             }.add(disposable)
@@ -211,15 +208,15 @@ class GameViewModel : BaseViewModel(), GameInteractionListener {
         _answers.value = _answers.value.apply {
             if (answer.answer == _question.value?.correctAnswer) {
                 answer.state = AnswerState.IS_CORRECT
-                gameRepository.delayTime(1).subscribe { _ ->
-                        checkQuestionLevel()
-                    }.add(disposable)
+                timerUtils.delayTime(1).subscribe { _ ->
+                    checkQuestionLevel()
+                }.add(disposable)
             } else {
                 answer.state = AnswerState.IS_WRONG
-                gameRepository.delayTime(1).subscribe { _ ->
-                        stageCounter--
-                        gameOver()
-                    }.add(disposable)
+                timerUtils.delayTime(1).subscribe { _ ->
+                    stageCounter--
+                    gameOver()
+                }.add(disposable)
             }
         }
     }

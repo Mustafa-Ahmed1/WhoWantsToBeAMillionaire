@@ -22,8 +22,7 @@ class ResultFragment :
 
     override fun onStart() {
         super.onStart()
-        args.stageDetails?.let { viewModel.getCurrentStage(it) }
-        observeEvents()
+        args.stageDetails?.let { stage -> viewModel.setCurrentStage(stage) }
         handleOnBackPressed()
         playResultSound()
     }
@@ -34,10 +33,10 @@ class ResultFragment :
                 navToHome()
             }
         }
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
+        activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner, callback)
     }
 
-    private fun observeEvents() {
+    override fun observeEvents() {
         viewModel.apply {
             homeCLick.observe(viewLifecycleOwner, EventObserver { navToHome() })
             gameClick.observe(viewLifecycleOwner, EventObserver { navToGame() })

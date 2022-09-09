@@ -14,8 +14,7 @@ class AudienceDialog :
     override val viewModelClass = GameViewModel::class.java
     override val audioViewModelClass = AudioViewModel::class.java
 
-    override fun onStart() {
-        super.onStart()
+    override fun observeEvents() {
         viewModel.okCLick.observe(this, EventObserver { dismiss() })
         viewModel.seconds.observe(this) { if (it == TIME_ABOUT_TO_DONE) dismiss() }
     }

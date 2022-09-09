@@ -23,6 +23,8 @@ class ResultsViewModel : BaseViewModel() {
     val onPlayAgainClicked = fun() = _gameClick.postEvent()
 
 
-    fun getCurrentStage(currentStage: StageDetails) = _stage.postValue(currentStage)
+    fun setCurrentStage(currentStage: StageDetails) {
+        _stage.postValue(currentStage)
+    }
 
 }

@@ -11,7 +11,7 @@ fun <T> setRecyclerItems(view: RecyclerView, items: List<T>?) {
     (view.adapter as BaseAdapter<T>?)?.setItems(items ?: emptyList())
 }
 
-@BindingAdapter(value = ["app:gameAdapter"])
+@BindingAdapter(value = ["app:setAdapter"])
 fun setGameAdapter(view: RecyclerView, viewModel: GameViewModel) {
     view.adapter = GameAdapter(mutableListOf(), viewModel)
 }

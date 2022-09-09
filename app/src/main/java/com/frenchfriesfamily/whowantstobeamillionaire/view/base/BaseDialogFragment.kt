@@ -26,6 +26,8 @@ abstract class BaseDialogFragment<VDB : ViewDataBinding, VM : ViewModel, AVM : V
     private lateinit var _binding: VDB
     val binding: VDB get() = _binding
 
+    abstract fun observeEvents()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
