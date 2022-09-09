@@ -7,8 +7,8 @@ import com.frenchfriesfamily.whowantstobeamillionaire.model.data.StageDetails
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.Constants.TimeDurations.FIRST_DURATION
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.Constants.TimeDurations.SECOND_DURATION
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.Constants.TimeDurations.THIRD_DURATION
+import com.frenchfriesfamily.whowantstobeamillionaire.utils.Probability
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.extensions.getColor
-import com.frenchfriesfamily.whowantstobeamillionaire.utils.extensions.getProbableAnswer
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.extensions.replacePunctuationTextsWithSymbols
 import com.frenchfriesfamily.whowantstobeamillionaire.view.game.enums.Answer
 
@@ -36,7 +36,9 @@ fun setTextBasedOnSoundsState(view: TextView, isMuted: Boolean?) {
 
 @BindingAdapter(value = ["app:correctAnswer", "app:allAnswers"])
 fun setTextToProbableAnswer(view: TextView, correctAnswer: String?, allAnswers: List<Answer?>?) {
-    view.text = correctAnswer?.getProbableAnswer(allAnswers).toString()
+    val probabilityUtil = Probability()
+    val probability = probabilityUtil.calculateProbability(allAnswers, correctAnswer.toString())
+    view.text = probabilityUtil.getProbableAnswerAsChar(probability).toString()
 }
 
 @BindingAdapter(value = ["app:levelText"])

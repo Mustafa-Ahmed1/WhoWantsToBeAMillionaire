@@ -4,8 +4,8 @@ package com.frenchfriesfamily.whowantstobeamillionaire.utils.bindingAdapters
 import androidx.databinding.BindingAdapter
 import com.frenchfriesfamily.whowantstobeamillionaire.R
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.Constants.Game.ANSWER_OPTIONS
+import com.frenchfriesfamily.whowantstobeamillionaire.utils.Probability
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.extensions.getColor
-import com.frenchfriesfamily.whowantstobeamillionaire.utils.extensions.getProbableAudienceAnswers
 import com.frenchfriesfamily.whowantstobeamillionaire.view.game.enums.Answer
 import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.components.XAxis
@@ -38,7 +38,8 @@ fun setUpBarChartTheme(view: BarChart, isActivated: Boolean?) {
 
 @BindingAdapter(value = ["app:correctAnswer", "app:allAnswers"])
 fun setBareDataAsChart(view: BarChart, correctAnswer: String?, allAnswers: List<Answer?>?) {
-    val barData = BarDataSet(allAnswers.getProbableAudienceAnswers(correctAnswer), null).apply {
+    val probabilities = Probability()
+    val barData = BarDataSet(probabilities.getProbableAudienceAnswers(correctAnswer,allAnswers), null).apply {
         color = view.getColor(R.color.purple_lightest)
         valueTextColor = view.getColor(R.color.purple_lightest)
         valueTextSize = 10f
