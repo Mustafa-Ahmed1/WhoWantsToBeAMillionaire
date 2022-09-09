@@ -25,4 +25,10 @@ object Constants {
         const val ZERO = 0
     }
 
+    object DIFFICULTY {
+        const val LAST_EASY_QUESTION = 5
+        const val LAST_MEDIUM_QUESTION = 10
+        const val LAST_HARD_QUESTION = 15
+    }
+
 }

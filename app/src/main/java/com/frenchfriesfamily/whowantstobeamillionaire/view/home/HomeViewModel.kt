@@ -17,8 +17,8 @@ class HomeViewModel : BaseViewModel() {
     private val _exitClick = MutableLiveData<Event<Boolean>>()
     val exitClick: LiveData<Event<Boolean>> = _exitClick
 
-    val onStartClicked = fun() = _startClick.postEvent()
-    val onAboutClicked = fun() = _aboutCLick.postEvent()
-    val onExitClicked = fun() = _exitClick.postEvent()
+    val onStartClicked = { _startClick.postEvent() }
+    val onAboutClicked = { _aboutCLick.postEvent() }
+    val onExitClicked = { _exitClick.postEvent() }
 
 }

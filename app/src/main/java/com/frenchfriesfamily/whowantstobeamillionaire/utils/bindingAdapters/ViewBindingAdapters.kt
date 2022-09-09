@@ -32,16 +32,11 @@ fun playCorrectAnswerSound(view: View, state: AnswerState?) {
     }
 }
 
-@BindingAdapter(value = ["app:disableViewBasedOnState"])
-fun disableViewBasedOnState(view: View, state: AnswerState?) {
-    view.isClickable = state == AnswerState.IS_DEFAULT
-}
-
 @BindingAdapter(value = ["app:isMute", "app:audio"])
 fun setSoundState(view: View, isMute: Boolean?, audio: Audio?) {
     when (isMute) {
         true -> audio?.muteAudio(view.context)
-        else -> audio?.unMuteAudio(view.context)
+        else -> audio?.unmuteAudio(view.context)
     }
 }
 
@@ -91,4 +86,9 @@ fun onClickButton(view: View, audio: Audio?, function: () -> Unit) {
         audio?.playButtonSound(view.context)
         function()
     }
+}
+
+@BindingAdapter(value = ["app:disableViewBasedOnState"])
+fun disableViewBasedOnState(view: View, state: AnswerState?) {
+    view.isClickable = state == AnswerState.IS_DEFAULT
 }

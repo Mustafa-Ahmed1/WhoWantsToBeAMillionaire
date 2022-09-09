@@ -1,6 +1,8 @@
 package com.frenchfriesfamily.whowantstobeamillionaire.view.game
 
 import android.media.MediaPlayer
+import android.os.Bundle
+import android.view.View
 import androidx.activity.OnBackPressedCallback
 import com.frenchfriesfamily.whowantstobeamillionaire.R
 import com.frenchfriesfamily.whowantstobeamillionaire.databinding.FragmentGameBinding
@@ -17,32 +19,33 @@ class GameFragment :
 
     private lateinit var mediaPlayer: MediaPlayer
 
-    override fun onStart() {
-        super.onStart()
-        observeEvents()
-        handleTimer()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         startGame()
-        changeQuestion()
-        callFriend()
-        audienceHelp()
         handleOnBackPressed()
-        playGameSound()
+        initTime()
+        endGameWhenTimeIsDone()
     }
 
-    private fun handleOnBackPressed() {
-        val callback = object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() = navToExitDialog()
+    private fun endGameWhenTimeIsDone() {
+        viewModel.remainingSeconds.observe(this) {
+            if (it == Constants.TimeDurations.ZERO) {
+                viewModel.gameOver()
+            }
         }
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
     }
 
-    // call this function in onStart() to restart game when leave it and start it again
-    // ToDO: it needs to be improved, test it to notice problems
-    private fun startGame() = viewModel.resetGameData()
-    private fun changeQuestion() = viewModel.changeQuestion()
-    private fun audienceHelp() = viewModel.audienceHelp()
-    private fun callFriend() = viewModel.callFriend()
-    private fun observeEvents() {
+    private fun initTime() {
+        viewModel.question.observe(this) {
+            binding.countdownView.apply {
+                initTimer(15)
+                startTimer()
+            }
+        }
+    }
+
+
+    override fun observeEvents() {
         viewModel.apply {
             audienceClick.observe(viewLifecycleOwner, EventObserver { navToAudienceDialog() })
             callFriendClick.observe(viewLifecycleOwner, EventObserver { navToCallFriendDialog() })
@@ -51,25 +54,22 @@ class GameFragment :
         }
     }
 
-    // TODO: should be improved
-    private fun handleTimer() {
-        viewModel.question.observe(viewLifecycleOwner) {
-            binding.countdownView.apply {
-                initTimer(15)
-                startTimer()
-            }
+    private fun handleOnBackPressed() {
+        val callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() = navToExitDialog()
         }
-
-        viewModel.seconds.observe(this) {
-            if (it == Constants.TimeDurations.ZERO) {
-                viewModel.stageCounter--
-                navToResult()
-            }
-        }
+        activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner, callback)
     }
 
+    private fun startGame() {
+        viewModel.resetGameData()
+        playGameSound()
+
+    }
+
+
     private fun navToResult() {
-        val currentStage = viewModel.getStageList()[viewModel.stageCounter]
+        val currentStage = viewModel.getStageList()[viewModel.currentStage]
         navigate(GameFragmentDirections.actionGameFragmentToResultFragment(currentStage))
     }
 

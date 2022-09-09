@@ -1,6 +1,5 @@
 package com.frenchfriesfamily.whowantstobeamillionaire.view.game
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.frenchfriesfamily.whowantstobeamillionaire.model.data.StageDetails
@@ -8,9 +7,14 @@ import com.frenchfriesfamily.whowantstobeamillionaire.model.network.State
 import com.frenchfriesfamily.whowantstobeamillionaire.model.repositories.StagesRepositoryImpl
 import com.frenchfriesfamily.whowantstobeamillionaire.model.response.GameResponse
 import com.frenchfriesfamily.whowantstobeamillionaire.model.response.Question
+import com.frenchfriesfamily.whowantstobeamillionaire.utils.Constants
+import com.frenchfriesfamily.whowantstobeamillionaire.utils.Constants.DIFFICULTY.LAST_EASY_QUESTION
+import com.frenchfriesfamily.whowantstobeamillionaire.utils.Constants.DIFFICULTY.LAST_MEDIUM_QUESTION
+import com.frenchfriesfamily.whowantstobeamillionaire.utils.Constants.DIFFICULTY.LAST_HARD_QUESTION
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.Constants.Game.AMOUNT_OF_QUESTION
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.Constants.Game.DIFFICULTY
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.Constants.Game.QUESTION_TYPE
+import com.frenchfriesfamily.whowantstobeamillionaire.utils.TimerUtils
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.event.Event
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.extensions.add
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.extensions.postEvent
@@ -18,43 +22,47 @@ import com.frenchfriesfamily.whowantstobeamillionaire.utils.extensions.toAnswer
 import com.frenchfriesfamily.whowantstobeamillionaire.view.base.BaseViewModel
 import com.frenchfriesfamily.whowantstobeamillionaire.view.game.enums.Answer
 import com.frenchfriesfamily.whowantstobeamillionaire.view.game.enums.AnswerState
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
-import io.reactivex.rxjava3.schedulers.Schedulers
 
 class GameViewModel : BaseViewModel(), GameInteractionListener {
 
     private val stagesRepository = StagesRepositoryImpl()
-
+    private val timerUtils = TimerUtils()
     private val timerDisposable = CompositeDisposable()
 
-    private val _questionsList = MutableLiveData<State<List<Question>?>>()
-    val questionsList: LiveData<State<List<Question>?>> = _questionsList
+    private val _questions = MutableLiveData<State<List<Question>?>>()
+    val questions: LiveData<State<List<Question>?>> = _questions
 
     private val _question = MutableLiveData<Question?>()
     val question: LiveData<Question?> = _question
 
-    private val _stage = MutableLiveData<StageDetails>()
-    val stage: LiveData<StageDetails> = _stage
-
     private val _answers = MutableLiveData<List<Answer>?>()
     val answers: LiveData<List<Answer>?> = _answers
 
-    private val _changeQuestion = MutableLiveData(true)
-    val changeQuestion: LiveData<Boolean> = _changeQuestion
 
-    private val _friendHelp = MutableLiveData(true)
-    val friendHelp: LiveData<Boolean> = _friendHelp
+    private val _remainingSeconds = MutableLiveData(15)
+    val remainingSeconds: LiveData<Int> = _remainingSeconds
 
-    private val _audienceHelp = MutableLiveData(true)
-    val audienceHelp: LiveData<Boolean> = _audienceHelp
+    private val _isEmittingSeconds = MutableLiveData<Boolean>()
+    val isEmittingSeconds: LiveData<Boolean> = _isEmittingSeconds
 
-    private val _seconds = MutableLiveData(15)
-    val seconds: LiveData<Int> = _seconds
+
+    private val _isChangeQuestionHelpAvailable = MutableLiveData(true)
+    val isChangeQuestionHelpAvailable: LiveData<Boolean> = _isChangeQuestionHelpAvailable
+
+    private val _isCallFriendHelpAvailable = MutableLiveData(true)
+    val isCallFriendHelpAvailable: LiveData<Boolean> = _isCallFriendHelpAvailable
+
+    private val _isAudienceHelpAvailable = MutableLiveData(true)
+    val isAudienceHelpAvailable: LiveData<Boolean> = _isAudienceHelpAvailable
+
+
+    private val _stage = MutableLiveData<StageDetails>()
+    val stage: LiveData<StageDetails> = _stage
+
 
     private val _gameOver = MutableLiveData<Event<Boolean>>()
     val gameOver: LiveData<Event<Boolean>> = _gameOver
-
 
     private val _audienceClick = MutableLiveData<Event<Boolean>>()
     val audienceClick: LiveData<Event<Boolean>> = _audienceClick
@@ -74,20 +82,23 @@ class GameViewModel : BaseViewModel(), GameInteractionListener {
     private val _leaveClick = MutableLiveData<Event<Boolean>>()
     val leaveClick: LiveData<Event<Boolean>> = _leaveClick
 
-    private val _stateTimer = MutableLiveData<Boolean>()
-    val stateTimer : LiveData<Boolean> = _stateTimer
+
+    val onAudienceClicked = { _audienceClick.postEvent() }
+    val onCallFriendClicked = { _callFriendClick.postEvent() }
+    val onOkClicked = { _okCLick.postEvent() }
+    val onExitCLicked = { _exitClick.postEvent() }
+    val onStayClicked = { _stayCLick.postEvent() }
+    val onLeaveClicked = { _leaveClick.postEvent() }
 
 
-    val onAudienceClicked = fun() = _audienceClick.postEvent()
-    val onCallFriendClicked = fun() = _callFriendClick.postEvent()
-    val onOkClicked = fun() = _okCLick.postEvent()
-    val onExitCLicked = fun() = _exitClick.postEvent()
-    val onStayClicked = fun() = _stayCLick.postEvent()
-    val onLeaveClicked = fun() = _leaveClick.postEvent()
+    val onChangeQuestion = {
+        _isChangeQuestionHelpAvailable.postValue(false)
+        currentQuestion++
+        setQuestion()
+    }
 
-
-    private var questionCounter = 0
-    var stageCounter = 1
+    private var currentQuestion = 0
+    var currentStage = 1
     private var difficulty = 0
 
 
@@ -97,21 +108,19 @@ class GameViewModel : BaseViewModel(), GameInteractionListener {
     }
 
 
-    fun getQuestions() {
+    private fun getQuestions() {
         gameRepository.getQuestions(
             AMOUNT_OF_QUESTION,
             DIFFICULTY[difficulty],
             QUESTION_TYPE
         )
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
             .subscribe(::onGetQuestionSuccess, ::onGetQuestionError)
             .add(disposable)
     }
 
     private fun onGetQuestionSuccess(response: State<GameResponse>) {
         when (response) {
-            is State.Loading -> _questionsList.postValue(response)
+            is State.Loading -> _questions.postValue(response)
             is State.Success -> onStateSuccess(response)
             is State.Error -> onStateError(response.message)
         }
@@ -119,118 +128,138 @@ class GameViewModel : BaseViewModel(), GameInteractionListener {
 
     private fun onStateError(message: String) {
         timerDisposable.clear()
-        _questionsList.postValue(State.Error(message))
+        _questions.postValue(State.Error(message))
     }
 
     private fun onStateSuccess(response: State<GameResponse>) {
-        _questionsList.value = State.Success(response.toData()?.results)
+        _questions.value = State.Success(response.toData()?.results)
         setQuestion()
     }
 
     private fun onGetQuestionError(throwable: Throwable) {
-        _questionsList.postValue(State.Error(throwable.message.toString()))
+        _questions.postValue(State.Error(throwable.message.toString()))
     }
 
     private fun setQuestion() {
-        emitTimerSeconds()
-        _questionsList.value?.toData()?.get(questionCounter).apply {
+        startTimer()
+        _questions.value?.toData()?.get(currentQuestion).apply {
             _question.postValue(this)
             _answers.postValue(this?.toAnswer())
         }
     }
 
+
+    private fun startTimer() {
+        stopTimer()
+        timerUtils.gameTimer().subscribe {
+            _remainingSeconds.postValue(15 - it.toInt())
+        }.add(timerDisposable)
+    }
+
+    private fun stopTimer() {
+        timerDisposable.clear()
+        _isEmittingSeconds.postValue(false)
+    }
+
+
+    fun onCallFriend(call: Boolean) {
+        _isCallFriendHelpAvailable.postValue(call)
+    }
+
+    fun onAskAudience(audience: Boolean) {
+        _isAudienceHelpAvailable.postValue(audience)
+    }
+
     fun checkQuestionLevel() {
-        emitTimerSeconds()
-        when (stageCounter) {
-            5 -> nextDifficulty()
-            10 -> nextDifficulty()
-            15 -> gameOver()
-            else -> {
-                questionCounter++
-                stageCounter++
-                setStage()
-                setQuestion()
-            }
+        startTimer()
+        when (currentStage) {
+            LAST_EASY_QUESTION -> nextDifficulty()
+            LAST_MEDIUM_QUESTION -> nextDifficulty()
+            LAST_HARD_QUESTION -> gameOver()
+            else -> nextQuestion()
         }
     }
 
-    private fun gameOver() {
-        setStage()
-        _gameOver.postEvent()
-    }
-
     private fun nextDifficulty() {
-        questionCounter = 0
-        stageCounter++
+        currentQuestion = 0
+        currentStage++
         difficulty++
         setStage()
         getQuestions()
     }
 
-    fun getStageList() = stagesRepository.getStages().reversed()
 
-    private fun setStage() {
-        val stageList = getStageList()
-        _stage.postValue(stageList[stageCounter])
+    fun gameOver() {
+        _gameOver.postEvent()
+        currentStage--
     }
 
-    val onChangeQuestion = fun() {
-        _changeQuestion.postValue(false)
-        questionCounter++
+    private fun nextQuestion() {
+        currentQuestion++
+        currentStage++
+        setStage()
         setQuestion()
     }
 
-    fun changeQuestion() = _changeQuestion.postValue(true)
-    fun callFriend() = _friendHelp.postValue(true)
-    fun audienceHelp() = _audienceHelp.postValue(true)
-    fun onCallFriend(call: Boolean) = _friendHelp.postValue(call)
-    fun onAskAudience(audience: Boolean) = _audienceHelp.postValue(audience)
-
-
-    private fun emitTimerSeconds() {
-        timerDisposable.clear()
-        _stateTimer.postValue(false)
-        gameRepository.gameTimer().subscribe({
-            _seconds.postValue(15 - it.toInt())
-        }, {
-            Log.e("Timer", "Error: ${it.message}")
-        }).add(timerDisposable)
+    private fun setStage() {
+        val stageList = getStageList()
+        _stage.postValue(stageList.get(currentStage))
     }
 
-    override fun onClickAnswer(answerText: Answer) {
-        _answers.value = _answers.value.apply { answerText.state = AnswerState.IS_PRESSED }
-        timerDisposable.clear()
-        _stateTimer.postValue(true)
-        gameRepository.delayTime(2)
+    fun getStageList() = stagesRepository.getStages().reversed()
+
+
+    override fun onClickAnswer(answer: Answer) {
+        _answers.postValue(_answers.value.apply { answer.state = AnswerState.IS_PRESSED })
+        stopTimer()
+        timerUtils.delayTime(2)
             .subscribe { _ ->
-                checkAnswerState(answerText)
+                checkAnswerState(answer)
             }.add(disposable)
+        _isEmittingSeconds.postValue(true)
     }
 
     private fun checkAnswerState(answer: Answer) {
-        _answers.value = _answers.value.apply {
-            if (answer.answer == _question.value?.correctAnswer) {
-                answer.state = AnswerState.IS_CORRECT
-                gameRepository.delayTime(1).subscribe { _ ->
+        _answers.postValue(
+            _answers.value.apply {
+                val selectedAnswer = answer.answer
+                val correctAnswer = _question.value?.correctAnswer
+
+                if (selectedAnswer.equals(correctAnswer)) {
+                    answer.state = AnswerState.IS_CORRECT
+
+                    timerUtils.delayTime(1).subscribe { _ ->
                         checkQuestionLevel()
                     }.add(disposable)
-            } else {
-                answer.state = AnswerState.IS_WRONG
-                gameRepository.delayTime(1).subscribe { _ ->
-                        stageCounter--
+                } else {
+                    answer.state = AnswerState.IS_WRONG
+
+                    timerUtils.delayTime(1).subscribe { _ ->
                         gameOver()
                     }.add(disposable)
+                }
             }
-        }
+        )
     }
 
 
     fun resetGameData() {
-        questionCounter = 0
-        stageCounter = 1
-        difficulty = 0
         getQuestions()
+        stopTimer()
+        setInitialValues()
         setStage()
-        emitTimerSeconds()
     }
+
+    private fun setInitialValues() {
+        _remainingSeconds.postValue(15)
+        _isEmittingSeconds.postValue(true)
+        _isChangeQuestionHelpAvailable.postValue(true)
+        _isAudienceHelpAvailable.postValue(true)
+        _isCallFriendHelpAvailable.postValue(true)
+        currentQuestion = 0
+        currentStage = 1
+        difficulty = 0
+    }
+
+
 }

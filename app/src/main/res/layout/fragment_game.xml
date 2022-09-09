@@ -18,13 +18,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/purple_dark"
-        tools:ignore="ContentDescription">
+        tools:ignore="ContentDescription"
+
+        >
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/screen_on_success"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:showWhenSuccess="@{viewModel.questionsList}"
+            app:showWhenSuccess="@{viewModel.questions}"
             tools:visibility="visible">
 
             <ImageView
@@ -58,8 +60,9 @@
                 android:layout_width="@dimen/timer_scale"
                 android:layout_height="@dimen/timer_scale"
                 android:layout_marginTop="@dimen/spacing_extra_large"
-                app:colorStateWithTimer="@{viewModel.seconds}"
-                app:stopTimeBasedOnState="@{viewModel.stateTimer}"
+                app:progressBarColor="@{viewModel.remainingSeconds}"
+
+                app:stopTimeBasedOnState="@{viewModel.isEmittingSeconds}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/button_leave"
@@ -76,10 +79,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/quantico_bold"
-                android:text="@{viewModel.seconds.toString()}"
+                android:text="@{viewModel.remainingSeconds.toString()}"
                 android:textColor="@color/green"
                 android:textSize="@dimen/text_xx_large"
-                app:colorStateWithTimer="@{viewModel.seconds}"
+                app:colorStateWithTimer="@{viewModel.remainingSeconds}"
                 app:layout_constraintBottom_toBottomOf="@+id/countdownView"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -94,7 +97,7 @@
                 android:layout_marginTop="@dimen/spacing_extra_large"
                 android:src="@drawable/ic_audience"
                 app:audio="@{audioViewModel.audio}"
-                app:isUsed="@{viewModel.audienceHelp}"
+                app:isUsed="@{viewModel.isAudienceHelpAvailable}"
                 app:layout_constraintEnd_toStartOf="@+id/button_call"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
@@ -107,7 +110,7 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_call"
                 app:audio="@{audioViewModel.audio}"
-                app:isUsed="@{viewModel.friendHelp}"
+                app:isUsed="@{viewModel.isCallFriendHelpAvailable}"
                 app:layout_constraintEnd_toStartOf="@+id/button_replace"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/button_audience"
@@ -120,22 +123,13 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_replace"
                 app:audio="@{audioViewModel.audio}"
-                app:isUsed="@{viewModel.changeQuestion}"
-                app:layout_constraintEnd_toStartOf="@+id/button_remove"
+                app:isUsed="@{viewModel.isChangeQuestionHelpAvailable}"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/button_call"
                 app:layout_constraintTop_toTopOf="@id/button_audience"
                 app:onClickButton="@{viewModel.onChangeQuestion}" />
 
-            <ImageView
-                android:id="@+id/button_remove"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_remove_two"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/button_replace"
-                app:layout_constraintTop_toTopOf="@id/button_audience" />
 
             <View
                 android:id="@+id/view_question"
@@ -234,7 +228,7 @@
                 android:layout_marginTop="@dimen/spacing_large"
                 android:layout_marginEnd="@dimen/spacing_medium"
                 android:overScrollMode="never"
-                app:gameAdapter="@{viewModel}"
+                app:setAdapter="@{viewModel}"
                 app:items="@{viewModel.answers}"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -251,7 +245,7 @@
             android:id="@+id/screen_on_fail"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:showWhenError="@{viewModel.questionsList}"
+            app:showWhenError="@{viewModel.questions}"
             tools:visibility="gone">
 
             <com.airbnb.lottie.LottieAnimationView
@@ -318,7 +312,7 @@
             android:id="@+id/screen_on_loading"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:showWhenLoading="@{viewModel.questionsList}"
+            app:showWhenLoading="@{viewModel.questions}"
             tools:visibility="gone">
 
             <com.airbnb.lottie.LottieAnimationView

@@ -14,21 +14,20 @@ class HomeFragment :
     override val viewModelClass = HomeViewModel::class.java
     override val audioViewModelClass = AudioViewModel::class.java
 
-    lateinit var mediaPlayer: MediaPlayer
+    private lateinit var mediaPlayer: MediaPlayer
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
+        playHomeSound()
+    }
+
+    private fun playHomeSound() {
         mediaPlayer = MediaPlayer.create(context, R.raw.audio_home)
         mediaPlayer.start()
     }
 
 
-    override fun onStart() {
-        super.onStart()
-        observeEvents()
-    }
-
-    private fun observeEvents() {
+    override fun observeEvents() {
         viewModel.apply {
             startClick.observe(viewLifecycleOwner, EventObserver { navToGame() })
             aboutCLick.observe(viewLifecycleOwner, EventObserver { navToAbout() })
@@ -36,11 +35,17 @@ class HomeFragment :
         }
     }
 
-    private fun navToGame() = navigate(HomeFragmentDirections.actionHomeFragmentToGameFragment())
+    private fun navToGame() {
+        navigate(HomeFragmentDirections.actionHomeFragmentToGameFragment())
+    }
 
-    private fun navToAbout() = navigate(HomeFragmentDirections.actionHomeFragmentToAboutFragment())
+    private fun navToAbout() {
+        navigate(HomeFragmentDirections.actionHomeFragmentToAboutFragment())
+    }
 
-    private fun exitApp() = activity?.finish()
+    private fun exitApp() {
+        activity?.finish()
+    }
 
 
     override fun onPause() {

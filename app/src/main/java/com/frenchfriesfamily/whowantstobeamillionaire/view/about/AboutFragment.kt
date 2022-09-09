@@ -12,11 +12,12 @@ class AboutFragment :
     override val viewModelClass = AboutViewModel::class.java
     override val audioViewModelClass = AudioViewModel::class.java
 
-    override fun onStart() {
-        super.onStart()
+    override fun observeEvents() {
         viewModel.homeCLick.observe(this, EventObserver { navToHome() })
     }
 
-    private fun navToHome() = popBackStack()
+    private fun navToHome() {
+        popBackStack()
+    }
 
 }

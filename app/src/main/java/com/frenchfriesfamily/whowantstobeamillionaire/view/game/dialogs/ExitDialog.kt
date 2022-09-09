@@ -17,10 +17,9 @@ class ExitDialog :
     override fun onStart() {
         super.onStart()
         onTimeDone()
-        observeEvents()
     }
 
-    private fun observeEvents() {
+    override fun observeEvents() {
         viewModel.apply {
             stayCLick.observe(viewLifecycleOwner, EventObserver { dismiss() })
             leaveClick.observe(viewLifecycleOwner, EventObserver { exitToHome() })
@@ -28,10 +27,12 @@ class ExitDialog :
     }
 
     private fun onTimeDone() {
-        viewModel.seconds.observe(this) { if (it == TIME_ABOUT_TO_DONE) dismiss() }
+        viewModel.remainingSeconds.observe(this) { if (it == TIME_ABOUT_TO_DONE) dismiss() }
     }
 
 
-    private fun exitToHome() = popBackStack(R.id.homeFragment)
+    private fun exitToHome() {
+        popBackStack(R.id.homeFragment)
+    }
 
 }

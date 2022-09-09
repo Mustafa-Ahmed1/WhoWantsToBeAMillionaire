@@ -11,6 +11,6 @@ class AboutViewModel : BaseViewModel() {
     private val _homeClick = MutableLiveData<Event<Boolean>>()
     val homeCLick: LiveData<Event<Boolean>> = _homeClick
 
-    val onBackToHomeClicked = fun() = _homeClick.postEvent()
+    val onBackToHomeClicked = { _homeClick.postEvent() }
 
 }

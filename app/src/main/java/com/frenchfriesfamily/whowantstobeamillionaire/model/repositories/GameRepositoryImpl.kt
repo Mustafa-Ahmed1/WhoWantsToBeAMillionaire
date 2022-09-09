@@ -10,7 +10,6 @@ import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
 
-
 class GameRepositoryImpl(
     private val api: GameService,
     private val stateWrapper: StateWrapper
@@ -21,13 +20,8 @@ class GameRepositoryImpl(
         type: String?
     ): Observable<State<GameResponse>> {
         return stateWrapper.wrapWithObservable { api.getQuestions(amount, level, type) }
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
     }
 
-    fun gameTimer(): Observable<Long> = Observable.intervalRange(0, 16, 0, 1, TimeUnit.SECONDS)
-        .subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
-
-    fun delayTime(time: Long): Single<Long> = Single.timer(time, TimeUnit.SECONDS)
-        .subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
 }
