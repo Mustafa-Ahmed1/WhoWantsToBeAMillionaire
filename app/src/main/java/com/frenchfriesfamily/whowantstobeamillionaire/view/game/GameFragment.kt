@@ -6,7 +6,6 @@ import android.view.View
 import androidx.activity.OnBackPressedCallback
 import com.frenchfriesfamily.whowantstobeamillionaire.R
 import com.frenchfriesfamily.whowantstobeamillionaire.databinding.FragmentGameBinding
-import com.frenchfriesfamily.whowantstobeamillionaire.utils.Constants
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.event.EventObserver
 import com.frenchfriesfamily.whowantstobeamillionaire.view.AudioViewModel
 import com.frenchfriesfamily.whowantstobeamillionaire.view.base.BaseFragment
@@ -21,24 +20,9 @@ class GameFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        handleTimer()
         startGame()
         handleOnBackPressed()
-        playGameSound()
-    }
 
-
-    private fun handleOnBackPressed() {
-        val callback = object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() = navToExitDialog()
-        }
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
-    }
-
-    // call this function in onStart() to restart game when leave it and start it again
-    // ToDO: it needs to be improved, test it to notice problems
-    private fun startGame() {
-        viewModel.resetGameData()
     }
 
     override fun observeEvents() {
@@ -50,15 +34,19 @@ class GameFragment :
         }
     }
 
-    // TODO: should be improved
-    private fun handleTimer() {
-
-        viewModel.remainingSeconds.observe(this) {
-            if (it == Constants.TimeDurations.ZERO) {
-               viewModel.gameOver
-            }
+    private fun handleOnBackPressed() {
+        val callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() = navToExitDialog()
         }
+        activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner, callback)
     }
+
+    private fun startGame() {
+        viewModel.resetGameData()
+        playGameSound()
+        viewModel.endGameWhenTimeIsUp()
+    }
+
 
     private fun navToResult() {
         val currentStage = viewModel.getStageList()[viewModel.currentStage]

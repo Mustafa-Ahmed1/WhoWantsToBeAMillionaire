@@ -7,6 +7,7 @@ import com.frenchfriesfamily.whowantstobeamillionaire.model.network.State
 import com.frenchfriesfamily.whowantstobeamillionaire.model.repositories.StagesRepositoryImpl
 import com.frenchfriesfamily.whowantstobeamillionaire.model.response.GameResponse
 import com.frenchfriesfamily.whowantstobeamillionaire.model.response.Question
+import com.frenchfriesfamily.whowantstobeamillionaire.utils.Constants
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.Constants.Game.AMOUNT_OF_QUESTION
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.Constants.Game.DIFFICULTY
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.Constants.Game.QUESTION_TYPE
@@ -192,6 +193,7 @@ class GameViewModel : BaseViewModel(), GameInteractionListener {
 
     private fun gameOver() {
         _gameOver.postEvent()
+        currentStage--
     }
 
     private fun setStage() {
@@ -229,7 +231,6 @@ class GameViewModel : BaseViewModel(), GameInteractionListener {
 
                     timerUtils.delayTime(1).subscribe { _ ->
                         gameOver()
-                        currentStage--
                     }.add(disposable)
                 }
             }
@@ -248,5 +249,11 @@ class GameViewModel : BaseViewModel(), GameInteractionListener {
         getQuestions()
         setStage()
         startTimer()
+    }
+
+    fun endGameWhenTimeIsUp() {
+        if (_remainingSeconds.value == Constants.TimeDurations.ZERO) {
+            gameOver()
+        }
     }
 }
