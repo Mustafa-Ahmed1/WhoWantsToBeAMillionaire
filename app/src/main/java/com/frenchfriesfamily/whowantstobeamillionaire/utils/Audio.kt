@@ -9,6 +9,8 @@ class Audio {
 
     private var soundState = true
 
+    lateinit var mediaPlayer: MediaPlayer
+
     fun muteAudio(context: Context) {
         val audioManager = context.getSystemService(AudioManager::class.java)
         audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, 0, 0)
@@ -22,7 +24,7 @@ class Audio {
     }
 
     fun playButtonSound(context: Context) {
-        MediaPlayer.create(context, R.raw.click_button_audio).start()
+        MediaPlayer.create(context, R.raw.audio_click_button).start()
     }
 
 }

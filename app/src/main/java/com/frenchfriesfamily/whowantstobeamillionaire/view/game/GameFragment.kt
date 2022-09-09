@@ -15,11 +15,10 @@ class GameFragment :
     override val viewModelClass = GameViewModel::class.java
     override val audioViewModelClass = AudioViewModel::class.java
 
-    private lateinit var gameMusic: MediaPlayer
+    private lateinit var mediaPlayer: MediaPlayer
 
     override fun onStart() {
         super.onStart()
-        playGameSound()
         observeEvents()
         handleTimer()
         startGame()
@@ -27,18 +26,14 @@ class GameFragment :
         callFriend()
         audienceHelp()
         handleOnBackPressed()
+        playGameSound()
     }
 
-    private fun handleOnBackPressed(){
-        val callback = object : OnBackPressedCallback(true){
-            override fun handleOnBackPressed() =  navToExitDialog()
+    private fun handleOnBackPressed() {
+        val callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() = navToExitDialog()
         }
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
-    }
-
-    private fun playGameSound() {
-        gameMusic = MediaPlayer.create(context, R.raw.game_audio)
-        gameMusic.start()
     }
 
     // call this function in onStart() to restart game when leave it and start it again
@@ -93,9 +88,15 @@ class GameFragment :
     }
 
 
+    private fun playGameSound() {
+        mediaPlayer = MediaPlayer.create(context, R.raw.audio_game)
+        mediaPlayer.start()
+    }
+
+
     override fun onPause() {
         super.onPause()
-        gameMusic.pause()
+        mediaPlayer.pause()
     }
 
 }

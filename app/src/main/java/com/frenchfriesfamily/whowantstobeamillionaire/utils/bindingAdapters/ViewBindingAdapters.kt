@@ -1,5 +1,6 @@
 package com.frenchfriesfamily.whowantstobeamillionaire.utils.bindingAdapters
 
+import android.media.MediaPlayer
 import android.view.View
 import androidx.databinding.BindingAdapter
 import com.frenchfriesfamily.whowantstobeamillionaire.R
@@ -19,6 +20,15 @@ fun changeAnswerStyle(view: View, state: AnswerState?) {
         AnswerState.IS_CORRECT -> view.setBackground(R.drawable.rectangle_answer_correct)
         AnswerState.IS_WRONG -> view.setBackground(R.drawable.rectangle_answer_wrong)
         else -> view.setBackground(R.drawable.rectangle_answer_default)
+    }
+}
+
+@BindingAdapter(value = ["app:correctAnswerSound"])
+fun playCorrectAnswerSound(view: View, state: AnswerState?) {
+    val audio = Audio()
+    if (state == AnswerState.IS_CORRECT) {
+        audio.mediaPlayer = MediaPlayer.create(view.context, R.raw.audio_correct_answer)
+        audio.mediaPlayer.start()
     }
 }
 

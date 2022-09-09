@@ -265,7 +265,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_chainStyle="packed"
                 app:lottie_autoPlay="true"
-                app:lottie_rawRes="@raw/lost_internet" />
+                app:lottie_rawRes="@raw/lottie_lost_internet" />
 
             <TextView
                 android:id="@+id/text_oops"
@@ -331,7 +331,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:lottie_autoPlay="true"
                 app:lottie_loop="true"
-                app:lottie_rawRes="@raw/loading"
+                app:lottie_rawRes="@raw/lottie_loading"
                 app:lottie_speed="2" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

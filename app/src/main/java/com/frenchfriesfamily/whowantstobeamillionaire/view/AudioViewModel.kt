@@ -13,10 +13,9 @@ class AudioViewModel : BaseViewModel() {
     val isMuted: LiveData<Boolean> = _isMuted
 
     fun onButtonClicked() {
-        if (_isMuted.value == true) {
-            _isMuted.postValue(false)
-        } else {
-            _isMuted.postValue(true)
+        when (_isMuted.value) {
+            true -> _isMuted.postValue(false)
+            else -> _isMuted.postValue(true)
         }
     }
 

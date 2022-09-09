@@ -14,12 +14,12 @@ class HomeFragment :
     override val viewModelClass = HomeViewModel::class.java
     override val audioViewModelClass = AudioViewModel::class.java
 
-    private lateinit var homeMusic: MediaPlayer
+    lateinit var mediaPlayer: MediaPlayer
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        homeMusic = MediaPlayer.create(context, R.raw.home_audio)
-        homeMusic.start()
+        mediaPlayer = MediaPlayer.create(context, R.raw.audio_home)
+        mediaPlayer.start()
     }
 
 
@@ -45,7 +45,7 @@ class HomeFragment :
 
     override fun onPause() {
         super.onPause()
-        homeMusic.pause()
+        mediaPlayer.pause()
     }
 
 }

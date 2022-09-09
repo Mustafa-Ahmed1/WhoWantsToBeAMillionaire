@@ -36,7 +36,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/winner_text"
                 app:lottie_autoPlay="true"
-                app:lottie_rawRes="@raw/winner_badge" />
+                app:lottie_rawRes="@raw/lottie_winner_badge" />
 
             <TextView
                 android:id="@+id/winner_text"
