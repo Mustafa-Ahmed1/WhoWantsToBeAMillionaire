@@ -8,6 +8,9 @@ import com.frenchfriesfamily.whowantstobeamillionaire.model.repositories.StagesR
 import com.frenchfriesfamily.whowantstobeamillionaire.model.response.GameResponse
 import com.frenchfriesfamily.whowantstobeamillionaire.model.response.Question
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.Constants
+import com.frenchfriesfamily.whowantstobeamillionaire.utils.Constants.DIFFICULTY.LAST_EASY_QUESTION
+import com.frenchfriesfamily.whowantstobeamillionaire.utils.Constants.DIFFICULTY.LAST_MEDIUM_QUESTION
+import com.frenchfriesfamily.whowantstobeamillionaire.utils.Constants.DIFFICULTY.LAST_HARD_QUESTION
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.Constants.Game.AMOUNT_OF_QUESTION
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.Constants.Game.DIFFICULTY
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.Constants.Game.QUESTION_TYPE
@@ -167,19 +170,13 @@ class GameViewModel : BaseViewModel(), GameInteractionListener {
         _isAudienceHelpAvailable.postValue(audience)
     }
 
-    //TODO : very important
     fun checkQuestionLevel() {
         startTimer()
         when (currentStage) {
-            5 -> nextDifficulty()
-            10 -> nextDifficulty()
-            15 -> gameOver()
-            else -> {
-                currentQuestion++
-                currentStage++
-                setStage()
-                setQuestion()
-            }
+            LAST_EASY_QUESTION -> nextDifficulty()
+            LAST_MEDIUM_QUESTION -> nextDifficulty()
+            LAST_HARD_QUESTION -> gameOver()
+            else -> nextQuestion()
         }
     }
 
@@ -191,9 +188,17 @@ class GameViewModel : BaseViewModel(), GameInteractionListener {
         getQuestions()
     }
 
-    private fun gameOver() {
+
+    fun gameOver() {
         _gameOver.postEvent()
         currentStage--
+    }
+
+    private fun nextQuestion() {
+        currentQuestion++
+        currentStage++
+        setStage()
+        setQuestion()
     }
 
     private fun setStage() {
@@ -238,22 +243,23 @@ class GameViewModel : BaseViewModel(), GameInteractionListener {
     }
 
 
-    //TODO : edit
     fun resetGameData() {
+        getQuestions()
+        stopTimer()
+        setInitialValues()
+        setStage()
+    }
+
+    private fun setInitialValues() {
+        _remainingSeconds.postValue(15)
+        _isEmittingSeconds.postValue(true)
+        _isChangeQuestionHelpAvailable.postValue(true)
+        _isAudienceHelpAvailable.postValue(true)
+        _isCallFriendHelpAvailable.postValue(true)
         currentQuestion = 0
         currentStage = 1
         difficulty = 0
-        _isAudienceHelpAvailable.postValue(true)
-        _isCallFriendHelpAvailable.postValue(true)
-        _isChangeQuestionHelpAvailable.postValue(true)
-        getQuestions()
-        setStage()
-        startTimer()
     }
 
-    fun endGameWhenTimeIsUp() {
-        if (_remainingSeconds.value == Constants.TimeDurations.ZERO) {
-            gameOver()
-        }
-    }
+
 }

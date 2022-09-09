@@ -6,6 +6,7 @@ import android.view.View
 import androidx.activity.OnBackPressedCallback
 import com.frenchfriesfamily.whowantstobeamillionaire.R
 import com.frenchfriesfamily.whowantstobeamillionaire.databinding.FragmentGameBinding
+import com.frenchfriesfamily.whowantstobeamillionaire.utils.Constants
 import com.frenchfriesfamily.whowantstobeamillionaire.utils.event.EventObserver
 import com.frenchfriesfamily.whowantstobeamillionaire.view.AudioViewModel
 import com.frenchfriesfamily.whowantstobeamillionaire.view.base.BaseFragment
@@ -22,7 +23,11 @@ class GameFragment :
         super.onViewCreated(view, savedInstanceState)
         startGame()
         handleOnBackPressed()
-
+        viewModel.remainingSeconds.observe(this) {
+            if (it == Constants.TimeDurations.ZERO) {
+                viewModel.gameOver()
+            }
+        }
     }
 
     override fun observeEvents() {
@@ -44,7 +49,7 @@ class GameFragment :
     private fun startGame() {
         viewModel.resetGameData()
         playGameSound()
-        viewModel.endGameWhenTimeIsUp()
+
     }
 
 

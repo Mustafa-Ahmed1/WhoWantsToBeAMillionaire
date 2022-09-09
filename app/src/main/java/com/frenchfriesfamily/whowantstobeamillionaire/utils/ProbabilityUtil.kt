@@ -28,10 +28,10 @@ class ProbabilityUtil {
             }
         }
         val sum = probabilities.sum()
-        probabilities.map { probability ->
+
+        return probabilities.map { probability ->
             probability / sum * 100
         }
-        return probabilities
     }
 
 

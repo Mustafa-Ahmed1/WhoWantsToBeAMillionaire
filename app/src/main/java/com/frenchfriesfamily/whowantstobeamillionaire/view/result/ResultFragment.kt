@@ -43,9 +43,13 @@ class ResultFragment :
         }
     }
 
-    private fun navToHome() = popBackStack(R.id.homeFragment)
+    private fun navToHome() {
+        popBackStack(R.id.homeFragment)
+    }
 
-    private fun navToGame() = popBackStack()
+    private fun navToGame() {
+        popBackStack()
+    }
 
 
     private fun playResultSound() {
