@@ -1,21 +1,21 @@
 #  💲 Who Wants to Be a Millionaire 💲  
 
 ## 🔰 About App:
-Who Wants to Be a Millionaire is a cultural game, consists of 15 questions from different categories, such as geography, science, entertainment, etc. First five questions are easy in difficulty, second ones are medium, and last five are hard.
-You can use help options if the you’re not sure about the answer:
-- Audience answers.
-- Call a friend.
-- Replace the question.
-- Delete two options.  
+Get ready to put your knowledge to the test and potentially become a millionaire! "Who Wants to Be a Millionaire" is a thrilling game filled with 15 questions from a variety of categories like geography, science, entertainment and more. The first five questions are easy, the next five are a bit tougher, and the last five will really put you to the test. But don't worry, if you're ever unsure, you have some fantastic help options like:
+- Audience answers 
+- Call a friend
+- Replace the question
+- Delete two answers.
+ 
+ With each correct answer, you'll earn cash prizes starting at $100 and potentially reaching a whopping $1,000,000. So, **let's have some fun!**
 
-You’ll get dollar rewards for each question you got right, starting from $ 100 to $ 1,000,000. Have fun! 
 <br><br>
 
 ## 🔧 Used in App:
 * MVVM (Model View ViewModel) architectural pattern
 * Repository pattern
 * OkHttp
-* Retrofit class demonstration manually
+* Retrofit
 * RXJava
 * DataBinding
 * LiveData
@@ -69,16 +69,6 @@ You’ll get dollar rewards for each question you got right, starting from $ 100
 </table>
 <br><br>
 
-## 👥 Contributers:
-- [Mustafa Ahmed](https://github.com/Mustafa-Ahmed1)
-- [Wesam Nabeel](https://github.com/wesamnabeel99)
-- [Shahad Abdulhasan](https://github.com/Shahad161)
-- [Mostafa Mohamed](https://github.com/Mostafa-Mo5)
-- [Rawad Jamal](https://github.com/GitHubRawadJamal)
-- [Mohammed Najm](https://github.com/mohammedNajm90)
-- [Salah Hasan](https://github.com/Salah-Kafaji)
-- [Abdulaziz Mohammed](https://github.com/alkomity)
-<br><br>
 
 
 ## 🎥 [YouTube Link](https://youtube.com)
